@@ -6,7 +6,7 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - [x] Phase 0: inventory (below)
 - [x] Phase 1: scaffold, globals.css, public/, types, Header/Footer/ChatWidget, root layout, company details fetch
 - [x] Phase 1b: self-hosted fonts
-- [ ] Phase 1c: connect `web/` to its new GitHub repo and push (waiting on the repo URL from the user)
+- [x] Phase 1c: `web/` pushed to https://github.com/DDDavid-Works/enjoy-ka-dito-web (branch `main`)
 - [ ] Phase 2: public pages + SEO (metadata, sitemap, robots, 404, JSON-LD)
 - [ ] Phase 3: admin (client components)
 - [ ] Phase 4: revalidation webhook (API -> `revalidateTag`)
@@ -26,7 +26,7 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - **Phase 6:** verify: screenshot comparison, curl the raw HTML, Lighthouse, social previews, submit sitemap to Search Console.
 
 ## Decisions made
-- **Git hosting (decided 2026-10-11):** `web/` gets its own new GitHub repo (the user is creating it), separate from `enjoy-ka-dito-ui`. Locally `web/` stays a sibling folder of `ui-web/` and `api/`. Railway deploys it as a new, separate service; the old Vite site keeps running from `enjoy-ka-dito-ui` until cutover (then repoint the domain). Not done yet: `web/` has only a local repo (no remote). Once the user gives the repo URL: `git remote add origin <url>` and push `master` (ask before pushing).
+- **Git hosting (decided 2026-10-11):** `web/` gets its own new GitHub repo (the user is creating it), separate from `enjoy-ka-dito-ui`. Locally `web/` stays a sibling folder of `ui-web/` and `api/`. Railway deploys it as a new, separate service; the old Vite site keeps running from `enjoy-ka-dito-ui` until cutover (then repoint the domain). Done: remote `origin` = https://github.com/DDDavid-Works/enjoy-ka-dito-web.git, local branch `main` tracks `origin/main`.
 - **Fonts (decided + done 2026-10-11):** Clash Grotesk (400/500/600) and General Sans (400/500/600) are self-hosted as woff2 in `app/fonts/` via `next/font/local` in `app/layout.tsx`. `globals.css` uses `--font-clash-grotesk` / `--font-general-sans`. No more requests to Fontshare.
 
 ## Open decisions
