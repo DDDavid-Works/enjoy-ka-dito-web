@@ -7,8 +7,8 @@
   --color-highlight: #d64545;
   --color-white: #ffffff;
 
-  --font-display: 'Clash Grotesk', 'General Sans', sans-serif;
-  --font-body: 'General Sans', sans-serif;
+  --font-display: var(--font-clash-grotesk), var(--font-general-sans), sans-serif;
+  --font-body: var(--font-general-sans), sans-serif;
 
   --container-width: 1200px;
 }
