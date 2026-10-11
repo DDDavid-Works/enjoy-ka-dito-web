@@ -1,0 +1,220 @@
+.header {
+  --badge-size: 112px; /* logo card height while it hangs below the bar */
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 76px;
+  padding: 0 56px;
+  background: var(--color-bg);
+  transition: box-shadow 0.2s ease;
+}
+
+.scrolled {
+  --badge-size: 56px;
+  box-shadow: 0 6px 18px rgba(30, 58, 114, 0.1);
+}
+
+/* Reserves the badge's width in the bar; the badge itself is positioned over it. */
+.logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 100%;
+  padding-left: calc(var(--badge-size) * 1.11 + 32px); /* logo width + card padding + gap */
+  transition: padding-left 0.25s ease;
+}
+
+.logo img {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  height: var(--badge-size);
+  width: auto;
+  box-sizing: content-box;
+  padding: 6px 8px;
+  border-radius: 18px;
+  background: var(--color-white);
+  box-shadow: 0 8px 22px rgba(30, 58, 114, 0.18);
+  transition: height 0.25s ease, top 0.25s ease, border-radius 0.25s ease;
+}
+
+.scrolled .logo img {
+  top: 50%;
+  translate: 0 -50%;
+  padding: 3px 5px;
+  border-radius: 12px;
+  box-shadow: none;
+}
+
+.logoCompany {
+  font-size: 12px;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navLink {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  transition: color 0.15s ease;
+}
+
+.navLink:hover {
+  color: var(--color-primary);
+}
+
+.navLinkActive {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.cta {
+  flex-shrink: 0;
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.15s ease;
+}
+
+.cta:hover {
+  background: var(--color-primary-light);
+}
+
+.ctaMobile {
+  display: none;
+}
+
+.menuToggle {
+  display: none;
+  border: none;
+  background: none;
+  padding: 8px;
+  flex-shrink: 0;
+}
+
+.menuIcon,
+.menuIcon::before,
+.menuIcon::after {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.menuIcon {
+  position: relative;
+}
+
+.menuIcon::before,
+.menuIcon::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.menuIcon::before {
+  top: -7px;
+}
+
+.menuIcon::after {
+  top: 7px;
+}
+
+.menuIconOpen {
+  background: transparent;
+}
+
+.menuIconOpen::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.menuIconOpen::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 900px) {
+  .header,
+  .scrolled {
+    --badge-size: 44px; /* flat in the bar on small screens, no hanging */
+    height: 64px;
+    padding: 0 24px;
+    box-shadow: none;
+  }
+
+  .logo img,
+  .scrolled .logo img {
+    top: 50%;
+    translate: 0 -50%;
+    padding: 3px 5px;
+    border-radius: 10px;
+    box-shadow: none;
+  }
+
+  .logoCompany {
+    display: none;
+  }
+
+  .cta {
+    display: none;
+  }
+
+  .menuToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .navOpen {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 12px 24px 20px;
+    background: var(--color-bg);
+    box-shadow: 0 12px 24px rgba(30, 58, 114, 0.12);
+  }
+
+  .navOpen .navLink {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(30, 58, 114, 0.08);
+  }
+
+  .ctaMobile {
+    display: block;
+    margin-top: 12px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+  }
+}
