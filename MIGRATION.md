@@ -6,7 +6,7 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - [x] Phase 0: inventory (below)
 - [x] Phase 1: scaffold, globals.css, public/, types, Header/Footer/ChatWidget, root layout, company details fetch
 - [x] Phase 1b: self-hosted fonts
-- [ ] Phase 1c: set up the `nextjs` branch on `enjoy-ka-dito-ui` (needs user OK to push)
+- [ ] Phase 1c: connect `web/` to its new GitHub repo and push (waiting on the repo URL from the user)
 - [ ] Phase 2: public pages + SEO (metadata, sitemap, robots, 404, JSON-LD)
 - [ ] Phase 3: admin (client components)
 - [ ] Phase 4: revalidation webhook (API -> `revalidateTag`)
@@ -26,7 +26,7 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - **Phase 6:** verify: screenshot comparison, curl the raw HTML, Lighthouse, social previews, submit sitemap to Search Console.
 
 ## Decisions made
-- **Git hosting (decided 2026-10-11):** `web/` goes on a branch of the existing `enjoy-ka-dito-ui` repo, so the old Vite site on `main` keeps running until cutover. Not done yet: `web/` still has only its own local repo (no remote). Setup (at Phase 5 or earlier, ask before any push): add the `enjoy-ka-dito-ui` remote, push `web/` history to a branch such as `nextjs`, point a new Railway service at that branch, and merge/switch to `main` at cutover.
+- **Git hosting (decided 2026-10-11):** `web/` gets its own new GitHub repo (the user is creating it), separate from `enjoy-ka-dito-ui`. Locally `web/` stays a sibling folder of `ui-web/` and `api/`. Railway deploys it as a new, separate service; the old Vite site keeps running from `enjoy-ka-dito-ui` until cutover (then repoint the domain). Not done yet: `web/` has only a local repo (no remote). Once the user gives the repo URL: `git remote add origin <url>` and push `master` (ask before pushing).
 - **Fonts (decided + done 2026-10-11):** Clash Grotesk (400/500/600) and General Sans (400/500/600) are self-hosted as woff2 in `app/fonts/` via `next/font/local` in `app/layout.tsx`. `globals.css` uses `--font-clash-grotesk` / `--font-general-sans`. No more requests to Fontshare.
 
 ## Open decisions
