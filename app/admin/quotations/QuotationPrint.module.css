@@ -1,0 +1,255 @@
+.page {
+  min-height: 100vh;
+  padding: 0 0 40px;
+  background: #e9e7e1;
+}
+
+.message {
+  padding: 48px;
+  text-align: center;
+  color: var(--color-text);
+}
+
+/* ---- screen only ---- */
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 24px;
+  background: var(--color-white);
+  border-bottom: 1px solid rgba(30, 58, 114, 0.12);
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.toolbar button {
+  margin-left: 8px;
+  padding: 8px 16px;
+  border: 1px solid rgba(30, 58, 114, 0.25);
+  border-radius: 999px;
+  background: var(--color-white);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.toolbar .primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.sheet {
+  box-sizing: border-box;
+  width: 210mm;
+  min-height: 297mm;
+  margin: 24px auto 0;
+  padding: 16mm;
+  background: #fff;
+  box-shadow: 0 8px 28px rgba(30, 58, 114, 0.15);
+  color: #1b1b1b;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ---- sheet content ---- */
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.logo {
+  height: 80px;
+  width: auto;
+}
+
+.company {
+  text-align: right;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.company p {
+  margin: 0;
+}
+
+.title {
+  margin: 18px 0 10px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-primary);
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 18px;
+  margin: 0 0 6px;
+}
+
+.meta dt {
+  font-weight: 700;
+}
+
+.meta dd {
+  margin: 0;
+}
+
+.section {
+  margin-top: 18px;
+}
+
+.heading {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+  break-after: avoid;
+}
+
+.excludes {
+  color: #b3261e;
+}
+
+.remarks {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.tableHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+  padding: 7px 10px;
+  background: #fbe9b0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  break-after: avoid;
+}
+
+.group {
+  margin-bottom: 8px;
+  break-inside: avoid;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.text {
+  flex: 1;
+}
+
+.amount {
+  flex-shrink: 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.level1 {
+  font-weight: 600;
+}
+
+.level1 .text::before {
+  content: '•';
+  display: inline-block;
+  width: 14px;
+}
+
+/* Accommodation lines: normal weight, only the hotel name is bold. */
+.accommodation {
+  font-weight: 400;
+}
+
+.accommodation strong {
+  font-weight: 700;
+}
+
+.level2 {
+  padding-left: 18px;
+}
+
+.level2 .text::before {
+  content: '◦';
+  display: inline-block;
+  width: 14px;
+}
+
+.level3 {
+  padding-left: 36px;
+  color: #333;
+}
+
+.level3 .text::before {
+  content: '▪';
+  display: inline-block;
+  width: 14px;
+  font-size: 10px;
+}
+
+.list {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.tourTitle {
+  margin: 0;
+  font-weight: 700;
+}
+
+.tourDetail {
+  margin: 0;
+}
+
+.notes {
+  margin: 6px 0 0;
+  font-size: 12px;
+  font-style: italic;
+  white-space: pre-wrap;
+  break-inside: avoid;
+}
+
+/* ---- printing ---- */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  .page {
+    min-height: 0;
+    padding: 0;
+    background: none;
+  }
+
+  .toolbar {
+    display: none;
+  }
+
+  .sheet {
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+}

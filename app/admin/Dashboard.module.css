@@ -1,0 +1,113 @@
+.page {
+  min-height: 100svh;
+  background: var(--color-bg);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: var(--color-white);
+  border-bottom: 1px solid rgba(30, 58, 114, 0.1);
+}
+
+.logo {
+  height: 52px;
+  width: auto;
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.logoutButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.15s ease;
+}
+
+.logoutButton:hover {
+  background: var(--color-primary-light);
+}
+
+.content {
+  padding: 48px 32px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.subtext {
+  margin-top: 8px;
+  font-size: 15px;
+  color: var(--color-text);
+}
+
+.modules {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  max-width: 700px;
+}
+
+.moduleCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  background: var(--color-white);
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(30, 58, 114, 0.08);
+  transition: transform 0.15s ease;
+}
+
+.moduleCard:hover {
+  transform: translateY(-2px);
+}
+
+.moduleTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.moduleDesc {
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.group {
+  margin-top: 32px;
+}
+
+.groupTitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(31, 41, 51, 0.55);
+}
+
+.accountLink {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.accountLink:hover {
+  text-decoration: underline;
+}

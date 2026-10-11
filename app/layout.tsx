@@ -1,10 +1,6 @@
 import type { Metadata } from 'next'
-import { Suspense } from 'react'
 import localFont from 'next/font/local'
 import './globals.css'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import ChatWidget from '@/components/ChatWidget'
 import { SITE_NAME, SITE_URL } from '@/lib/site'
 
 const clashGrotesk = localFont({
@@ -44,12 +40,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={`${clashGrotesk.variable} ${generalSans.variable}`}>
       <body>
-        <Header />
         {children}
-        <Suspense>
-          <Footer />
-        </Suspense>
-        <ChatWidget />
       </body>
     </html>
   )

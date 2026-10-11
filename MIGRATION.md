@@ -8,7 +8,7 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - [x] Phase 1b: self-hosted fonts
 - [x] Phase 1c: `web/` pushed to https://github.com/DDDavid-Works/enjoy-ka-dito-web (branch `main`)
 - [x] Phase 2: public pages + SEO (metadata, sitemap, robots, 404, JSON-LD). Left over: `next/image` for logos (kept `<img>` to avoid layout shifts)
-- [ ] Phase 3: admin (client components)
+- [x] Phase 3: admin (client components under `app/admin`, noindex, auth guard). Company-details saves don't refresh the public site's cache yet: Phase 4
 - [ ] Phase 4: revalidation webhook (API -> `revalidateTag`)
 - [ ] Phase 5: Railway deploy, custom domain
 - [ ] Phase 6: verification
@@ -66,3 +66,12 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - New env: `NEXT_PUBLIC_SITE_URL` (public origin for canonical URLs/sitemap; set it in Railway). Defaults to `http://localhost:7501`.
 - Footer year now comes from a cached helper (`new Date()` isn't allowed in a prerendered component).
 - Verified with `next build` + `next start` against the local API: package pages, list, robots, sitemap serve the content in raw HTML; unknown slug and unknown URL return 404.
+
+## Phase 3 notes (done 2026-10-11)
+- Layout split with a route group: public pages live in `app/(public)/` (layout = Header/Footer/ChatWidget); `app/admin/` has its own layout (no public chrome). Root layout only has `<html>`/`<body>`/fonts. A `usePathname()` switch in the root layout was tried and fails to prerender on dynamic routes. `app/not-found.tsx` renders the public layout itself.
+- Admin pages are the old components copied under `app/admin/**` with `'use client'`; each route has a tiny `page.tsx`. The forms are shared between `new` and `[id]/edit`. react-router -> `next/link`, `useRouter`, `useParams`, `useSearchParams`.
+- Auth: `context/AuthContext.tsx` reads localStorage after mount (not during render, to avoid hydration mismatch). `components/AdminGuard.tsx` replaces `ProtectedRoute` (login redirect + module check by URL section). The guard is client-side only; the API still enforces permissions.
+- `app/admin/layout.tsx`: `robots: noindex, nofollow`, and a `<Suspense>` around children (client hooks that read params/query need it).
+- Removed the temporary "Admin" link from the footer. Admin is reached at `/admin/login`.
+- `invalidateCompanyDetails()` is gone; saving company details in admin needs `revalidateTag('company')` on the Next.js side: Phase 4.
+- Verified locally: login, dashboard, packages/quotations/inquiries lists, package + quotation edit routes, no console errors; unauthenticated `/admin` redirects to login; print route returns 200.

@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { cacheLife } from 'next/cache'
 import { getCompanyDetails } from '@/lib/company'
 import { FacebookIcon, InstagramIcon, TiktokIcon } from './SocialIcons'
@@ -64,10 +63,6 @@ export default async function Footer() {
       <p className={styles.copyright}>
         © {await currentYear()} Enjoy Ka Dito by: MCP Greenery Travel and Tours. All Rights Reserved.
       </p>
-      {/* Temporary direct link until the CMS has a proper access point */}
-      <Link href="/admin/login" className={styles.adminLink}>
-        Admin
-      </Link>
     </footer>
   )
 }

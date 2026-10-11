@@ -1,0 +1,350 @@
+.page {
+  min-height: 100svh;
+  background: var(--color-bg);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: var(--color-white);
+  border-bottom: 1px solid rgba(30, 58, 114, 0.1);
+}
+
+.logo {
+  height: 52px;
+  width: auto;
+}
+
+.content {
+  padding: 48px 32px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.backLink:hover {
+  color: var(--color-primary);
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.field input,
+.field select,
+.field textarea {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(30, 58, 114, 0.15);
+  background: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.section {
+  border-top: 1px solid rgba(30, 58, 114, 0.1);
+  padding-top: 20px;
+}
+
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.listItem {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: flex-start;
+}
+
+.listItem input,
+.listItem textarea {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(30, 58, 114, 0.15);
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.itineraryItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.removeButton {
+  border: none;
+  background: rgba(179, 38, 30, 0.1);
+  color: #b3261e;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.removeButton:hover {
+  background: rgba(179, 38, 30, 0.18);
+}
+
+.addButton {
+  border: 1px dashed rgba(30, 58, 114, 0.3);
+  background: none;
+  color: var(--color-primary);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.addButton:hover {
+  background: rgba(30, 58, 114, 0.05);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.submit {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.submit:hover {
+  background: var(--color-primary-light);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+}
+
+.cancel {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 999px;
+  background: none;
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.error {
+  color: #b3261e;
+  font-size: 14px;
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--color-text);
+  opacity: 0.75;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(30, 58, 114, 0.12);
+}
+
+.tab {
+  padding: 10px 20px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: -1px;
+}
+
+.tab:hover {
+  color: var(--color-primary);
+}
+
+.tabActive {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.quoteItem {
+  margin-bottom: 20px;
+}
+
+.quoteDetails {
+  margin-left: 28px;
+  padding-left: 12px;
+  border-left: 2px solid rgba(30, 58, 114, 0.12);
+}
+
+.sectionFlush {
+  border-top: none;
+  padding-top: 0;
+}
+
+.titleWithName {
+  margin-bottom: 4px;
+}
+
+.packageName {
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.accommodationGrid {
+  display: grid;
+  grid-template-columns: 1fr 100px 180px;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.combobox {
+  position: relative;
+}
+
+.combobox input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.comboList {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 10;
+  max-height: 260px;
+  margin: 0;
+  padding: 4px;
+  overflow-y: auto;
+  list-style: none;
+  background: var(--color-white);
+  border: 1px solid rgba(30, 58, 114, 0.16);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(30, 58, 114, 0.14);
+}
+
+.comboOption,
+.comboEmpty {
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.comboEmpty {
+  cursor: default;
+  color: var(--color-text);
+  opacity: 0.7;
+}
+
+.comboOptionActive {
+  background: rgba(30, 58, 114, 0.08);
+}
+
+.success {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: rgba(46, 125, 50, 0.1);
+  color: #2e7d32;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.listItem .priceInput {
+  flex: 0 0 130px;
+  width: 130px;
+}
+
+/* Groups a top-level item with all of its details so long lists stay readable. */
+.quoteCard {
+  margin-bottom: 10px;
+  padding: 14px;
+  background: rgba(30, 58, 114, 0.035);
+  border: 1px solid rgba(30, 58, 114, 0.14);
+  border-radius: 12px;
+}
+
+/* Calculated Total shown in place of a price box on rows that have children. */
+.listItem .totalLabel {
+  flex: 0 0 130px;
+  width: 130px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 11px 12px;
+  border: 1px dashed rgba(30, 58, 114, 0.3);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.totalTag {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgba(31, 41, 51, 0.55);
+}
+
+.notesField {
+  margin-top: 16px;
+}

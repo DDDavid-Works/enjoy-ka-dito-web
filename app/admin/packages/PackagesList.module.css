@@ -1,0 +1,142 @@
+.page {
+  min-height: 100svh;
+  background: var(--color-bg);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: var(--color-white);
+  border-bottom: 1px solid rgba(30, 58, 114, 0.1);
+}
+
+.logo {
+  height: 52px;
+  width: auto;
+}
+
+.content {
+  padding: 48px 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.backLink:hover {
+  color: var(--color-primary);
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.newButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.15s ease;
+}
+
+.newButton:hover {
+  background: var(--color-primary-light);
+}
+
+.error {
+  margin-top: 16px;
+  color: #b3261e;
+  font-size: 14px;
+}
+
+.table {
+  margin-top: 24px;
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(30, 58, 114, 0.08);
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(30, 58, 114, 0.08);
+}
+
+.table th {
+  color: var(--color-text);
+  font-weight: 600;
+  background: var(--color-bg);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badgePublished {
+  background: rgba(35, 140, 80, 0.12);
+  color: #238c50;
+}
+
+.badgeDraft {
+  background: rgba(30, 58, 114, 0.1);
+  color: var(--color-primary);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.actions button {
+  border: none;
+  background: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.actions button:hover {
+  text-decoration: underline;
+}
+
+.actions .delete {
+  color: #b3261e;
+}
+
+.empty {
+  margin-top: 24px;
+  color: var(--color-text);
+  font-size: 14px;
+}
