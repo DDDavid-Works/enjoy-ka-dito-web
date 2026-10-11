@@ -7,7 +7,7 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - [x] Phase 1: scaffold, globals.css, public/, types, Header/Footer/ChatWidget, root layout, company details fetch
 - [x] Phase 1b: self-hosted fonts
 - [x] Phase 1c: `web/` pushed to https://github.com/DDDavid-Works/enjoy-ka-dito-web (branch `main`)
-- [ ] Phase 2: public pages + SEO (metadata, sitemap, robots, 404, JSON-LD)
+- [x] Phase 2: public pages + SEO (metadata, sitemap, robots, 404, JSON-LD). Left over: `next/image` for logos (kept `<img>` to avoid layout shifts)
 - [ ] Phase 3: admin (client components)
 - [ ] Phase 4: revalidation webhook (API -> `revalidateTag`)
 - [ ] Phase 5: Railway deploy, custom domain
@@ -56,3 +56,13 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - Fonts are self-hosted (`app/fonts/`, `next/font/local`).
 - `<img>` kept for logos for now to avoid layout shifts; move to `next/image` in Phase 2.
 - Dev server: port 7501 (old app uses 7500).
+
+## Phase 2 notes (done 2026-10-11)
+- Data: `lib/packages.ts` (`getPackages`, `getPackage`; `'use cache'`, tags `packages` and `package:<slug>`). `lib/cache.ts` `FAILURE_LIFE` is used for API-down fallbacks, because the built-in `seconds` profile counts as request-time data and breaks prerendering (so the API must be reachable at build time, or fallbacks get baked in for ~30s).
+- Pages: static pages are server components with `metadata`; form pages (`contact-us`, `request-a-quote`, `corporate-team-building`, `family-senior-tours`, `philippines-inbound`) keep the old component as a client component (still server-rendered HTML) behind a server `page.tsx`. `tour-packages` passes server-fetched packages to a client filter component.
+- `tour-packages/[slug]`: `generateStaticParams` returns published slugs, or a `_` placeholder when there are none (Cache Components rejects an empty list). New slugs render on first visit and are cached.
+- Real 404s: `proxy.ts` checks the slug against the API and rewrites missing ones to a 404. Without it, unprerendered slugs stream with HTTP 200 (+ `noindex`). The check costs one API call per request to a package URL.
+- SEO: `metadataBase` + title template in the root layout, per-page canonical/OG, `TouristTrip` JSON-LD on package pages, `TravelAgency` JSON-LD on the home page, `app/robots.ts` (disallows `/admin`), `app/sitemap.ts` (static pages + published packages).
+- New env: `NEXT_PUBLIC_SITE_URL` (public origin for canonical URLs/sitemap; set it in Railway). Defaults to `http://localhost:7501`.
+- Footer year now comes from a cached helper (`new Date()` isn't allowed in a prerendered component).
+- Verified with `next build` + `next start` against the local API: package pages, list, robots, sitemap serve the content in raw HTML; unknown slug and unknown URL return 404.

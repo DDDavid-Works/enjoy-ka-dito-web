@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { cacheLife } from 'next/cache'
 import { getCompanyDetails } from '@/lib/company'
 import { FacebookIcon, InstagramIcon, TiktokIcon } from './SocialIcons'
 import styles from './Footer.module.css'
@@ -13,6 +14,13 @@ const SOCIAL_LINKS = [
     href: 'https://www.tiktok.com/@enjoykaditotravels',
   },
 ]
+
+// Cached so the year is part of the prerendered footer; it refreshes within a day.
+async function currentYear() {
+  'use cache'
+  cacheLife('days')
+  return new Date().getFullYear()
+}
 
 export default async function Footer() {
   const company = await getCompanyDetails()
@@ -54,7 +62,7 @@ export default async function Footer() {
       </div>
 
       <p className={styles.copyright}>
-        © {new Date().getFullYear()} Enjoy Ka Dito by: MCP Greenery Travel and Tours. All Rights Reserved.
+        © {await currentYear()} Enjoy Ka Dito by: MCP Greenery Travel and Tours. All Rights Reserved.
       </p>
       {/* Temporary direct link until the CMS has a proper access point */}
       <Link href="/admin/login" className={styles.adminLink}>

@@ -1,4 +1,5 @@
 import { cacheLife, cacheTag } from 'next/cache'
+import { FAILURE_LIFE } from './cache'
 import type { CompanyDetails } from '@/types/company'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000'
@@ -22,12 +23,7 @@ export async function getCompanyDetails(): Promise<CompanyDetails> {
     return await response.json()
   } catch {
     // Don't keep the fallback around: retry on the next request.
-    cacheLife('seconds')
+    cacheLife(FAILURE_LIFE)
     return FALLBACK
   }
-}
-
-// "+63 917 123 4567" -> "+639171234567" for tel: links.
-export function toTelHref(number: string) {
-  return `tel:${number.replace(/[^\d+]/g, '')}`
 }

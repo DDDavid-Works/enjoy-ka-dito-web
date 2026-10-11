@@ -1,0 +1,155 @@
+.hero {
+  background: var(--color-primary);
+  padding: 88px 56px 104px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: var(--container-width);
+  margin: 0 auto;
+}
+
+.badge {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--color-accent);
+}
+
+.title {
+  font-size: 54px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -1.5px;
+  color: var(--color-white);
+  max-width: 640px;
+}
+
+.subtext {
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.formSection {
+  max-width: var(--container-width);
+  margin: -48px auto 80px;
+  padding: 0 56px;
+  display: flex;
+  justify-content: center;
+}
+
+.formCard {
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: 56px;
+  width: 100%;
+  max-width: 620px;
+  box-shadow: 0 24px 48px rgba(30, 58, 114, 0.12);
+}
+
+.formIntro {
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(31, 41, 51, 0.75);
+  margin-bottom: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.field {
+  background: var(--color-bg);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--color-text);
+  resize: vertical;
+  appearance: none;
+}
+
+.field select:invalid {
+  color: rgba(31, 41, 51, 0.5);
+}
+
+.submit {
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.15s ease;
+}
+
+.submit:hover {
+  background: var(--color-primary-light);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.success {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.error {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #b3261e;
+  background: rgba(179, 38, 30, 0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    padding: 56px 24px 72px;
+  }
+
+  .title {
+    font-size: 36px;
+    letter-spacing: -0.5px;
+  }
+
+  .formSection {
+    padding: 0 24px;
+    margin-top: -32px;
+  }
+
+  .formCard {
+    padding: 32px 24px;
+  }
+
+  .fieldRow {
+    grid-template-columns: 1fr;
+  }
+}

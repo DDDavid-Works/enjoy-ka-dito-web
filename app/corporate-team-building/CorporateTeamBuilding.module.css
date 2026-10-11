@@ -1,0 +1,270 @@
+.hero {
+  background: var(--color-primary);
+  padding: 88px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: var(--container-width);
+  margin: 0 auto;
+}
+
+.badge {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--color-accent);
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -1.2px;
+  color: var(--color-white);
+  max-width: 720px;
+}
+
+.subtext {
+  max-width: 600px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.heroCta {
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: var(--color-primary);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.heroCta:hover {
+  background: #f5b752;
+}
+
+.section {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 64px 56px;
+}
+
+.sectionBadge {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.sectionTitle {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  color: var(--color-primary);
+  margin-bottom: 32px;
+}
+
+.pillarGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.pillarCard {
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pillarIcon {
+  font-size: 26px;
+}
+
+.pillarTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.pillarText {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+.destinationGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.destinationCard {
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.destinationName {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.destinationFor {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(240, 164, 40, 0.16);
+  color: #a3670f;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.destinationHighlight {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+.formSection {
+  background: var(--color-bg);
+}
+
+.formCard {
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: 48px;
+  max-width: 720px;
+  margin: 0 auto;
+  box-shadow: 0 24px 48px rgba(30, 58, 114, 0.1);
+}
+
+.formIntro {
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(31, 41, 51, 0.75);
+  margin-bottom: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.field {
+  background: var(--color-bg);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--color-text);
+  resize: vertical;
+}
+
+.field select:invalid {
+  color: rgba(31, 41, 51, 0.5);
+}
+
+.submit {
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.15s ease;
+}
+
+.submit:hover {
+  background: var(--color-primary-light);
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.success {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.error {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #b3261e;
+  background: rgba(179, 38, 30, 0.08);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    padding: 56px 24px;
+  }
+
+  .title {
+    font-size: 32px;
+    letter-spacing: -0.6px;
+  }
+
+  .section {
+    padding: 48px 24px;
+  }
+
+  .pillarGrid,
+  .destinationGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .formCard {
+    padding: 32px 24px;
+  }
+
+  .fieldRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+  .pillarGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .destinationGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

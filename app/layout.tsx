@@ -5,6 +5,7 @@ import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ChatWidget from '@/components/ChatWidget'
+import { SITE_NAME, SITE_URL } from '@/lib/site'
 
 const clashGrotesk = localFont({
   src: [
@@ -27,8 +28,16 @@ const generalSans = localFont({
 })
 
 export const metadata: Metadata = {
-  title: 'Enjoy Ka Dito',
+  metadataBase: new URL(SITE_URL),
+  title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
   description: 'Your Philippine-based travel partner for more meaningful local and international adventures.',
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    locale: 'en_PH',
+    images: [{ url: '/images/hero-islands.jpg' }],
+  },
+  twitter: { card: 'summary_large_image' },
 }
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
