@@ -8,8 +8,8 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - [x] Phase 1b: self-hosted fonts
 - [x] Phase 1c: `web/` pushed to https://github.com/DDDavid-Works/enjoy-ka-dito-web (branch `main`)
 - [x] Phase 2: public pages + SEO (metadata, sitemap, robots, 404, JSON-LD). Left over: `next/image` for logos (kept `<img>` to avoid layout shifts)
-- [x] Phase 3: admin (client components under `app/admin`, noindex, auth guard). Company-details saves don't refresh the public site's cache yet: Phase 4
-- [ ] Phase 4: revalidation webhook (API -> `revalidateTag`)
+- [x] Phase 3: admin (client components under `app/admin`, noindex, auth guard). Company-details cache refresh was added in Phase 4
+- [x] Phase 4: revalidation webhook (API -> `revalidateTag`)
 - [ ] Phase 5: Railway deploy, custom domain
 - [ ] Phase 6: verification
 
@@ -73,5 +73,14 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - Auth: `context/AuthContext.tsx` reads localStorage after mount (not during render, to avoid hydration mismatch). `components/AdminGuard.tsx` replaces `ProtectedRoute` (login redirect + module check by URL section). The guard is client-side only; the API still enforces permissions.
 - `app/admin/layout.tsx`: `robots: noindex, nofollow`, and a `<Suspense>` around children (client hooks that read params/query need it).
 - Removed the temporary "Admin" link from the footer. Admin is reached at `/admin/login`.
-- `invalidateCompanyDetails()` is gone; saving company details in admin needs `revalidateTag('company')` on the Next.js side: Phase 4.
+- `invalidateCompanyDetails()` is gone; the public site now refreshes via the Phase 4 webhook.
 - Verified locally: login, dashboard, packages/quotations/inquiries lists, package + quotation edit routes, no console errors; unauthenticated `/admin` redirects to login; print route returns 200.
+
+## Phase 4 notes (done 2026-10-11)
+- Web: `app/api/revalidate/route.ts`. `POST` with header `x-revalidate-secret` (= `REVALIDATE_SECRET`, timing-safe compare) and body `{ "tags": [...] }`. Only `packages`, `company` and `package:<slug>` are accepted. Calls `revalidateTag(tag, { expire: 0 })`, so the next visit gets fresh data instead of a stale copy.
+- API (separate repo, `api/`): `src/revalidation/` (global `RevalidationService`). Called fire-and-forget from `PackagesService` create/update/remove (tags `packages` + `package:<slug>`, old and new slug on update) and `CompanyService.update` (`company`). It does nothing unless `WEB_URL` and `REVALIDATE_SECRET` are set, times out after 5s, and only logs a warning on failure (it never fails the admin's save).
+- `proxy.ts` fetch is tagged `packages`, so a slug cached as 404 is cleared when it gets created/published.
+- Fix found while testing: after an entry is dropped, the dynamic package route must be re-rendered on demand, which needs `params` read inside `<Suspense>` and the public `<Header>` (uses `usePathname`) inside `<Suspense>`. Both done; real 404s still come from `proxy.ts`.
+- Env to set in Railway: web `REVALIDATE_SECRET`; API `WEB_URL` (public URL of the web service) and the same `REVALIDATE_SECRET`.
+- Verified locally (API + `next start`): company edit shows on `/contact-us` immediately; package title edit shows on the detail page and list; a newly created slug goes 404 -> 200 and appears in the sitemap; delete goes back to 404 and leaves the sitemap. Wrong/missing secret -> 401, unknown tag -> 400.
+- Not covered: hotels (not shown publicly) and direct database edits (no webhook fires; pages refresh within ~1 minute anyway).

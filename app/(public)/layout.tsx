@@ -7,7 +7,10 @@ import ChatWidget from '@/components/ChatWidget'
 export default function PublicLayout({ children }: LayoutProps<'/'>) {
   return (
     <>
-      <Header />
+      {/* Reads the URL (active nav link), which must not be part of the shared App Shell. */}
+      <Suspense>
+        <Header />
+      </Suspense>
       {children}
       <Suspense>
         <Footer />

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { getPackage, getPackages } from '@/lib/packages'
 import { SITE_NAME, SITE_URL, absoluteUrl } from '@/lib/site'
@@ -38,7 +39,17 @@ export async function generateMetadata({ params }: PageProps<'/tour-packages/[sl
   }
 }
 
-export default async function PackageDetailPage({ params }: PageProps<'/tour-packages/[slug]'>) {
+export default function PackageDetailPage({ params }: PageProps<'/tour-packages/[slug]'>) {
+  // params is read inside Suspense so slugs that weren't prerendered can be served from an App Shell and
+  // cached after the first visit. A missing slug is answered with a real 404 by proxy.ts before this renders.
+  return (
+    <Suspense>
+      <PackageDetail params={params} />
+    </Suspense>
+  )
+}
+
+async function PackageDetail({ params }: Pick<PageProps<'/tour-packages/[slug]'>, 'params'>) {
   const { slug } = await params
   const pkg = await getPackage(slug)
   if (!pkg) notFound()

@@ -9,7 +9,7 @@ export async function proxy(request: NextRequest) {
   const slug = request.nextUrl.pathname.split('/')[2]
 
   try {
-    const response = await fetch(`${API_URL}/packages/${encodeURIComponent(slug)}`, { next: { revalidate: 60 } })
+    const response = await fetch(`${API_URL}/packages/${encodeURIComponent(slug)}`, { next: { revalidate: 60, tags: ['packages'] } })
     if (response.status === 404) {
       return NextResponse.rewrite(new URL('/not-found-page', request.url), { status: 404 })
     }
