@@ -20,11 +20,11 @@ const PILLARS = [
   {
     icon: '🚐',
     title: 'Premium Group Logistics',
-    text: 'Dedicated private air-conditioned coasters/buses, vetted team-friendly resorts, and coordinated group dining.',
+    text: 'Dedicated private air-conditioned vans/coasters/buses, vetted team-friendly resorts, and coordinated group dining.',
   },
   {
     icon: '🙋',
-    title: 'On-Site Tour Coordinator',
+    title: 'On-Site Tour Coordinator (Conditional)',
     text: 'A dedicated agency coordinator travels with your group to manage hotel check-ins, timing, and emergencies so you can relax too.',
   },
 ]
@@ -105,7 +105,7 @@ export default function CorporateTeamBuilding() {
 
       <section className={styles.section}>
         <p className={styles.sectionBadge}>WHY HR MANAGERS TRUST US</p>
-        <h2 className={styles.sectionTitle}>Why HR Managers Trust Enjoy Ka Dito</h2>
+        <h2 className={styles.sectionTitle}>Why HR Managers Trust Enjoy Ka Dito by MCP Greenery Travel and Tours</h2>
 
         <div className={styles.pillarGrid}>
           {PILLARS.map((pillar) => (

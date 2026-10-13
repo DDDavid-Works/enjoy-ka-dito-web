@@ -52,7 +52,7 @@ export default function Home() {
           <p className={styles.badge}>CURATED JOURNEYS · PHILIPPINES &amp; BEYOND</p>
           <h1 className={styles.heroTitle}>Helping You Make More Memories Through Travel</h1>
           <p className={styles.heroSubtext}>
-            From island weekends to international escapes, Enjoy Ka Dito makes every part of your trip feel
+            From island weekends to international escapes, Enjoy Ka Dito by MCP Greenery Travel and Tours makes every part of your trip feel
             effortless.
           </p>
           <div className={styles.heroActions}>

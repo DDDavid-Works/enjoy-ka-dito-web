@@ -19,12 +19,12 @@ const PILLARS = [
   {
     icon: '🛡️',
     title: 'Secure, Handpicked Hotels',
-    text: 'We only partner with western-amenity, highly rated, and strictly secure resorts that meet stringent safety standards.',
+    text: 'We only partner with desirable amenities, highly rated, and strictly secure resorts that meet stringent safety standards.',
   },
   {
     icon: '💳',
     title: 'Foreign-Friendly Payments',
-    text: 'Safe, encrypted international billing options including PayPal, Stripe, credit cards, or international wire.',
+    text: 'Safe, encrypted international billing options including PayPal, PayWise, credit cards, or international wire.',
   },
 ]
 

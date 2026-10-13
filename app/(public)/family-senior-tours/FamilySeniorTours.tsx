@@ -43,7 +43,7 @@ const DESTINATIONS = [
     highlight: 'Chocolate Hills, tarsiers, and a relaxed river cruise — minimal walking, maximum sightseeing.',
   },
   {
-    name: 'Hong Kong',
+    name: 'Vietnam',
     bestFor: 'Family-friendly city magic',
     highlight: 'Stroller and wheelchair-friendly routes, planned rest breaks, and door-to-door transfers.',
   },
