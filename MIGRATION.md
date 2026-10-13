@@ -10,7 +10,7 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - [x] Phase 2: public pages + SEO (metadata, sitemap, robots, 404, JSON-LD). Left over: `next/image` for logos (kept `<img>` to avoid layout shifts)
 - [x] Phase 3: admin (client components under `app/admin`, noindex, auth guard). Company-details cache refresh was added in Phase 4
 - [x] Phase 4: revalidation webhook (API -> `revalidateTag`)
-- [ ] Phase 5: Railway deploy, custom domain
+- [ ] Phase 5: Railway deploy on a temporary URL, then custom domain (repo prepared; service creation pending, see README)
 - [ ] Phase 6: verification
 
 ## Why (live baseline, checked before the migration)
@@ -84,3 +84,10 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - Env to set in Railway: web `REVALIDATE_SECRET`; API `WEB_URL` (public URL of the web service) and the same `REVALIDATE_SECRET`.
 - Verified locally (API + `next start`): company edit shows on `/contact-us` immediately; package title edit shows on the detail page and list; a newly created slug goes 404 -> 200 and appears in the sitemap; delete goes back to 404 and leaves the sitemap. Wrong/missing secret -> 401, unknown tag -> 400.
 - Not covered: hotels (not shown publicly) and direct database edits (no webhook fires; pages refresh within ~1 minute anyway).
+
+## Phase 5 notes (started 2026-10-13)
+- Deploy steps and the env var table are in `README.md`. The service itself (Railway dashboard, env vars, domain) is created by the user.
+- Decision: no `output: 'standalone'`. Railway's default `npm run build` + `npm start` works as is, and standalone would need extra copying of `.next/static` and `public`. Revisit only if image size/startup becomes a problem. Added `engines.node >= 20.9`.
+- Verified locally with `NEXT_PUBLIC_API_URL` pointing at the production API: `next build` prerenders the real packages (Hundred Island, Puerto Princesa, ...), and `next start` serves `/`, list, detail, sitemap with the configured site URL, robots, contact, admin login (all 200) and an unknown slug as 404. `POST /api/revalidate` returns 401 when `REVALIDATE_SECRET` is unset.
+- Production API CORS currently answers `*` (CORS_ORIGIN unset), so the new origin needs no API change.
+- Production now has real packages (earlier notes saying `[]` are out of date).
