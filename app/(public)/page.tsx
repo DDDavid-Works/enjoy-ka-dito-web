@@ -1,13 +1,15 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import AgencyJsonLd from '@/components/AgencyJsonLd'
+import ByCompany from '@/components/ByCompany'
 import CoverImage from '@/components/CoverImage'
 import styles from './page.module.css'
 
 const TRUST_BADGES = [
+  { icon: '🎫', label: 'IATA-TIDS' },
   { icon: '🛡️', label: 'DOT Accredited' },
-  { icon: '✈️', label: 'PAL Accredited Partner' },
-  { icon: '🕐', label: '24/7 Support' },
+  { icon: '✈️', label: 'PAL, Airasia, Cebpac Accredited' },
+  { icon: '🤝', label: 'Member: ALTTAP, NEATOP, PTCAO' },
 ]
 
 const GATEWAYS = [
@@ -32,6 +34,13 @@ const GATEWAYS = [
     image: '/images/local-tours.jpg',
     to: '/philippines-inbound',
   },
+  {
+    title: 'International Tours',
+    copy: 'Visa assistance, flights, hotels, and guided itineraries for Filipino travelers heading to Asia and beyond.',
+    button: 'Explore International Tours',
+    image: '/images/international-tours.jpg',
+    to: '/international-tours',
+  },
 ]
 
 export const metadata: Metadata = {
@@ -51,7 +60,7 @@ export default function Home() {
           <p className={styles.badge}>CURATED JOURNEYS · PHILIPPINES &amp; BEYOND</p>
           <h1 className={styles.heroTitle}>Helping You Make More Memories Through Travel</h1>
           <p className={styles.heroSubtext}>
-            From island weekends to international escapes, Enjoy Ka Dito by MCP Greenery Travel and Tours makes every part of your trip feel
+            From island weekends to international escapes, Enjoy Ka Dito <ByCompany /> makes every part of your trip feel
             effortless.
           </p>
           <div className={styles.heroActions}>

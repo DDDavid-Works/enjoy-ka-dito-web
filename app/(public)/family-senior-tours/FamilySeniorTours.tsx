@@ -3,8 +3,6 @@
 import { useState, type FormEvent } from 'react'
 import PrefilledDestinationCombobox from '@/components/PrefilledDestinationCombobox'
 import { inquiriesApi } from '@/lib/api'
-import { toTelHref } from '@/lib/phone'
-import type { CompanyDetails } from '@/types/company'
 import styles from './FamilySeniorTours.module.css'
 
 const PILLARS = [
@@ -12,6 +10,7 @@ const PILLARS = [
     icon: '🚐',
     title: 'Fully Private Transport',
     text: 'No cramped shared vans — senior-friendly, air-conditioned vehicles take you door-to-door.',
+    note: '(conditional - based on package)',
   },
   {
     icon: '🧭',
@@ -48,7 +47,7 @@ const DESTINATIONS = [
   },
 ]
 
-export default function FamilySeniorTours({ company }: { company: CompanyDetails }) {
+export default function FamilySeniorTours() {
 
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -92,12 +91,7 @@ export default function FamilySeniorTours({ company }: { company: CompanyDetails
           rush, worry, or walk further than they&rsquo;re comfortable with.
         </p>
         <div className={styles.heroActions}>
-          {company.contactNumbers[0] && (
-            <a href={toTelHref(company.contactNumbers[0])} className={styles.heroCta}>
-              Call Our Family Travel Experts
-            </a>
-          )}
-          <a href="#family-inquiry-form" className={styles.heroCtaOutline}>
+          <a href="#family-inquiry-form" className={styles.heroCta}>
             Send us your trip details
           </a>
         </div>
@@ -112,7 +106,10 @@ export default function FamilySeniorTours({ company }: { company: CompanyDetails
             <div key={pillar.title} className={styles.pillarCard}>
               <span className={styles.pillarIcon}>{pillar.icon}</span>
               <p className={styles.pillarTitle}>{pillar.title}</p>
-              <p className={styles.pillarText}>{pillar.text}</p>
+              <p className={styles.pillarText}>
+                {pillar.text}
+                {pillar.note && <em> {pillar.note}</em>}
+              </p>
             </div>
           ))}
         </div>

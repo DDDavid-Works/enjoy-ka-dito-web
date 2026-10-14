@@ -3,6 +3,7 @@ import CoverImage from '@/components/CoverImage'
 import styles from './page.module.css'
 
 const ACCREDITATIONS = [
+  'IATA TIDS (Travel Industry Designator Service) accredited',
   'Department of Tourism (DOT) accredited organizer',
   'Philippine Airlines (PAL) accredited partner',
   'Pangasinan Provincial Tourism and Cultural Affairs Office partner',

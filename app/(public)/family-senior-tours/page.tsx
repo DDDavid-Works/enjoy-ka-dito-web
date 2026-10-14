@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { getCompanyDetails } from '@/lib/company'
 import FamilySeniorTours from './FamilySeniorTours'
 
 export const metadata: Metadata = {
@@ -9,7 +8,6 @@ export const metadata: Metadata = {
   alternates: { canonical: '/family-senior-tours' },
 }
 
-export default async function Page() {
-  const company = await getCompanyDetails()
-  return <FamilySeniorTours company={company} />
+export default function Page() {
+  return <FamilySeniorTours />
 }

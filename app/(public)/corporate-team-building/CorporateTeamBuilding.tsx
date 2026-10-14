@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
+import ByCompany from '@/components/ByCompany'
 import DestinationCombobox from '@/components/DestinationCombobox'
 import { inquiriesApi } from '@/lib/api'
 import { CORPORATE_BUDGET_BRACKETS } from '@/types/inquiry'
@@ -105,7 +106,7 @@ export default function CorporateTeamBuilding() {
 
       <section className={styles.section}>
         <p className={styles.sectionBadge}>WHY HR MANAGERS TRUST US</p>
-        <h2 className={styles.sectionTitle}>Why HR Managers Trust Enjoy Ka Dito by MCP Greenery Travel and Tours</h2>
+        <h2 className={styles.sectionTitle}>Why HR Managers Trust Enjoy Ka Dito <ByCompany /></h2>
 
         <div className={styles.pillarGrid}>
           {PILLARS.map((pillar) => (
