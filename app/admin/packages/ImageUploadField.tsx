@@ -40,7 +40,7 @@ type Props = {
 }
 
 // An image stored on this site: pick a file and it is resized and saved by the API; the saved address goes into the
-// field. The address can still be edited or pasted by hand (e.g. an image hosted elsewhere).
+// field. There is deliberately no way to type an address by hand.
 export default function ImageUploadField({ label, value, onChange }: Props) {
   const fileInput = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
@@ -107,8 +107,6 @@ export default function ImageUploadField({ label, value, onChange }: Props) {
       {error && <p className={styles.error}>{error}</p>}
       {note && <p className={styles.status}>{note}</p>}
 
-      <span className={styles.urlLabel}>Or paste an image address</span>
-      <input value={value} onChange={(event) => onChange(event.target.value)} placeholder="https://…" />
     </div>
   )
 }
