@@ -8,7 +8,7 @@ import styles from './page.module.css'
 const TRUST_BADGES = [
   { icon: '🎫', label: 'IATA-TIDS' },
   { icon: '🛡️', label: 'DOT Accredited' },
-  { icon: '✈️', label: 'PAL, Airasia, Cebpac Accredited' },
+  { icon: '✈️', label: 'Airline Accreditations & Partnerships' },
   { icon: '🤝', label: 'Member: ALTTAP, NEATOP, PTCAO' },
 ]
 

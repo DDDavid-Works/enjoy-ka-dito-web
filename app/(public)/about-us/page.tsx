@@ -5,7 +5,7 @@ import styles from './page.module.css'
 const ACCREDITATIONS = [
   'IATA TIDS (Travel Industry Designator Service) accredited',
   'Department of Tourism (DOT) accredited organizer',
-  'Philippine Airlines (PAL) accredited partner',
+  'Airline Accreditations & Partnerships',
   'Pangasinan Provincial Tourism and Cultural Affairs Office partner',
   'Nueva Ecija Association of Travel Operators (NEATOP) member',
   'Association of Local Travel and Tours Operators in Pangasinan (ALTTOP) member',
@@ -67,7 +67,7 @@ export default function AboutUs() {
       </section>
 
       <section className={styles.closing}>
-        <p className={styles.closingText}>Because wherever you go with us — enjoy ka dito.</p>
+        <p className={styles.closingText}>Wherever you go, make more memories along the way - Enjoy Ka Dito.</p>
       </section>
     </main>
   )
