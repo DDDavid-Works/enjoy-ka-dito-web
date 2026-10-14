@@ -102,3 +102,27 @@ export const companyApi = {
   update: (data: Partial<CompanyDetails>) =>
     request<CompanyDetails>('/company-details', { method: 'PATCH', body: JSON.stringify(data) }),
 }
+
+export type UploadedImage = { id: string; url: string; width: number; height: number; size: number }
+
+export const mediaApi = {
+  // Multipart upload: the browser sets the Content-Type (with the boundary), so this can't use request().
+  async upload(file: File): Promise<UploadedImage> {
+    const token = getToken()
+    const body = new FormData()
+    body.append('file', file)
+
+    const response = await fetch(`${API_URL}/media`, {
+      method: 'POST',
+      headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+      body,
+    })
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => null)
+      throw new Error(error?.message ?? `Upload failed (${response.status})`)
+    }
+
+    return response.json()
+  },
+}

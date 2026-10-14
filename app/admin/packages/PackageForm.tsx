@@ -12,6 +12,7 @@ import {
 } from '@/lib/quotationSections'
 import type { Hotel } from '@/types/hotel'
 import { PACKAGE_CATEGORIES, type ItineraryDay, type PackageInput } from '@/types/package'
+import ImageUploadField from './ImageUploadField'
 import QuotationAccommodationsEditor from './QuotationAccommodationsEditor'
 import QuotationExclusionsEditor from './QuotationExclusionsEditor'
 import QuotationInclusionsEditor from './QuotationInclusionsEditor'
@@ -355,16 +356,18 @@ export default function PackageForm() {
               <div className={styles.section}>
                 <div className={styles.sectionTitle}>Images</div>
                 <p className={styles.hint}>
-                  Paste hosted image URLs for now — direct file upload isn&rsquo;t wired up yet.
+                  Upload a photo and it is resized and stored on this site. Large originals are fine.
                 </p>
-                <div className={styles.field}>
-                  <label>Main image (destination photo)</label>
-                  <input value={form.mainImage} onChange={(e) => updateField('mainImage', e.target.value)} />
-                </div>
-                <div className={styles.field}>
-                  <label>Poster (promo graphic)</label>
-                  <input value={form.poster} onChange={(e) => updateField('poster', e.target.value)} />
-                </div>
+                <ImageUploadField
+                  label="Main image (destination photo)"
+                  value={form.mainImage ?? ''}
+                  onChange={(url) => updateField('mainImage', url)}
+                />
+                <ImageUploadField
+                  label="Poster (promo graphic)"
+                  value={form.poster ?? ''}
+                  onChange={(url) => updateField('poster', url)}
+                />
               </div>
 
             </>

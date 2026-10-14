@@ -1,5 +1,5 @@
 import type { NextConfig } from 'next'
-import { OPTIMIZED_IMAGE_HOSTS } from './lib/images'
+import { optimizedImagePatterns } from './lib/images'
 import { LEGACY_PAGE_REDIRECTS } from './lib/legacy-redirects'
 
 const nextConfig: NextConfig = {
@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   images: {
-    remotePatterns: OPTIMIZED_IMAGE_HOSTS.map((hostname) => ({ protocol: 'https' as const, hostname, pathname: '/wp-content/uploads/**' })),
+    remotePatterns: optimizedImagePatterns(),
     // Optimized images are reused for a month instead of the 60 second default.
     minimumCacheTTL: 60 * 60 * 24 * 30,
   },

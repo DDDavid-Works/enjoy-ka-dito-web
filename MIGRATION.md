@@ -107,3 +107,4 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - **Phase 6 still open:** social-preview check, live webhook test (admin login), Search Console, custom-domain cutover.
 - **Cutover:** see `CUTOVER.md`. Key finding: `enjoykadito.com` is a live WordPress site (60 pages + ~1,425 posts in its sitemaps) that also hosts the package photos, so pointing that domain at the new site needs a decision, redirects and an image plan.
 - **Cutover path chosen 2026-10-14:** new site takes over `enjoykadito.com`, WordPress retired. Page redirects done (`lib/legacy-redirects.ts`, `scripts/check-legacy-urls.mjs`); photos, posts and DNS still open (see `CUTOVER.md`).
+- **Image uploader (2026-10-14):** admin package form uploads Main image / Poster to the API (`POST /media`, stored in Postgres, served at `/media/:id`, resized by sharp); web optimizes `<API>/media/**` via `lib/images.ts`. Replaces pasting WordPress URLs.

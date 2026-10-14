@@ -6,7 +6,7 @@ Status 2026-10-14: the new site runs on `https://enjoy-ka-dito-web-production-16
 ## Decision (2026-10-14): the new site takes over `enjoykadito.com` and WordPress is retired (option A3 below)
 
 Open items for this path, in order:
-1. **Package photos**: only 5 packages / 5 images exist in production (~45 MB of originals). Move them off `wp-content` before WordPress goes away (section 3).
+1. **Package photos**: only 5 packages / 5 images exist in production. Re-upload them with the new admin uploader before WordPress goes away (section 3).
 2. **Old URLs**: the 60 WordPress pages are already mapped (`lib/legacy-redirects.ts`, 53 redirect, 1 identical; 6 have no equivalent and will 404). Still undecided: the ~1,425 news posts and the 80 category/tag/author pages (section 4).
 3. **DNS and email**: which registrar/DNS provider holds `enjoykadito.com`, and does company email (MX records) live on that domain? Only the web records may change.
 4. **Backup**: before retiring WordPress, export its content (WordPress export file + the uploads folder) and keep it.
@@ -66,16 +66,16 @@ Everything below is written so that either path works; the steps marked **(A2/A3
    - **(A2/A3 only)** If the host changed, also use the "Change of address" tool in the old property.
 8. **Social previews:** paste a package URL into Facebook's Sharing Debugger and refresh the scrape. Check title, description and image.
 
-## 3. Images (A2/A3 only)
+## 3. Images
 
-Package photos are stored as URLs like `https://enjoykadito.com/wp-content/uploads/2026/10/Hundred-Island-Package.jpg`.
-While WordPress is reachable at that address they keep working (and `lib/images.ts` / `next.config.ts` allow-list that host).
-If WordPress moves to a subdomain, choose one:
+Admin now has an image uploader (package form: Main image and Poster). Uploads are resized by the API (max 2000 px wide, JPEG) and stored in the API's database, served at `<API>/media/<id>`; the public site optimizes them through `next/image`.
 
-- Keep WordPress (and its `wp-content`) reachable on the new subdomain and update the stored image URLs in the packages (admin edit, or a one-off script/SQL update on the API database), and add the subdomain to `OPTIMIZED_IMAGE_HOSTS` in `lib/images.ts`; **or**
-- Move the photos to storage you control (the site's own `public/images`, or object storage), then update the package image URLs.
+Production has 5 packages whose image is still a WordPress URL (`https://enjoykadito.com/wp-content/uploads/...`). Before WordPress is retired:
 
-Do this *before* the switch, and keep `enjoykadito.com` in the allow-list until no package still points at it.
+- [ ] Deploy the API and web changes (uploader) to Railway.
+- [ ] In the admin, open each of the 5 packages, **Upload image** (use the original photo file; large files are fine), and Save. The old WordPress URL is replaced by an `.../media/<id>` address.
+- [ ] Check the 5 package pages and `/tour-packages` show their photos, and that no package image URL still contains `enjoykadito.com/wp-content` (the list and detail pages' HTML can be searched).
+- [ ] Only then retire WordPress. The `wp-content` allow-list in `lib/images.ts` can be removed afterwards.
 
 ## 4. Redirects (A2/A3 only)
 
