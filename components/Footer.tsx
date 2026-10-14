@@ -24,7 +24,8 @@ async function currentYear() {
 
 export default async function Footer() {
   const company = await getCompanyDetails()
-  const contactLine = [...company.emails, ...company.contactNumbers].filter(Boolean).join(' · ')
+  const emailLine = company.emails.filter(Boolean).join(' · ')
+  const numberLine = company.contactNumbers.filter(Boolean).join(' · ')
 
   return (
     <footer className={styles.footer}>
@@ -37,7 +38,8 @@ export default async function Footer() {
           <p className={styles.tagline}>
             Your Philippine-based travel partner for more meaningful local and international adventures.
           </p>
-          {contactLine && <p className={styles.contact}>{contactLine}</p>}
+          {emailLine && <p className={styles.contact}>{emailLine}</p>}
+          {numberLine && <p className={styles.contact}>{numberLine}</p>}
           {company.address && <p className={styles.contact}>{company.address}</p>}
         </div>
 
