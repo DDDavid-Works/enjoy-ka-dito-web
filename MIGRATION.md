@@ -11,7 +11,7 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - [x] Phase 3: admin (client components under `app/admin`, noindex, auth guard). Company-details cache refresh was added in Phase 4
 - [x] Phase 4: revalidation webhook (API -> `revalidateTag`)
 - [x] Phase 5: Railway deploy on a temporary URL (done 2026-10-14). Custom domain cutover waits for Phase 6
-- [ ] Phase 6: verification
+- [ ] Phase 6: verification (audit, Lighthouse, visual comparison done; webhook test, social previews, Search Console and the domain cutover remain: see CUTOVER.md)
 
 ## Why (live baseline, checked before the migration)
 - The Vite SPA served the same 680-byte shell with status 200 for every URL, including `/robots.txt`, `/sitemap.xml` and unknown URLs. Package records were invisible to crawlers.
@@ -105,3 +105,4 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - Remaining LCP time is mostly the first optimizer fetch of a ~10 MB original; shrinking the originals in the WordPress media library would help further.
 - **Lighthouse on the live new site, after the image fix (2026-10-14):** mobile home 87 / package 94 / list 92, desktop home 99 / package 98. Accessibility, best-practices and SEO are 100 on all of them. Mobile LCP 2.9-3.5 s (was 10-54 s), CLS 0, TBT 20-30 ms, page weight 0.4-0.8 MB. Measured after warming the image cache; the very first visitor of an uncached image still waits for the optimizer to fetch the original.
 - **Phase 6 still open:** social-preview check, live webhook test (admin login), Search Console, custom-domain cutover.
+- **Cutover:** see `CUTOVER.md`. Key finding: `enjoykadito.com` is a live WordPress site (60 pages + ~1,425 posts in its sitemaps) that also hosts the package photos, so pointing that domain at the new site needs a decision, redirects and an image plan.
