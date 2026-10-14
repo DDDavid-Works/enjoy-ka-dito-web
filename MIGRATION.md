@@ -10,7 +10,7 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - [x] Phase 2: public pages + SEO (metadata, sitemap, robots, 404, JSON-LD). Left over: `next/image` for logos (kept `<img>` to avoid layout shifts)
 - [x] Phase 3: admin (client components under `app/admin`, noindex, auth guard). Company-details cache refresh was added in Phase 4
 - [x] Phase 4: revalidation webhook (API -> `revalidateTag`)
-- [ ] Phase 5: Railway deploy on a temporary URL, then custom domain (repo prepared; service creation pending, see README)
+- [x] Phase 5: Railway deploy on a temporary URL (done 2026-10-14). Custom domain cutover waits for Phase 6
 - [ ] Phase 6: verification
 
 ## Why (live baseline, checked before the migration)
@@ -91,3 +91,7 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - Verified locally with `NEXT_PUBLIC_API_URL` pointing at the production API: `next build` prerenders the real packages (Hundred Island, Puerto Princesa, ...), and `next start` serves `/`, list, detail, sitemap with the configured site URL, robots, contact, admin login (all 200) and an unknown slug as 404. `POST /api/revalidate` returns 401 when `REVALIDATE_SECRET` is unset.
 - Production API CORS currently answers `*` (CORS_ORIGIN unset), so the new origin needs no API change.
 - Production now has real packages (earlier notes saying `[]` are out of date).
+- **Deployed 2026-10-14:** service `enjoy-ka-dito-web` at https://enjoy-ka-dito-web-production-16e7.up.railway.app (temporary URL). Vars: `NEXT_PUBLIC_API_URL`, `NEXT_PUBLIC_SITE_URL` (= that URL; baked in at build), `REVALIDATE_SECRET`. API service got `WEB_URL` + the same `REVALIDATE_SECRET`.
+- Verified from outside: `/`, list, a package page, contact, admin login, robots, sitemap all 200; unknown slug 404; canonicals, sitemap and robots use the live URL; package og:image is an absolute URL; `/api/revalidate` rejects a wrong secret (401) and accepts the shared one.
+- Not yet tested on live data: the end-to-end webhook (edit in admin -> public page updates). Needs a production admin login. Do that in Phase 6.
+- Changing `NEXT_PUBLIC_SITE_URL` (e.g. at the custom-domain cutover) needs a redeploy.
