@@ -24,8 +24,17 @@ async function currentYear() {
 
 export default async function Footer() {
   const company = await getCompanyDetails()
-  const emailLine = company.emails.filter(Boolean).join(' · ')
-  const numberLine = company.contactNumbers.filter(Boolean).join(' · ')
+  const emails = company.emails.filter(Boolean)
+  const numbers = company.contactNumbers.filter(Boolean)
+
+  // Items sit on one line with a dot between them; on phones each item gets its own line.
+  const renderItems = (items: string[]) =>
+    items.map((item, index) => (
+      <span key={index} className={styles.contactItem}>
+        {index > 0 && <span className={styles.contactSeparator}> · </span>}
+        {item}
+      </span>
+    ))
 
   return (
     <footer className={styles.footer}>
@@ -38,8 +47,8 @@ export default async function Footer() {
           <p className={styles.tagline}>
             Your Philippine-based travel partner for more meaningful local and international adventures.
           </p>
-          {emailLine && <p className={styles.contact}>{emailLine}</p>}
-          {numberLine && <p className={styles.contact}>{numberLine}</p>}
+          {emails.length > 0 && <p className={styles.contact}>{renderItems(emails)}</p>}
+          {numbers.length > 0 && <p className={styles.contact}>{renderItems(numbers)}</p>}
           {company.address && <p className={styles.contact}>{company.address}</p>}
         </div>
 

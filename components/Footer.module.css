@@ -56,6 +56,16 @@
   color: rgba(255, 255, 255, 0.72);
 }
 
+@media (max-width: 600px) {
+  .contactItem {
+    display: block;
+  }
+
+  .contactSeparator {
+    display: none;
+  }
+}
+
 .social {
   flex-shrink: 0;
 }
