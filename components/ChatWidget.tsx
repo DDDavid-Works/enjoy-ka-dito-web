@@ -4,27 +4,33 @@ import { useState } from 'react'
 import { MessengerIcon, WhatsappIcon } from './SocialIcons'
 import styles from './ChatWidget.module.css'
 
-const WHATSAPP_NUMBER = '639621494688'
 const WHATSAPP_MESSAGE = "Hi Enjoy Ka Dito! I'd like to know more about your tour packages."
 const MESSENGER_URL = 'https://m.me/EnjoyKaDito'
 
-const CHANNELS = [
-  {
-    Icon: WhatsappIcon,
-    label: 'WhatsApp',
-    href: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`,
-    className: 'whatsapp',
-  },
-  {
-    Icon: MessengerIcon,
-    label: 'Messenger',
-    href: MESSENGER_URL,
-    className: 'messenger',
-  },
-]
+function buildChannels(whatsappNumber?: string) {
+  return [
+    ...(whatsappNumber
+      ? [
+          {
+            Icon: WhatsappIcon,
+            label: 'WhatsApp',
+            href: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`,
+            className: 'whatsapp',
+          },
+        ]
+      : []),
+    {
+      Icon: MessengerIcon,
+      label: 'Messenger',
+      href: MESSENGER_URL,
+      className: 'messenger',
+    },
+  ]
+}
 
-export default function ChatWidget() {
+export default function ChatWidget({ whatsappNumber }: { whatsappNumber?: string }) {
   const [open, setOpen] = useState(false)
+  const channels = buildChannels(whatsappNumber)
 
   return (
     <div className={styles.wrapper}>
@@ -35,7 +41,7 @@ export default function ChatWidget() {
             <p className={styles.panelSubtext}>We usually reply within a few minutes.</p>
           </div>
           <div className={styles.channelList}>
-            {CHANNELS.map((channel) => (
+            {channels.map((channel) => (
               <a
                 key={channel.label}
                 href={channel.href}
