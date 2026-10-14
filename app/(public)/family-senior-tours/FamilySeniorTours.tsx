@@ -1,8 +1,7 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
-import { useSearchParams } from 'next/navigation'
-import DestinationCombobox from '@/components/DestinationCombobox'
+import PrefilledDestinationCombobox from '@/components/PrefilledDestinationCombobox'
 import { inquiriesApi } from '@/lib/api'
 import { toTelHref } from '@/lib/phone'
 import type { CompanyDetails } from '@/types/company'
@@ -50,8 +49,6 @@ const DESTINATIONS = [
 ]
 
 export default function FamilySeniorTours({ company }: { company: CompanyDetails }) {
-  const searchParams = useSearchParams()
-  const prefilledDestination = searchParams.get('destination') ?? ''
 
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -178,10 +175,9 @@ export default function FamilySeniorTours({ company }: { company: CompanyDetails
                 </div>
 
                 <div className={styles.field}>
-                  <DestinationCombobox
+                  <PrefilledDestinationCombobox
                     name="destination"
                     placeholder="Preferred destination/Tour Package"
-                    defaultValue={prefilledDestination}
                   />
                 </div>
 

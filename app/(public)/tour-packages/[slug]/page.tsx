@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { getPackage, getPackages } from '@/lib/packages'
-import { SITE_NAME, SITE_URL, absoluteUrl } from '@/lib/site'
+import { SITE_NAME, SITE_URL, absoluteUrl, toMetaDescription } from '@/lib/site'
 import Gallery from './Gallery'
 import styles from './PackageDetail.module.css'
 
@@ -19,8 +19,9 @@ export async function generateMetadata({ params }: PageProps<'/tour-packages/[sl
   const pkg = await getPackage(slug)
   if (!pkg) return { title: 'Tour not found' }
 
-  const description =
-    pkg.summary || `${pkg.title}${pkg.location ? ` in ${pkg.location}` : ''}${pkg.duration ? `, ${pkg.duration}` : ''}.`
+  const description = toMetaDescription(
+    pkg.summary || `${pkg.title}${pkg.location ? ` in ${pkg.location}` : ''}${pkg.duration ? `, ${pkg.duration}` : ''}.`,
+  )
   const image = pkg.mainImage ? absoluteUrl(pkg.mainImage) : undefined
 
   return {

@@ -34,7 +34,7 @@ const GATEWAYS = [
 ]
 
 export const metadata: Metadata = {
-  title: { absolute: 'Enjoy Ka Dito | Philippine Tours, Corporate Team Building and Family Travel' },
+  title: { absolute: 'Enjoy Ka Dito | Philippine Tours and Travel Agency' },
   description:
     'Philippine-based travel agency offering local and international tour packages, corporate team building, family and senior tours, and inbound packages for foreign visitors.',
   alternates: { canonical: '/' },

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Suspense } from 'react'
 import RequestQuote from './RequestQuote'
 
 export const metadata: Metadata = {
@@ -10,10 +9,5 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return (
-    // The form reads ?destination= on the client, which needs a Suspense boundary.
-    <Suspense>
-      <RequestQuote />
-    </Suspense>
-  )
+  return <RequestQuote />
 }

@@ -6,3 +6,10 @@ export const SITE_NAME = 'Enjoy Ka Dito'
 export function absoluteUrl(path: string) {
   return /^https?:\/\//.test(path) ? path : `${SITE_URL}${path.startsWith('/') ? '' : '/'}${path}`
 }
+
+// Search results cut descriptions at roughly 155-160 characters: trim at a word boundary instead.
+export function toMetaDescription(text: string, max = 155) {
+  const clean = text.replace(/\s+/g, ' ').trim()
+  if (clean.length <= max) return clean
+  return `${clean.slice(0, max - 1).replace(/\s+\S*$/, '')}…`
+}

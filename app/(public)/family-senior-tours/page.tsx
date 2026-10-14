@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Suspense } from 'react'
 import { getCompanyDetails } from '@/lib/company'
 import FamilySeniorTours from './FamilySeniorTours'
 
@@ -12,10 +11,5 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const company = await getCompanyDetails()
-  return (
-    // The form reads ?destination= on the client, which needs a Suspense boundary.
-    <Suspense>
-      <FamilySeniorTours company={company} />
-    </Suspense>
-  )
+  return <FamilySeniorTours company={company} />
 }
