@@ -12,7 +12,35 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(30, 58, 114, 0.15) 0%, rgba(30, 58, 114, 0.75) 100%);
+  background: linear-gradient(180deg, rgba(30, 58, 114, 0.5) 0%, rgba(30, 58, 114, 0.88) 100%);
+}
+
+/* A collage of traveller photos behind the headline; sits under the ::before overlay (hero isolates its stacking). */
+.heroMosaic {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 3px;
+  background: rgb(30, 58, 114);
+}
+
+.heroTile {
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .heroMosaic {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+
+  .heroTile:nth-child(n + 7) {
+    display: none;
+  }
 }
 
 .heroContent {

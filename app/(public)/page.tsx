@@ -11,6 +11,19 @@ const TRUST_BADGES = [
   { icon: '🤝', label: 'Member: ALTTAP, NEATOP, PTCAO' },
 ]
 
+// Placeholder photos for the hero mosaic. Swap these for real traveller photos (corporate groups, seniors, families)
+// once the client sends them; the first 6 show on phones, all 8 on larger screens.
+const HERO_MOSAIC = [
+  '/images/family-senior-tours.jpg',
+  '/images/corporate-team-building.jpg',
+  '/images/coron-lagoon.jpg',
+  '/images/international-tours.jpg',
+  '/images/bohol-countryside.jpg',
+  '/images/singapore-city.jpg',
+  '/images/local-tours.jpg',
+  '/images/thailand-boats.jpg',
+]
+
 const GATEWAYS = [
   {
     title: 'Corporate Team Building',
@@ -54,7 +67,13 @@ export default function Home() {
     <main>
       <AgencyJsonLd />
       <section className={styles.hero}>
-        <CoverImage src="/images/hero-islands.jpg" sizes="100vw" preload behind />
+        <div className={styles.heroMosaic} aria-hidden="true">
+          {HERO_MOSAIC.map((src, index) => (
+            <div key={src} className={styles.heroTile}>
+              <CoverImage src={src} sizes="(max-width: 900px) 50vw, 25vw" preload={index === 0} />
+            </div>
+          ))}
+        </div>
         <div className={styles.heroContent}>
           <p className={styles.badge}>CURATED JOURNEYS · PHILIPPINES &amp; BEYOND</p>
           <h1 className={styles.heroTitle}>Helping You Make More Memories Through Travel</h1>
