@@ -95,3 +95,9 @@ Source app: `../ui-web` (Vite + react-router). API (`../api`, NestJS) is unchang
 - Verified from outside: `/`, list, a package page, contact, admin login, robots, sitemap all 200; unknown slug 404; canonicals, sitemap and robots use the live URL; package og:image is an absolute URL; `/api/revalidate` rejects a wrong secret (401) and accepts the shared one.
 - Not yet tested on live data: the end-to-end webhook (edit in admin -> public page updates). Needs a production admin login. Do that in Phase 6.
 - Changing `NEXT_PUBLIC_SITE_URL` (e.g. at the custom-domain cutover) needs a redeploy.
+
+## Phase 6 notes (started 2026-10-14)
+- **Raw-HTML audit** (curl, live new site vs the old one): every public page returns its own title, meta description, canonical, Open Graph tags and an `<h1>`; package pages carry `TouristTrip` JSON-LD and the home page `TravelAgency`; `/admin/login` is `noindex, nofollow`; unknown URLs are a real 404 with `noindex`. The old site returns the same 680-byte shell with status 200 for every URL.
+- **Found and fixed:** `request-a-quote` and `family-senior-tours` had no `<h1>` in the initial HTML, because `useSearchParams` at page level made the whole page render client-side. Now only the destination field reads the query (`components/PrefilledDestinationCombobox.tsx`). Package meta descriptions were ~450 chars; now trimmed to ~155 (`toMetaDescription`). Home title shortened.
+- **Visual comparison** (old UI service vs new site, 1280x800): tour list, package detail and Family & Senior pages look identical.
+- **Still to do:** Lighthouse, social share previews, the live webhook test with the admin login, Search Console, then the custom-domain cutover.
