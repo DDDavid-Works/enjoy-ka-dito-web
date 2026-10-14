@@ -102,7 +102,7 @@ export default function CompanyDetailsForm() {
 
           <div className={styles.section}>
             <div className={styles.sectionTitle}>Contact numbers</div>
-            <p className={styles.hint}>The first number is also used for the WhatsApp chat button on the website.</p>
+            <p className={styles.fieldHint}>The first mobile number (09XX or +639XX) is also used for the WhatsApp chat button on the website. Labels like "Mobile:" are fine.</p>
             {form.contactNumbers.map((number, index) => (
               <div key={index} className={styles.listItem}>
                 <input
