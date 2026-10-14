@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import AgencyJsonLd from '@/components/AgencyJsonLd'
-import ByCompany from '@/components/ByCompany'
 import CoverImage from '@/components/CoverImage'
 import styles from './page.module.css'
 
@@ -60,8 +59,8 @@ export default function Home() {
           <p className={styles.badge}>CURATED JOURNEYS · PHILIPPINES &amp; BEYOND</p>
           <h1 className={styles.heroTitle}>Helping You Make More Memories Through Travel</h1>
           <p className={styles.heroSubtext}>
-            From island weekends to international escapes, Enjoy Ka Dito <ByCompany /> makes every part of your trip feel
-            effortless.
+            From Philippine getaways to adventures abroad, MCP Greenery Travel and Tours helps you travel with ease,
+            discover new places, and create lasting memories.
           </p>
           <div className={styles.heroActions}>
             <Link href="/tour-packages" className={styles.heroLinkAction}>
