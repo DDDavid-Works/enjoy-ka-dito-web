@@ -1,5 +1,6 @@
 .hero {
   position: relative;
+  isolation: isolate;
   display: flex;
   align-items: flex-end;
   min-height: 620px;
@@ -134,6 +135,7 @@
 
 .card {
   position: relative;
+  isolation: isolate;
   height: 340px;
   border-radius: 20px;
   padding: 28px;

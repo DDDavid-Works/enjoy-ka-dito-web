@@ -1,5 +1,6 @@
 .hero {
   position: relative;
+  isolation: isolate;
   display: flex;
   align-items: flex-end;
   min-height: 420px;

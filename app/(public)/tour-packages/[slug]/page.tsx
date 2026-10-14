@@ -4,6 +4,7 @@ import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { getPackage, getPackages } from '@/lib/packages'
 import { SITE_NAME, SITE_URL, absoluteUrl, toMetaDescription } from '@/lib/site'
+import CoverImage from '@/components/CoverImage'
 import Gallery from './Gallery'
 import styles from './PackageDetail.module.css'
 
@@ -83,7 +84,8 @@ async function PackageDetail({ params }: Pick<PageProps<'/tour-packages/[slug]'>
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
 
-      <section className={styles.hero} style={{ backgroundImage: `url(${pkg.mainImage})` }}>
+      <section className={styles.hero}>
+        {pkg.mainImage && <CoverImage src={pkg.mainImage} sizes="100vw" preload behind />}
         <div className={styles.heroContent}>
           <Link href="/tour-packages" className={styles.backLink}>
             ← Back to Tour Packages

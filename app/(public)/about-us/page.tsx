@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import CoverImage from '@/components/CoverImage'
 import styles from './page.module.css'
 
 const ACCREDITATIONS = [
@@ -19,7 +20,8 @@ export const metadata: Metadata = {
 export default function AboutUs() {
   return (
     <main>
-      <section className={styles.hero} style={{ backgroundImage: 'url(/images/local-tours.jpg)' }}>
+      <section className={styles.hero}>
+        <CoverImage src="/images/local-tours.jpg" sizes="100vw" preload behind />
         <div className={styles.heroContent}>
           <p className={styles.badge}>OUR STORY</p>
           <h1 className={styles.title}>Every trip starts with people who care.</h1>

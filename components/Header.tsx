@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import styles from './Header.module.css'
 
@@ -36,7 +37,7 @@ export default function Header() {
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <Link href="/" className={styles.logo}>
-        <img src="/images/logo-square.png" alt="Enjoy Ka Dito" />
+        <Image src="/images/logo-square.png" alt="Enjoy Ka Dito" width={125} height={112} preload />
         <span className={styles.logoCompany}>by: MCP Greenery Travel and Tours</span>
       </Link>
 

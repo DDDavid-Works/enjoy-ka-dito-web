@@ -1,4 +1,5 @@
 import { cacheLife } from 'next/cache'
+import Image from 'next/image'
 import { getCompanyDetails } from '@/lib/company'
 import { FacebookIcon, InstagramIcon, TiktokIcon } from './SocialIcons'
 import styles from './Footer.module.css'
@@ -30,7 +31,7 @@ export default async function Footer() {
       <div className={styles.footerMain}>
         <div className={styles.footerInfo}>
           <div className={styles.logoCard}>
-            <img src="/images/logo-square.png" alt="Enjoy Ka Dito" className={styles.logo} />
+            <Image src="/images/logo-square.png" alt="Enjoy Ka Dito" width={98} height={88} className={styles.logo} />
           </div>
           <p className={styles.company}>by: MCP Greenery Travel and Tours</p>
           <p className={styles.tagline}>

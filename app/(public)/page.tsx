@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import AgencyJsonLd from '@/components/AgencyJsonLd'
+import CoverImage from '@/components/CoverImage'
 import styles from './page.module.css'
 
 const TRUST_BADGES = [
@@ -44,10 +45,8 @@ export default function Home() {
   return (
     <main>
       <AgencyJsonLd />
-      <section
-        className={styles.hero}
-        style={{ backgroundImage: 'url(/images/hero-islands.jpg)' }}
-      >
+      <section className={styles.hero}>
+        <CoverImage src="/images/hero-islands.jpg" sizes="100vw" preload behind />
         <div className={styles.heroContent}>
           <p className={styles.badge}>CURATED JOURNEYS · PHILIPPINES &amp; BEYOND</p>
           <h1 className={styles.heroTitle}>Helping You Make More Memories Through Travel</h1>
@@ -85,12 +84,8 @@ export default function Home() {
               key={item.title}
               href={item.to}
               className={styles.card}
-              style={
-                item.image
-                  ? { backgroundImage: `url(${item.image})` }
-                  : { backgroundImage: 'linear-gradient(135deg, #1e3a72 0%, #2c56a0 100%)' }
-              }
             >
+              <CoverImage src={item.image} sizes="(max-width: 900px) 100vw, 400px" behind />
               <p className={styles.cardTitle}>{item.title}</p>
               <p className={styles.cardCopy}>{item.copy}</p>
               <span className={styles.cardButton}>{item.button}</span>
