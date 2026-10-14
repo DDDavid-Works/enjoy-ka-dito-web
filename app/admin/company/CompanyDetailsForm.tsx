@@ -6,7 +6,7 @@ import { companyApi } from '@/lib/api'
 import type { CompanyDetails } from '@/types/company'
 import styles from '../packages/PackageForm.module.css'
 
-const EMPTY: CompanyDetails = { email: '', address: '', contactNumbers: [] }
+const EMPTY: CompanyDetails = { emails: [], address: '', contactNumbers: [] }
 
 export default function CompanyDetailsForm() {
   const [form, setForm] = useState<CompanyDetails>(EMPTY)
@@ -21,7 +21,7 @@ export default function CompanyDetailsForm() {
     companyApi
       .get()
       .then((data) => {
-        if (!cancelled) setForm({ email: data.email, address: data.address, contactNumbers: data.contactNumbers })
+        if (!cancelled) setForm({ emails: data.emails, address: data.address, contactNumbers: data.contactNumbers })
       })
       .catch((err) => {
         if (!cancelled) setError(err instanceof Error ? err.message : 'Failed to load company details.')
@@ -35,6 +35,10 @@ export default function CompanyDetailsForm() {
     }
   }, [])
 
+  function updateEmail(index: number, value: string) {
+    setForm((prev) => ({ ...prev, emails: prev.emails.map((e, i) => (i === index ? value : e)) }))
+  }
+
   function updateNumber(index: number, value: string) {
     setForm((prev) => ({ ...prev, contactNumbers: prev.contactNumbers.map((n, i) => (i === index ? value : n)) }))
   }
@@ -46,14 +50,14 @@ export default function CompanyDetailsForm() {
     setSubmitting(true)
 
     const payload: CompanyDetails = {
-      email: form.email.trim(),
+      emails: form.emails.map((e) => e.trim()).filter(Boolean),
       address: form.address.trim(),
       contactNumbers: form.contactNumbers.map((n) => n.trim()).filter(Boolean),
     }
 
     try {
       const saved = await companyApi.update(payload)
-      setForm({ email: saved.email, address: saved.address, contactNumbers: saved.contactNumbers })
+      setForm({ emails: saved.emails, address: saved.address, contactNumbers: saved.contactNumbers })
       setSuccess('Company details saved successfully.')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to save company details.')
@@ -81,14 +85,32 @@ export default function CompanyDetailsForm() {
         </p>
 
         <form className={styles.form} onSubmit={handleSubmit} onChange={() => setSuccess(null)}>
-          <div className={styles.field}>
-            <label>Email</label>
-            <input
-              type="email"
-              value={form.email}
-              onChange={(e) => setForm((prev) => ({ ...prev, email: e.target.value }))}
-              placeholder="hello@yourcompany.com"
-            />
+          <div className={styles.section}>
+            <div className={styles.sectionTitle}>Emails</div>
+            {form.emails.map((email, index) => (
+              <div key={index} className={styles.listItem}>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => updateEmail(index, e.target.value)}
+                  placeholder="hello@yourcompany.com"
+                />
+                <button
+                  type="button"
+                  className={styles.removeButton}
+                  onClick={() => setForm((prev) => ({ ...prev, emails: prev.emails.filter((_, i) => i !== index) }))}
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              className={styles.addButton}
+              onClick={() => setForm((prev) => ({ ...prev, emails: [...prev.emails, ''] }))}
+            >
+              + Add email
+            </button>
           </div>
 
           <div className={styles.field}>

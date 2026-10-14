@@ -52,7 +52,11 @@ export default function ContactUs({ company }: { company: CompanyDetails }) {
       <section className={styles.formSection}>
         <div className={styles.infoCard}>
           <h2 className={styles.infoTitle}>Contact details</h2>
-          {company.email && <p className={styles.infoLine}>{company.email}</p>}
+          {company.emails.map((email) => (
+            <p key={email} className={styles.infoLine}>
+              {email}
+            </p>
+          ))}
           {company.contactNumbers.map((number) => (
             <p key={number} className={styles.infoLine}>
               {number}

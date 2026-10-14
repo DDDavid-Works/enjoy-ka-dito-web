@@ -1,5 +1,5 @@
 export type CompanyDetails = {
-  email: string
+  emails: string[]
   address: string
   contactNumbers: string[]
 }

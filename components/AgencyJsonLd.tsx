@@ -13,7 +13,7 @@ export default async function AgencyJsonLd() {
     url: SITE_URL,
     logo: absoluteUrl('/images/logo-square.png'),
     image: absoluteUrl('/images/hero-islands.jpg'),
-    email: company.email || undefined,
+    email: company.emails[0] || undefined,
     telephone: company.contactNumbers[0] || undefined,
     address: company.address ? { '@type': 'PostalAddress', streetAddress: company.address, addressCountry: 'PH' } : undefined,
     areaServed: 'PH',
