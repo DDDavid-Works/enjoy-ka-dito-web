@@ -3,6 +3,14 @@
 Status 2026-10-14: the new site runs on `https://enjoy-ka-dito-web-production-16e7.up.railway.app` (Railway service
 `enjoy-ka-dito-web`). The old Vite site (`enjoy-ka-dito-ui`) is still running. Neither has a custom domain yet.
 
+## Decision (2026-10-14): the new site takes over `enjoykadito.com` and WordPress is retired (option A3 below)
+
+Open items for this path, in order:
+1. **Package photos**: only 5 packages / 5 images exist in production (~45 MB of originals). Move them off `wp-content` before WordPress goes away (section 3).
+2. **Old URLs**: the 60 WordPress pages are already mapped (`lib/legacy-redirects.ts`, 53 redirect, 1 identical; 6 have no equivalent and will 404). Still undecided: the ~1,425 news posts and the 80 category/tag/author pages (section 4).
+3. **DNS and email**: which registrar/DNS provider holds `enjoykadito.com`, and does company email (MX records) live on that domain? Only the web records may change.
+4. **Backup**: before retiring WordPress, export its content (WordPress export file + the uploads folder) and keep it.
+
 ## 0. Read this first: `enjoykadito.com` is a live WordPress site
 
 Checked on 2026-10-14 (public pages, read-only):
@@ -88,7 +96,11 @@ Draft mapping from the WordPress page sitemap (review each one):
 | News posts `/YYYY/MM/DD/slug/` (~1,425) | if WordPress moves to `blog.<domain>`: one pattern rule `/:year(\\d{4})/:month/:day/:slug` -> `https://blog.<domain>/:year/:month/:day/:slug` |
 | Old sitemaps (`/sitemap.xml` index, `/sitemap_index.xml`, `/post-sitemap.xml`, ...) | only `/sitemap.xml` stays (the new one); the others can 404 once Search Console has the new sitemap |
 
-Test the redirect rules against the full URL list from the WordPress sitemaps (`page-sitemap.xml`, `post-sitemap.xml`, `post-sitemap2.xml`) with a script that expects a 301 or 200 for every URL before going live.
+Page redirects are implemented in `lib/legacy-redirects.ts` (wired into `next.config.ts`). Check them against a running copy with `node scripts/check-legacy-urls.mjs <base-url> pages` (also accepts `posts` or `all`); it reads the live WordPress sitemaps and lists every old URL that does not resolve.
+
+Pages with no equivalent (404 unless a decision is made): `/weather-broadcast`, `/bulletin`, `/photo-gallery`, `/let-us-help-you-how`, `/more/testimonial`, the Shella Viray testimonial page.
+
+News posts (retiring WordPress): redirecting ~1,425 old news posts to an unrelated page is treated by Google as soft 404s, so the honest options are (a) let them return 404/410, or (b) keep a static archive of the posts somewhere. Decide with the client.
 
 ## 5. Rollback
 
