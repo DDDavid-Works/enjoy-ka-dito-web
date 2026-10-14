@@ -1,0 +1,14 @@
+/* Small "Loading photo…" label shown only until the photo above it has loaded (the photo covers it completely). */
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 12px 16px;
+  overflow: hidden;
+  pointer-events: none;
+  font-size: 12px;
+  white-space: nowrap;
+  color: rgba(128, 128, 128, 0.9);
+}

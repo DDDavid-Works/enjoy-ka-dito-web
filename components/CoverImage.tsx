@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { canOptimize } from '@/lib/images'
+import styles from './CoverImage.module.css'
 
 type Props = {
   src: string
@@ -15,14 +16,20 @@ type Props = {
 // Replaces `background-size: cover` backgrounds. The parent must be `position: relative` with a set size.
 export default function CoverImage({ src, sizes, alt = '', preload, behind }: Props) {
   return (
-    <Image
-      src={src}
-      alt={alt}
-      fill
-      sizes={sizes}
-      preload={preload}
-      unoptimized={!canOptimize(src)}
-      style={{ objectFit: 'cover', ...(behind ? { zIndex: -1 } : {}) }}
-    />
+    <>
+      {/* Sits just under the photo (which is z-index -1 when `behind`), so it only shows while the photo loads. */}
+      <span className={styles.placeholder} style={behind ? { zIndex: -2 } : undefined} aria-hidden="true">
+        Loading photo…
+      </span>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes={sizes}
+        preload={preload}
+        unoptimized={!canOptimize(src)}
+        style={{ objectFit: 'cover', ...(behind ? { zIndex: -1 } : {}) }}
+      />
+    </>
   )
 }
