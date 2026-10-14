@@ -45,7 +45,7 @@ const GATEWAYS = [
 export const metadata: Metadata = {
   title: { absolute: 'Enjoy Ka Dito | Philippine Tours and Travel Agency' },
   description:
-    'Philippine-based travel agency offering local and international tour packages, corporate team building, family and senior tours, and inbound packages for foreign visitors.',
+    'From Philippine getaways to adventures abroad, MCP Greenery Travel and Tours helps you travel with ease, discover new places, and create lasting memories.',
   alternates: { canonical: '/' },
 }
 
