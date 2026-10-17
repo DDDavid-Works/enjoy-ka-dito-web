@@ -118,6 +118,14 @@
   flex: 1;
 }
 
+.itineraryItem textarea {
+  flex: none;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 120px;
+  resize: vertical;
+}
+
 .removeButton {
   border: none;
   background: rgba(179, 38, 30, 0.1);
