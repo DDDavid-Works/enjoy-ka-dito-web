@@ -1,5 +1,6 @@
 import { cacheLife } from 'next/cache'
 import Image from 'next/image'
+import Link from 'next/link'
 import { getCompanyDetails } from '@/lib/company'
 import { FacebookIcon, InstagramIcon, TiktokIcon } from './SocialIcons'
 import styles from './Footer.module.css'
@@ -73,7 +74,10 @@ export default async function Footer() {
       </div>
 
       <p className={styles.copyright}>
-        © {await currentYear()} Enjoy Ka Dito by: MCP Greenery Travel and Tours. All Rights Reserved.
+        © {await currentYear()} Enjoy Ka Dito by: MCP Greenery Travel and Tours. All Rights Reserved.{' '}
+        <Link href="/privacy-policy" className={styles.legalLink}>
+          Privacy Policy
+        </Link>
       </p>
     </footer>
   )

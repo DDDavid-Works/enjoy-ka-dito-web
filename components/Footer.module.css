@@ -132,3 +132,9 @@
     gap: 28px;
   }
 }
+
+.legalLink {
+  color: inherit;
+  text-decoration: underline;
+  margin-left: 8px;
+}

@@ -80,9 +80,20 @@ async function PackageDetail({ params }: Pick<PageProps<'/tour-packages/[slug]'>
     provider: { '@type': 'TravelAgency', name: SITE_NAME, url: SITE_URL },
   }).replace(/</g, '\\u003c')
 
+  const breadcrumbLd = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Tour Packages', item: `${SITE_URL}/tour-packages` },
+      { '@type': 'ListItem', position: 3, name: pkg.title, item: `${SITE_URL}/tour-packages/${pkg.slug}` },
+    ],
+  }).replace(/</g, '\\u003c')
+
   return (
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbLd }} />
 
       <section className={styles.hero}>
         {pkg.mainImage && <CoverImage src={pkg.mainImage} sizes="100vw" preload behind />}

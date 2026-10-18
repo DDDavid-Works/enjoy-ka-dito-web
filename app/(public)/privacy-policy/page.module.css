@@ -1,0 +1,35 @@
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 72px 24px 96px;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.7;
+}
+
+.page h2 {
+  margin: 36px 0 8px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--color-primary);
+}
+
+.page ul {
+  padding-left: 22px;
+}
+
+.page a {
+  color: var(--color-primary-light);
+  text-decoration: underline;
+}
+
+.title {
+  margin: 0 0 16px;
+  font-family: var(--font-display);
+  font-size: 40px;
+  color: var(--color-primary);
+}
+
+.intro {
+  font-size: 18px;
+}

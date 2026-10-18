@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import ChatWidgetLoader from '@/components/ChatWidgetLoader'
+import Analytics from '@/components/Analytics'
 
 // Header, footer and chat widget for the public site. The admin area (app/admin) has its own layout.
 export default function PublicLayout({ children }: LayoutProps<'/'>) {
@@ -18,6 +19,7 @@ export default function PublicLayout({ children }: LayoutProps<'/'>) {
       <Suspense>
         <ChatWidgetLoader />
       </Suspense>
+      <Analytics />
     </>
   )
 }

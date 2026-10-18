@@ -13,6 +13,7 @@ const STATIC_PATHS = [
   '/family-senior-tours',
   '/philippines-inbound',
   '/international-tours',
+  '/privacy-policy',
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
