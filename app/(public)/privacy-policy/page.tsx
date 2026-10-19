@@ -46,6 +46,12 @@ export default async function PrivacyPolicy() {
         statistics. You can block cookies in your browser settings or use Google&rsquo;s opt-out tools.
       </p>
 
+      <p>
+        Our forms are protected by Google reCAPTCHA to block spam. It analyses how the form is used and is subject
+        to Google&rsquo;s <a href="https://policies.google.com/privacy">Privacy Policy</a> and{' '}
+        <a href="https://policies.google.com/terms">Terms of Service</a>.
+      </p>
+
       <h2>Retention and security</h2>
       <p>
         We keep inquiry and booking records only as long as needed for the purposes above or as required by law, and

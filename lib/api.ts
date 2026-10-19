@@ -4,6 +4,7 @@ import type { Hotel, HotelInput } from '@/types/hotel'
 import type { Quotation, QuotationInput } from '@/types/quotation'
 import type { CompanyDetails } from '@/types/company'
 import type { User, UserInput } from '@/types/user'
+import { getRecaptchaToken } from './recaptcha'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000'
 const STORAGE_KEY = 'ekd-admin-auth'
@@ -63,8 +64,10 @@ export const hotelsApi = {
 }
 
 export const inquiriesApi = {
-  create: (data: InquiryInput) =>
-    request<Inquiry>('/inquiries', { method: 'POST', body: JSON.stringify(data) }),
+  create: async (data: InquiryInput) => {
+    const recaptchaToken = await getRecaptchaToken('inquiry')
+    return request<Inquiry>('/inquiries', { method: 'POST', body: JSON.stringify({ ...data, recaptchaToken }) })
+  },
   list: () => request<Inquiry[]>('/inquiries'),
   get: (id: string) => request<Inquiry>(`/inquiries/${id}`),
   updateStatus: (id: string, status: Inquiry['status']) =>
