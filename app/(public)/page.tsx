@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import AgencyJsonLd from '@/components/AgencyJsonLd'
 import CoverImage from '@/components/CoverImage'
+import { HERO_PHOTOS } from '@/lib/hero-photos'
 import styles from './page.module.css'
 
 const TRUST_BADGES = [
@@ -9,19 +10,6 @@ const TRUST_BADGES = [
   { icon: '🛡️', label: 'DOT Accredited' },
   { icon: '✈️', label: 'Airline Accreditations & Partnerships' },
   { icon: '🤝', label: 'Member: ALTTAP, NEATOP, PTCAO' },
-]
-
-// Placeholder photos for the hero mosaic. Swap these for real traveller photos (corporate groups, seniors, families)
-// once the client sends them; the first 6 show on phones, all 8 on larger screens.
-const HERO_MOSAIC = [
-  '/images/family-senior-tours.jpg',
-  '/images/corporate-team-building.jpg',
-  '/images/coron-lagoon.jpg',
-  '/images/international-tours.jpg',
-  '/images/bohol-countryside.jpg',
-  '/images/singapore-city.jpg',
-  '/images/local-tours.jpg',
-  '/images/thailand-boats.jpg',
 ]
 
 const GATEWAYS = [
@@ -68,7 +56,7 @@ export default function Home() {
       <AgencyJsonLd />
       <section className={styles.hero}>
         <div className={styles.heroMosaic} aria-hidden="true">
-          {HERO_MOSAIC.map((src, index) => (
+          {HERO_PHOTOS.map(({ src }, index) => (
             <div key={src} className={styles.heroTile}>
               <CoverImage src={src} sizes="(max-width: 900px) 50vw, 25vw" preload={index === 0} />
             </div>
