@@ -1,0 +1,84 @@
+.wrapper {
+  border: 1px solid rgba(30, 58, 114, 0.15);
+  border-radius: 10px;
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+.wrapper:focus-within {
+  border-color: rgba(30, 58, 114, 0.45);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px 8px;
+  border-bottom: 1px solid rgba(30, 58, 114, 0.1);
+  background: #f7f6f2;
+}
+
+.button {
+  min-width: 30px;
+  padding: 4px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: none;
+  font-size: 13px;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: rgba(30, 58, 114, 0.08);
+}
+
+.button.active {
+  border-color: rgba(30, 58, 114, 0.25);
+  background: rgba(30, 58, 114, 0.12);
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.content {
+  min-height: 90px;
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text);
+  outline: none;
+}
+
+.content p {
+  margin: 0 0 6px;
+}
+
+.content ul,
+.content ol {
+  margin: 0 0 6px;
+  padding-left: 22px;
+}
+
+.content li p {
+  margin: 0;
+}
+
+/* Placeholder on the empty editor's first paragraph. */
+.empty .content > p:first-child::before {
+  content: var(--placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  color: rgba(30, 58, 114, 0.4);
+}

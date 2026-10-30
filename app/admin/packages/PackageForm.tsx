@@ -398,20 +398,23 @@ export default function PackageForm() {
             </>
           )}
 
-          {error && <p className={styles.error}>{error}</p>}
-          {success && (
-            <p className={styles.success} role="status">
-              {success}
-            </p>
-          )}
+          {/* Stays on screen while scrolling, so the form can be saved from anywhere. */}
+          <div className={styles.stickyFooter}>
+            {error && <p className={styles.error}>{error}</p>}
+            {success && (
+              <p className={styles.success} role="status">
+                {success}
+              </p>
+            )}
 
-          <div className={styles.actions}>
-            <button type="submit" className={styles.submit} disabled={submitting}>
-              {submitting ? 'Saving…' : isEditing ? 'Save Changes' : 'Create Package'}
-            </button>
-            <button type="button" className={styles.cancel} onClick={() => router.push('/admin/packages')}>
-              Cancel
-            </button>
+            <div className={styles.actions}>
+              <button type="submit" className={styles.submit} disabled={submitting}>
+                {submitting ? 'Saving…' : isEditing ? 'Save Changes' : 'Create Package'}
+              </button>
+              <button type="button" className={styles.cancel} onClick={() => router.push('/admin/packages')}>
+                Cancel
+              </button>
+            </div>
           </div>
         </form>
       </main>

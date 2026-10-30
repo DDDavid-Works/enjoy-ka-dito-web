@@ -10,9 +10,11 @@ export type Quotation = {
   inquiry?: { id: string; name: string } | null
   inclusions: QuotationInclusion[]
   inclusionNotes: string
+  paymentNotes: string
   accommodations: QuotationAccommodation[]
   exclusions: string[]
   optionalTours: QuotationOptionalTour[]
+  importantNotes: string
   createdAt: string
   updatedAt: string
 }

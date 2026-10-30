@@ -2,19 +2,34 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'next/navigation'
-import { companyApi, hotelsApi, quotationsApi } from '@/lib/api'
+import { hotelsApi, quotationsApi } from '@/lib/api'
+import DOMPurify from 'dompurify'
 import { detailTotal, formatPeso, inclusionTotal } from '@/lib/quotationTotals'
-import type { CompanyDetails } from '@/types/company'
+import { isBlankHtml, notesToHtml } from '@/lib/richText'
 import type { Hotel } from '@/types/hotel'
 import type { Quotation } from '@/types/quotation'
 import styles from './QuotationPrint.module.css'
 
-type PrintData = { quotation: Quotation; company: CompanyDetails; hotels: Hotel[] }
+type PrintData = { quotation: Quotation; hotels: Hotel[] }
+
+// The client's A4 letterhead (rendered from Quotation-Package-Format-1.pdf). It is
+// printed behind every page; the content sits between its header and footer art.
+const LETTERHEAD = '/images/quotation-letterhead.jpg'
 
 // "2026-10-05" -> "October 5, 2026" (no time zone shift).
 function longDate(isoDate: string) {
   const [year, month, day] = isoDate.split('-').map(Number)
   return new Date(year, month - 1, day).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+}
+
+// The notes fields are HTML from the rich-text editor (older ones plain text).
+// Only the formatting the editor can produce is let through.
+function RichText({ value }: { value: string }) {
+  const html = DOMPurify.sanitize(notesToHtml(value), {
+    ALLOWED_TAGS: ['p', 'br', 'strong', 'b', 'em', 'i', 'u', 's', 'ul', 'ol', 'li'],
+    ALLOWED_ATTR: [],
+  })
+  return <div className={styles.richText} dangerouslySetInnerHTML={{ __html: html }} />
 }
 
 function Amount({ value }: { value?: number }) {
@@ -33,9 +48,9 @@ export default function QuotationPrint() {
     if (!id) return
     let cancelled = false
 
-    Promise.all([quotationsApi.get(id), companyApi.get(), hotelsApi.list().catch(() => [] as Hotel[])])
-      .then(([quotation, company, hotels]) => {
-        if (!cancelled) setData({ quotation, company, hotels })
+    Promise.all([quotationsApi.get(id), hotelsApi.list().catch(() => [] as Hotel[])])
+      .then(([quotation, hotels]) => {
+        if (!cancelled) setData({ quotation, hotels })
       })
       .catch((err) => {
         if (!cancelled) setError(err instanceof Error ? err.message : 'Failed to load the quotation.')
@@ -59,17 +74,21 @@ export default function QuotationPrint() {
     }
   }, [data])
 
-  // Open the print dialog once, after the content and fonts are ready.
+  // Open the print dialog once, after the content, fonts and letterhead are ready.
   useEffect(() => {
     if (!data || printed.current) return
     printed.current = true
-    document.fonts.ready.then(() => setTimeout(() => window.print(), 300))
+    const letterhead = new Image()
+    letterhead.src = LETTERHEAD
+    Promise.all([document.fonts.ready, letterhead.decode().catch(() => undefined)]).then(() =>
+      setTimeout(() => window.print(), 300),
+    )
   }, [data])
 
   if (error) return <p className={styles.message}>{error}</p>
   if (!data) return <p className={styles.message}>Preparing quotation…</p>
 
-  const { quotation, company, hotels } = data
+  const { quotation, hotels } = data
   const hotelsById = new Map(hotels.map((h) => [h.id, h]))
 
   return (
@@ -87,129 +106,157 @@ export default function QuotationPrint() {
       </div>
 
       <article className={styles.sheet}>
-        <header className={styles.header}>
-          <img src="/images/logo-square.png" alt="Enjoy Ka Dito" className={styles.logo} />
-          <div className={styles.company}>
-            {company.emails.map((email) => (
-              <p key={email}>{email}</p>
-            ))}
-            {company.contactNumbers.map((number) => (
-              <p key={number}>{number}</p>
-            ))}
-            {company.address && <p>{company.address}</p>}
-          </div>
-        </header>
+        <img src={LETTERHEAD} alt="" className={styles.letterhead} />
 
-        <h1 className={styles.title}>QUOTATION</h1>
+        {/* The table's head and foot rows repeat on every printed page, keeping the
+            content clear of the letterhead's header and footer art. */}
+        <table className={styles.layout}>
+          <thead>
+            <tr>
+              <td>
+                <div className={styles.headSpace} />
+              </td>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <td>
+                <div className={styles.footSpace} />
+              </td>
+            </tr>
+          </tfoot>
+          <tbody>
+            <tr>
+              <td>
+                <h1 className={styles.title}>QUOTATION</h1>
 
-        <dl className={styles.meta}>
-          <dt>Quotation</dt>
-          <dd>{quotation.title}</dd>
-          {quotation.customerName && (
-            <>
-              <dt>Prepared For</dt>
-              <dd>{quotation.customerName}</dd>
-            </>
-          )}
-          {quotation.quoteDate && (
-            <>
-              <dt>Quote Date</dt>
-              <dd>{longDate(quotation.quoteDate)}</dd>
-            </>
-          )}
-        </dl>
+                <dl className={styles.meta}>
+                  <dt>Quotation</dt>
+                  <dd>{quotation.title}</dd>
+                  {quotation.customerName && (
+                    <>
+                      <dt>Prepared For</dt>
+                      <dd>{quotation.customerName}</dd>
+                    </>
+                  )}
+                  {quotation.quoteDate && (
+                    <>
+                      <dt>Quote Date</dt>
+                      <dd>{longDate(quotation.quoteDate)}</dd>
+                    </>
+                  )}
+                </dl>
 
-        {quotation.remarks.trim() && (
-          <section className={styles.section}>
-            <h2 className={styles.heading}>Remarks</h2>
-            <p className={styles.remarks}>{quotation.remarks}</p>
-          </section>
-        )}
+                {quotation.remarks.trim() && (
+                  <section className={styles.section}>
+                    <h2 className={styles.heading}>Remarks</h2>
+                    <p className={styles.remarks}>{quotation.remarks}</p>
+                  </section>
+                )}
 
-        {quotation.inclusions.length > 0 && (
-          <section className={styles.section}>
-            <div className={styles.tableHead}>
-              <span>PACKAGE INCLUDES</span>
-              <span>PRICE PER HEAD</span>
-            </div>
-
-            {quotation.inclusions.map((inclusion, i) => (
-              <div key={i} className={styles.group}>
-                <div className={`${styles.row} ${styles.level1}`}>
-                  <span className={styles.text}>{inclusion.text}</span>
-                  <Amount value={inclusionTotal(inclusion)} />
-                </div>
-                {inclusion.details.map((detail, j) => (
-                  <div key={j}>
-                    <div className={`${styles.row} ${styles.level2}`}>
-                      <span className={styles.text}>{detail.text}</span>
-                      <Amount value={detailTotal(detail)} />
+                {quotation.inclusions.length > 0 && (
+                  <section className={styles.section}>
+                    <div className={styles.tableHead}>
+                      <span>PACKAGE INCLUDES</span>
+                      <span>PRICE PER HEAD</span>
                     </div>
-                    {detail.details.map((sub, k) => (
-                      <div key={k} className={`${styles.row} ${styles.level3}`}>
-                        <span className={styles.text}>{sub.text}</span>
-                        <Amount value={sub.price} />
+
+                    {quotation.inclusions.map((inclusion, i) => (
+                      <div key={i} className={styles.group}>
+                        <div className={`${styles.row} ${styles.level1}`}>
+                          <span className={styles.text}>{inclusion.text}</span>
+                          <Amount value={inclusionTotal(inclusion)} />
+                        </div>
+                        {inclusion.details.map((detail, j) => (
+                          <div key={j}>
+                            <div className={`${styles.row} ${styles.level2}`}>
+                              <span className={styles.text}>{detail.text}</span>
+                              <Amount value={detailTotal(detail)} />
+                            </div>
+                            {detail.details.map((sub, k) => (
+                              <div key={k} className={`${styles.row} ${styles.level3}`}>
+                                <span className={styles.text}>{sub.text}</span>
+                                <Amount value={sub.price} />
+                              </div>
+                            ))}
+                          </div>
+                        ))}
                       </div>
                     ))}
+                    {!isBlankHtml(quotation.inclusionNotes) && (
+                      <div className={styles.notes}>
+                        <strong>Tour Notes:</strong>
+                        <RichText value={quotation.inclusionNotes} />
+                      </div>
+                    )}
+                  </section>
+                )}
+
+                {!isBlankHtml(quotation.paymentNotes) && (
+                  <div className={styles.notes}>
+                    <strong>Payment Notes:</strong>
+                    <RichText value={quotation.paymentNotes} />
                   </div>
-                ))}
-              </div>
-            ))}
-            {quotation.inclusionNotes.trim() && (
-              <p className={styles.notes}>
-                <strong>Notes:</strong> {quotation.inclusionNotes}
-              </p>
-            )}
-          </section>
-        )}
+                )}
 
-        {quotation.accommodations.length > 0 && (
-          <section className={styles.section}>
-            <h2 className={styles.heading}>Choose among the accommodation below:</h2>
-            {quotation.accommodations.map((item, i) => {
-              const hotel = hotelsById.get(item.hotelId)
-              return (
-                <div key={i} className={`${styles.row} ${styles.level1} ${styles.accommodation} ${styles.group}`}>
-                  <span className={styles.text}>
-                    {item.nights} Night{item.nights === 1 ? '' : 's'} stay at{' '}
-                    <strong>{hotel ? `${hotel.name} (${hotel.region})` : 'Hotel no longer listed'}</strong>
-                    {item.remarks && <em> ({item.remarks})</em>}
-                  </span>
-                  <span className={styles.amount}>
-                    {item.ratePerHead === undefined ? '' : `${formatPeso(item.ratePerHead)} per head`}
-                  </span>
-                </div>
-              )
-            })}
-          </section>
-        )}
+                {quotation.accommodations.length > 0 && (
+                  <section className={styles.section}>
+                    <h2 className={styles.heading}>Choose among the accommodation below:</h2>
+                    {quotation.accommodations.map((item, i) => {
+                      const hotel = hotelsById.get(item.hotelId)
+                      return (
+                        <div key={i} className={`${styles.row} ${styles.level1} ${styles.accommodation} ${styles.group}`}>
+                          <span className={styles.text}>
+                            {item.nights} Night{item.nights === 1 ? '' : 's'} stay at{' '}
+                            <strong>{hotel ? `${hotel.name} (${hotel.region})` : 'Hotel no longer listed'}</strong>
+                            {item.remarks && <em> ({item.remarks})</em>}
+                          </span>
+                          <span className={styles.amount}>
+                            {item.ratePerHead === undefined ? '' : `${formatPeso(item.ratePerHead)} per head`}
+                          </span>
+                        </div>
+                      )
+                    })}
+                  </section>
+                )}
 
-        {quotation.exclusions.length > 0 && (
-          <section className={styles.section}>
-            <h2 className={`${styles.heading} ${styles.excludes}`}>Package Excludes:</h2>
-            <ul className={styles.list}>
-              {quotation.exclusions.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-          </section>
-        )}
+                {quotation.exclusions.length > 0 && (
+                  <section className={styles.section}>
+                    <h2 className={`${styles.heading} ${styles.excludes}`}>Package Excludes:</h2>
+                    <ul className={styles.list}>
+                      {quotation.exclusions.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
 
-        {quotation.optionalTours.length > 0 && (
-          <section className={styles.section}>
-            <h2 className={`${styles.heading} ${styles.excludes}`}>Optional Tours: (with additional fee)</h2>
-            {quotation.optionalTours.map((tour, i) => (
-              <div key={i} className={styles.group}>
-                <p className={styles.tourTitle}>{tour.text}</p>
-                {tour.details.map((detail, j) => (
-                  <p key={j} className={styles.tourDetail}>
-                    - {detail}
-                  </p>
-                ))}
-              </div>
-            ))}
-          </section>
-        )}
+                {quotation.optionalTours.length > 0 && (
+                  <section className={styles.section}>
+                    <h2 className={`${styles.heading} ${styles.excludes}`}>Optional Tours: (with additional fee)</h2>
+                    {quotation.optionalTours.map((tour, i) => (
+                      <div key={i} className={styles.group}>
+                        <p className={styles.tourTitle}>{tour.text}</p>
+                        {tour.details.map((detail, j) => (
+                          <p key={j} className={styles.tourDetail}>
+                            - {detail}
+                          </p>
+                        ))}
+                      </div>
+                    ))}
+                  </section>
+                )}
+
+                {!isBlankHtml(quotation.importantNotes) && (
+                  <section className={styles.section}>
+                    <h2 className={styles.heading}>Important Notes:</h2>
+                    <RichText value={quotation.importantNotes} />
+                  </section>
+                )}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </article>
     </div>
   )

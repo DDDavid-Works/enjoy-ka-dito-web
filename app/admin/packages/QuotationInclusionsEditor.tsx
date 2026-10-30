@@ -1,9 +1,14 @@
 'use client'
 
+import type { ReactNode } from 'react'
 import { detailTotal, formatPeso, inclusionTotal } from '@/lib/quotationTotals'
 import type { QuotationDetail, QuotationInclusion, QuotationSubDetail } from '@/types/package'
+import RichTextField from '@/components/RichTextField'
 import PriceField from './PriceField'
 import styles from './PackageForm.module.css'
+
+const NOTES_PLACEHOLDER =
+  'e.g. Tour note: complimentary pick-up is available for hotels in Corong-Corong and the town proper.'
 
 type Props = {
   value: QuotationInclusion[]
@@ -11,6 +16,12 @@ type Props = {
   // Free-text notes shown under the inclusions.
   notes: string
   onNotesChange: (next: string) => void
+  // Label for the notes field (defaults to "Notes").
+  notesLabel?: string
+  // Quotations: edit the notes as rich text (HTML) instead of plain text.
+  richNotes?: boolean
+  // Extra fields shown under the notes.
+  children?: ReactNode
   // Drop the top divider when this is the first thing under the tab bar.
   flush?: boolean
   // Quotations: rows with children show a calculated Total instead of an editable price.
@@ -51,7 +62,17 @@ function TotalLabel({ value }: { value?: number }) {
   )
 }
 
-export default function QuotationInclusionsEditor({ value, onChange, notes, onNotesChange, flush, showTotals }: Props) {
+export default function QuotationInclusionsEditor({
+  value,
+  onChange,
+  notes,
+  onNotesChange,
+  notesLabel = 'Notes',
+  richNotes,
+  children,
+  flush,
+  showTotals,
+}: Props) {
   function updateInclusion(index: number, patch: Partial<QuotationInclusion>) {
     onChange(replaceAt(value, index, { ...value[index], ...patch }))
   }
@@ -181,14 +202,24 @@ export default function QuotationInclusionsEditor({ value, onChange, notes, onNo
       </button>
 
       <div className={`${styles.field} ${styles.notesField}`}>
-        <label>Notes</label>
-        <textarea
-          value={notes}
-          onChange={(e) => onNotesChange(e.target.value)}
-          placeholder="e.g. Tour note: complimentary pick-up is available for hotels in Corong-Corong and the town proper."
-          rows={4}
-        />
+        <label>{notesLabel}</label>
+        {richNotes ? (
+          <RichTextField
+            ariaLabel={notesLabel}
+            value={notes}
+            onChange={onNotesChange}
+            placeholder={NOTES_PLACEHOLDER}
+          />
+        ) : (
+          <textarea
+            value={notes}
+            onChange={(e) => onNotesChange(e.target.value)}
+            placeholder={NOTES_PLACEHOLDER}
+            rows={4}
+          />
+        )}
       </div>
+      {children}
     </div>
   )
 }

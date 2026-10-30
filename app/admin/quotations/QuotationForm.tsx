@@ -11,6 +11,8 @@ import {
   cleanOptionalTours,
 } from '@/lib/quotationSections'
 import { buildQuotationFromInquiry, sectionsFromPackage } from '@/lib/quotationPrefill'
+import { cleanRichText } from '@/lib/richText'
+import RichTextField from '@/components/RichTextField'
 import type { Hotel } from '@/types/hotel'
 import type { Package } from '@/types/package'
 import type { Quotation, QuotationInput } from '@/types/quotation'
@@ -34,9 +36,11 @@ const EMPTY: QuotationInput = {
   remarks: '',
   inclusions: [],
   inclusionNotes: '',
+  paymentNotes: '',
   accommodations: [],
   exclusions: [],
   optionalTours: [],
+  importantNotes: '',
 }
 
 export default function QuotationForm() {
@@ -124,9 +128,11 @@ export default function QuotationForm() {
           remarks: quotation.remarks ?? '',
           inclusions: quotation.inclusions,
           inclusionNotes: quotation.inclusionNotes ?? '',
+          paymentNotes: quotation.paymentNotes ?? '',
           accommodations: quotation.accommodations,
           exclusions: quotation.exclusions,
           optionalTours: quotation.optionalTours,
+          importantNotes: quotation.importantNotes ?? '',
         })
       })
       .catch((err) => setError(err instanceof Error ? err.message : 'Failed to load quotation.'))
@@ -176,10 +182,12 @@ export default function QuotationForm() {
       customerName: form.customerName.trim(),
       remarks: form.remarks.trim(),
       inclusions: cleanInclusions(form.inclusions, { dropParentPrices: true }),
-      inclusionNotes: form.inclusionNotes.trim(),
+      inclusionNotes: cleanRichText(form.inclusionNotes),
+      paymentNotes: cleanRichText(form.paymentNotes),
       accommodations: cleanAccommodations(form.accommodations),
       exclusions: cleanExclusions(form.exclusions),
       optionalTours: cleanOptionalTours(form.optionalTours),
+      importantNotes: cleanRichText(form.importantNotes),
     }
 
     try {
@@ -299,7 +307,19 @@ export default function QuotationForm() {
             onChange={(next) => updateField('inclusions', next)}
             notes={form.inclusionNotes}
             onNotesChange={(next) => updateField('inclusionNotes', next)}
-          />
+            notesLabel="Tour Notes"
+            richNotes
+          >
+            <div className={`${styles.field} ${styles.notesField}`}>
+              <label>Payment Notes</label>
+              <RichTextField
+                ariaLabel="Payment Notes"
+                value={form.paymentNotes}
+                onChange={(next) => updateField('paymentNotes', next)}
+                placeholder="e.g. 50% down payment to confirm the booking; full payment 30 days before travel."
+              />
+            </div>
+          </QuotationInclusionsEditor>
           <QuotationAccommodationsEditor
             value={form.accommodations}
             hotels={hotels}
@@ -316,31 +336,45 @@ export default function QuotationForm() {
             value={form.optionalTours}
             onChange={(next) => updateField('optionalTours', next)}
           />
+          <div className={styles.section}>
+            <div className={styles.sectionTitle}>Important Notes</div>
+            <div className={styles.field}>
+              <RichTextField
+                ariaLabel="Important Notes"
+                value={form.importantNotes}
+                onChange={(next) => updateField('importantNotes', next)}
+                placeholder="e.g. Rates are subject to change without prior notice until the booking is confirmed."
+              />
+            </div>
+          </div>
 
-          {error && <p className={styles.error}>{error}</p>}
-          {success && (
-            <p className={styles.success} role="status">
-              {success}
-            </p>
-          )}
-
-          <div className={styles.actions}>
-            <button type="submit" className={styles.submit} disabled={submitting}>
-              {submitting ? 'Saving…' : isEditing ? 'Save Changes' : 'Create Quotation'}
-            </button>
-            <button type="button" className={styles.cancel} onClick={() => router.push('/admin/quotations')}>
-              Cancel
-            </button>
-            {isEditing && id && (
-              <button
-                type="button"
-                className={styles.cancel}
-                title="Exports the saved version of this quotation"
-                onClick={() => window.open(`/admin/quotations/${id}/print`, '_blank')}
-              >
-                Export PDF
-              </button>
+          {/* Stays on screen while scrolling, so the form can be saved from anywhere. */}
+          <div className={styles.stickyFooter}>
+            {error && <p className={styles.error}>{error}</p>}
+            {success && (
+              <p className={styles.success} role="status">
+                {success}
+              </p>
             )}
+
+            <div className={styles.actions}>
+              <button type="submit" className={styles.submit} disabled={submitting}>
+                {submitting ? 'Saving…' : isEditing ? 'Save Changes' : 'Create Quotation'}
+              </button>
+              <button type="button" className={styles.cancel} onClick={() => router.push('/admin/quotations')}>
+                Cancel
+              </button>
+              {isEditing && id && (
+                <button
+                  type="button"
+                  className={styles.cancel}
+                  title="Exports the saved version of this quotation"
+                  onClick={() => window.open(`/admin/quotations/${id}/print`, '_blank')}
+                >
+                  Export PDF
+                </button>
+              )}
+            </div>
           </div>
         </form>
       </main>
