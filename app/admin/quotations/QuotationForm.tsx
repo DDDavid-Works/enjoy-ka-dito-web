@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
-import { hotelsApi, inquiriesApi, packagesApi, quotationsApi } from '@/lib/api'
+import { hotelsApi, inquiriesApi, packagesApi, quotationDefaultsApi, quotationsApi } from '@/lib/api'
 import {
   cleanAccommodations,
   cleanExclusions,
@@ -11,11 +11,11 @@ import {
   cleanOptionalTours,
 } from '@/lib/quotationSections'
 import { buildQuotationFromInquiry, sectionsFromPackage } from '@/lib/quotationPrefill'
-import { cleanRichText } from '@/lib/richText'
+import { cleanRichText, isBlankHtml } from '@/lib/richText'
 import RichTextField from '@/components/RichTextField'
 import type { Hotel } from '@/types/hotel'
 import type { Package } from '@/types/package'
-import type { Quotation, QuotationInput } from '@/types/quotation'
+import type { Quotation, QuotationDefaults, QuotationInput } from '@/types/quotation'
 import QuotationAccommodationsEditor from '../packages/QuotationAccommodationsEditor'
 import QuotationExclusionsEditor from '../packages/QuotationExclusionsEditor'
 import QuotationInclusionsEditor from '../packages/QuotationInclusionsEditor'
@@ -44,6 +44,17 @@ const EMPTY: QuotationInput = {
   importantNotes: '',
 }
 
+type NoteKey = keyof QuotationDefaults
+const NOTE_KEYS: NoteKey[] = ['inclusionNotes', 'paymentNotes', 'importantNotes']
+
+// Fills a new quotation's blank notes with the saved defaults (a package's own notes win).
+function withDefaultNotes<T extends QuotationDefaults>(form: T, defaults: QuotationDefaults | null): T {
+  if (!defaults) return form
+  const filled = { ...form }
+  for (const key of NOTE_KEYS) if (isBlankHtml(filled[key])) filled[key] = defaults[key]
+  return filled
+}
+
 export default function QuotationForm() {
   const { id } = useParams<{ id?: string }>()
   const isEditing = Boolean(id)
@@ -64,6 +75,11 @@ export default function QuotationForm() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [prefilledFrom, setPrefilledFrom] = useState<string | null>(null)
+  const [defaults, setDefaults] = useState<QuotationDefaults | null>(null)
+  // The latest defaults, for the async inquiry prefill.
+  const defaultsRef = useRef<QuotationDefaults | null>(null)
+  // "Use as default" ticks you changed. Untouched, a box is ticked while its notes match the default.
+  const [useAsDefault, setUseAsDefault] = useState<Partial<Record<NoteKey, boolean>>>({})
   // The last title this form generated from a package. While the title still equals it, the
   // title is "automatic" and follows the selected package; once you type your own, it stays.
   const autoTitle = useRef('')
@@ -74,6 +90,16 @@ export default function QuotationForm() {
     hotelsApi
       .list()
       .then((data) => !cancelled && setHotels(data))
+      .catch(() => {})
+
+    quotationDefaultsApi
+      .get()
+      .then((data) => {
+        if (cancelled) return
+        defaultsRef.current = data
+        setDefaults(data)
+        if (!isEditing) setForm((prev) => withDefaultNotes(prev, data))
+      })
       .catch(() => {})
 
     if (!isEditing) {
@@ -100,7 +126,7 @@ export default function QuotationForm() {
 
       const prefill = buildQuotationFromInquiry(inquiry, pkg)
       autoTitle.current = prefill.title
-      setForm((prev) => ({ ...prev, ...prefill }))
+      setForm((prev) => withDefaultNotes({ ...prev, ...prefill }, defaultsRef.current))
       setPrefilledFrom(inquiry.name)
     }
 
@@ -159,12 +185,35 @@ export default function QuotationForm() {
     const generatedTitle = `${pkg.title} Quotation`
     if (titleIsAutomatic) autoTitle.current = generatedTitle
 
-    setForm((prev) => ({
-      ...prev,
-      packageId: pkg.id,
-      title: titleIsAutomatic ? generatedTitle : prev.title,
-      ...sectionsFromPackage(pkg),
-    }))
+    setForm((prev) =>
+      withDefaultNotes(
+        {
+          ...prev,
+          packageId: pkg.id,
+          title: titleIsAutomatic ? generatedTitle : prev.title,
+          ...sectionsFromPackage(pkg),
+        },
+        defaults,
+      ),
+    )
+  }
+
+  function isUsedAsDefault(key: NoteKey) {
+    const matchesDefault = defaults !== null && !isBlankHtml(defaults[key]) && cleanRichText(form[key]) === defaults[key]
+    return useAsDefault[key] ?? matchesDefault
+  }
+
+  function defaultToggle(key: NoteKey) {
+    return (
+      <label className={styles.defaultToggle}>
+        <input
+          type="checkbox"
+          checked={isUsedAsDefault(key)}
+          onChange={(e) => setUseAsDefault((prev) => ({ ...prev, [key]: e.target.checked }))}
+        />
+        Use as default for new quotations
+      </label>
+    )
   }
 
   async function handleSubmit(event: FormEvent) {
@@ -193,7 +242,21 @@ export default function QuotationForm() {
       importantNotes: cleanRichText(form.importantNotes),
     }
 
+    // Ticked notes that differ from the saved default become the new default.
+    const newDefaults: Partial<QuotationDefaults> = {}
+    for (const key of NOTE_KEYS) {
+      if (isUsedAsDefault(key) && payload[key] !== defaults?.[key]) newDefaults[key] = payload[key]
+    }
+
     try {
+      // Saved first: if the quotation then fails, retrying only re-saves the same defaults.
+      if (Object.keys(newDefaults).length > 0) {
+        const saved = await quotationDefaultsApi.update(newDefaults)
+        defaultsRef.current = saved
+        setDefaults(saved)
+      }
+      setUseAsDefault({})
+
       if (isEditing && id) {
         const saved = await quotationsApi.update(id, payload)
         // Stay on the page: sync the cleaned values (the name comes back proper-cased) and confirm the save.
@@ -322,6 +385,7 @@ export default function QuotationForm() {
             notesLabel="Tour Notes"
             richNotes
           >
+            {defaultToggle('inclusionNotes')}
             <div className={`${styles.field} ${styles.notesField}`}>
               <label>Payment Notes</label>
               <RichTextField
@@ -330,6 +394,7 @@ export default function QuotationForm() {
                 onChange={(next) => updateField('paymentNotes', next)}
                 placeholder="e.g. 50% down payment to confirm the booking; full payment 30 days before travel."
               />
+              {defaultToggle('paymentNotes')}
             </div>
           </QuotationInclusionsEditor>
           <QuotationAccommodationsEditor
@@ -357,6 +422,7 @@ export default function QuotationForm() {
                 onChange={(next) => updateField('importantNotes', next)}
                 placeholder="e.g. Rates are subject to change without prior notice until the booking is confirmed."
               />
+              {defaultToggle('importantNotes')}
             </div>
           </div>
 

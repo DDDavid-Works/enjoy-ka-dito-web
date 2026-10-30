@@ -1,7 +1,7 @@
 import type { Package, PackageInput } from '@/types/package'
 import type { Inquiry, InquiryInput } from '@/types/inquiry'
 import type { Hotel, HotelInput } from '@/types/hotel'
-import type { Quotation, QuotationInput } from '@/types/quotation'
+import type { Quotation, QuotationDefaults, QuotationInput } from '@/types/quotation'
 import type { CompanyDetails } from '@/types/company'
 import type { User, UserInput } from '@/types/user'
 import { getRecaptchaToken } from './recaptcha'
@@ -82,6 +82,12 @@ export const quotationsApi = {
   update: (id: string, data: Partial<QuotationInput>) =>
     request<Quotation>(`/quotations/${id}`, { method: 'PATCH', body: JSON.stringify(data) }),
   remove: (id: string) => request<void>(`/quotations/${id}`, { method: 'DELETE' }),
+}
+
+export const quotationDefaultsApi = {
+  get: () => request<QuotationDefaults>('/quotation-defaults'),
+  update: (data: Partial<QuotationDefaults>) =>
+    request<QuotationDefaults>('/quotation-defaults', { method: 'PATCH', body: JSON.stringify(data) }),
 }
 
 export const authApi = {

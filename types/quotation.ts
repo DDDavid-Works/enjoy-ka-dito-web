@@ -21,7 +21,10 @@ export type Quotation = {
   updatedAt: string
 }
 
-export type QuotationInput = Omit<Quotation, 'id' | 'package' | 'inquiry' | 'createdAt' | 'updatedAt'> & {
+// The notes a new quotation starts with.
+export type QuotationDefaults = Pick<Quotation, 'inclusionNotes' | 'paymentNotes' | 'importantNotes'>
+
+export type QuotationInput =Omit<Quotation, 'id' | 'package' | 'inquiry' | 'createdAt' | 'updatedAt'> & {
   // Only used on create: the package this quotation was started from.
   packageId?: string
   // Only used on create: the inquiry this quotation is created from.

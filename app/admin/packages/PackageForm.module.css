@@ -376,6 +376,22 @@
   margin-top: 16px;
 }
 
+/* Quotations: "Use as default for new quotations" under a notes editor. */
+.defaultToggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.defaultToggle input {
+  width: auto;
+  margin: 0;
+}
+
 .fieldHint {
   font-size: 12px;
   color: var(--color-text);
