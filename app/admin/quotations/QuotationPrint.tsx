@@ -128,7 +128,11 @@ export default function QuotationPrint() {
           <tbody>
             <tr>
               <td>
-                <h1 className={styles.title}>QUOTATION</h1>
+                {/* Page 1's top block, pulled up into the space under the "Travel" script. */}
+                <div className={styles.intro}>
+                  {quotation.quoteDate && <p className={styles.quoteDate}>{longDate(quotation.quoteDate)}</p>}
+                  <h1 className={styles.title}>QUOTATION</h1>
+                </div>
 
                 <dl className={styles.meta}>
                   <dt>Quotation</dt>
@@ -137,12 +141,6 @@ export default function QuotationPrint() {
                     <>
                       <dt>Prepared For</dt>
                       <dd>{quotation.customerName}</dd>
-                    </>
-                  )}
-                  {quotation.quoteDate && (
-                    <>
-                      <dt>Quote Date</dt>
-                      <dd>{longDate(quotation.quoteDate)}</dd>
                     </>
                   )}
                   {quotation.travelDate?.trim() && (

@@ -90,11 +90,19 @@
 
 /* ---- sheet content ---- */
 
-/* Page 1 only: the title and meta block sit up in the empty space under the
+/* Page 1 only: the date, title and meta block sit up in the empty space under the
    "Travel" script, narrow enough to stay clear of the address on the right. */
-.title {
+.intro {
   max-width: 120mm;
-  margin: -26mm 0 10px;
+  margin-top: -28mm;
+}
+
+.quoteDate {
+  margin: 0 0 6px;
+}
+
+.title {
+  margin: 0 0 10px;
   font-size: 22px;
   font-weight: 700;
   letter-spacing: 0.12em;
