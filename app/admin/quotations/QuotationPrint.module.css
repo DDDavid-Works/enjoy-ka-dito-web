@@ -203,6 +203,15 @@
   font-weight: 700;
 }
 
+/* Accommodation rates are estimates, marked with "~" and highlighted. */
+.estimate {
+  padding: 1px 6px;
+  background: #ffc000;
+  font-weight: 700;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
 .level2 {
   padding-left: 18px;
 }

@@ -214,7 +214,9 @@ export default function QuotationPrint() {
                             {item.remarks && <em> ({item.remarks})</em>}
                           </span>
                           <span className={styles.amount}>
-                            {item.ratePerHead === undefined ? '' : `${formatPeso(item.ratePerHead)} per head`}
+                            {item.ratePerHead !== undefined && (
+                              <span className={styles.estimate}>~{formatPeso(item.ratePerHead)} per head</span>
+                            )}
                           </span>
                         </div>
                       )
