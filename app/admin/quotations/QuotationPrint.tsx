@@ -145,6 +145,12 @@ export default function QuotationPrint() {
                       <dd>{longDate(quotation.quoteDate)}</dd>
                     </>
                   )}
+                  {quotation.travelDate?.trim() && (
+                    <>
+                      <dt>Travel Date</dt>
+                      <dd>{quotation.travelDate}</dd>
+                    </>
+                  )}
                 </dl>
 
                 {quotation.remarks.trim() && (

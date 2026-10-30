@@ -33,6 +33,7 @@ const EMPTY: QuotationInput = {
   title: '',
   customerName: '',
   quoteDate: null,
+  travelDate: '',
   remarks: '',
   inclusions: [],
   inclusionNotes: '',
@@ -125,6 +126,7 @@ export default function QuotationForm() {
           title: quotation.title,
           customerName: quotation.customerName ?? '',
           quoteDate: quotation.quoteDate ?? null,
+          travelDate: quotation.travelDate ?? '',
           remarks: quotation.remarks ?? '',
           inclusions: quotation.inclusions,
           inclusionNotes: quotation.inclusionNotes ?? '',
@@ -180,6 +182,7 @@ export default function QuotationForm() {
       ...form,
       title: form.title.trim(),
       customerName: form.customerName.trim(),
+      travelDate: form.travelDate.trim(),
       remarks: form.remarks.trim(),
       inclusions: cleanInclusions(form.inclusions, { dropParentPrices: true }),
       inclusionNotes: cleanRichText(form.inclusionNotes),
@@ -258,6 +261,15 @@ export default function QuotationForm() {
               type="date"
               value={form.quoteDate ?? ''}
               onChange={(e) => updateField('quoteDate', e.target.value || null)}
+            />
+          </div>
+
+          <div className={styles.field}>
+            <label>Travel Date</label>
+            <input
+              value={form.travelDate}
+              onChange={(e) => updateField('travelDate', e.target.value)}
+              placeholder="e.g. May 14-17, 2027"
             />
           </div>
 

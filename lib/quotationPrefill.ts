@@ -55,6 +55,7 @@ export function buildQuotationFromInquiry(
   return {
     title,
     customerName: inquiry.name,
+    travelDate: inquiry.travelDates?.trim() ?? '',
     inquiryId: inquiry.id,
     remarks: remarksFromInquiry(inquiry),
     ...(pkg ? { packageId: pkg.id, ...sectionsFromPackage(pkg) } : {}),

@@ -5,6 +5,8 @@ export type Quotation = {
   title: string
   customerName: string
   quoteDate: string | null
+  // Free text, e.g. "May 14-17, 2027".
+  travelDate: string
   remarks: string
   package?: { id: string; title: string } | null
   inquiry?: { id: string; name: string } | null
