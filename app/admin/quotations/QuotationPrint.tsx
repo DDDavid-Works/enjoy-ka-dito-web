@@ -202,7 +202,7 @@ export default function QuotationPrint() {
                 )}
 
                 {quotation.accommodations.length > 0 && (
-                  <section className={styles.section}>
+                  <section className={`${styles.section} ${styles.newPage}`}>
                     <h2 className={styles.heading}>Choose among the accommodation below:</h2>
                     {quotation.accommodations.map((item, i) => {
                       const hotel = hotelsById.get(item.hotelId)
