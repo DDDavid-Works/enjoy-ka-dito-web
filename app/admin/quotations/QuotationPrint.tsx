@@ -189,7 +189,6 @@ export default function QuotationPrint() {
                     ))}
                     {!isBlankHtml(quotation.inclusionNotes) && (
                       <div className={styles.notes}>
-                        <strong>Tour Notes:</strong>
                         <RichText value={quotation.inclusionNotes} />
                       </div>
                     )}
@@ -198,7 +197,6 @@ export default function QuotationPrint() {
 
                 {!isBlankHtml(quotation.paymentNotes) && (
                   <div className={styles.notes}>
-                    <strong>Payment Notes:</strong>
                     <RichText value={quotation.paymentNotes} />
                   </div>
                 )}
