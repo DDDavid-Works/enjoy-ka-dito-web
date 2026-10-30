@@ -5,6 +5,7 @@ import ByCompany from '@/components/ByCompany'
 import DestinationCombobox from '@/components/DestinationCombobox'
 import { inquiriesApi } from '@/lib/api'
 import { CORPORATE_BUDGET_BRACKETS } from '@/types/inquiry'
+import FormConsent from '@/components/FormConsent'
 import styles from './CorporateTeamBuilding.module.css'
 
 const PILLARS = [
@@ -209,6 +210,8 @@ export default function CorporateTeamBuilding() {
                     rows={4}
                   />
                 </div>
+
+                <FormConsent />
 
                 <button type="submit" className={styles.submit} disabled={submitting}>
                   {submitting ? 'Sending…' : 'Submit Request & Receive Proposal Within 24–48 Hours'}

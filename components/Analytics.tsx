@@ -1,17 +1,11 @@
-import Script from 'next/script'
+import CookieConsent from './CookieConsent'
 
 // Google Analytics 4. Renders nothing until NEXT_PUBLIC_GA_ID (e.g. "G-XXXXXXXXXX") is set at build time.
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID
+// With an ID set, GA only loads after the visitor accepts analytics cookies in the consent banner.
+export const GA_ID = process.env.NEXT_PUBLIC_GA_ID
+export const analyticsEnabled = !!GA_ID && /^G-[A-Z0-9]+$/.test(GA_ID)
 
 export default function Analytics() {
-  if (!GA_ID || !/^G-[A-Z0-9]+$/.test(GA_ID)) return null
-
-  return (
-    <>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
-      <Script id="ga-init" strategy="afterInteractive">
-        {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}');`}
-      </Script>
-    </>
-  )
+  if (!analyticsEnabled) return null
+  return <CookieConsent gaId={GA_ID!} />
 }

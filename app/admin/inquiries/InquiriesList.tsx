@@ -53,6 +53,18 @@ export default function InquiriesList() {
     }
   }
 
+  async function handleDelete(inquiry: Inquiry) {
+    if (!confirm(`Delete the inquiry from ${inquiry.name}? This removes their details for good and can't be undone.`))
+      return
+
+    try {
+      await inquiriesApi.remove(inquiry.id)
+      setInquiries((prev) => prev.filter((i) => i.id !== inquiry.id))
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Failed to delete inquiry.')
+    }
+  }
+
   const filteredInquiries = useMemo(
     () =>
       inquiries.filter(
@@ -192,9 +204,14 @@ export default function InquiriesList() {
                     </Link>
                   ))}
                 </div>
-                <Link className={styles.quoteButton} href={`/admin/quotations/new?inquiry=${inquiry.id}`}>
-                  {inquiry.quotations?.length ? 'Create Another Quotation' : 'Create Quotation'}
-                </Link>
+                <div className={styles.cardButtons}>
+                  <button type="button" className={styles.deleteButton} onClick={() => handleDelete(inquiry)}>
+                    Delete
+                  </button>
+                  <Link className={styles.quoteButton} href={`/admin/quotations/new?inquiry=${inquiry.id}`}>
+                    {inquiry.quotations?.length ? 'Create Another Quotation' : 'Create Quotation'}
+                  </Link>
+                </div>
               </div>
             </div>
           ))}

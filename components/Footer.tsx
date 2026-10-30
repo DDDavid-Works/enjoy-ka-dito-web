@@ -2,6 +2,8 @@ import { cacheLife } from 'next/cache'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getCompanyDetails } from '@/lib/company'
+import { analyticsEnabled } from './Analytics'
+import CookieSettingsLink from './CookieSettingsLink'
 import { HERO_PHOTOS } from '@/lib/hero-photos'
 import { FacebookIcon, InstagramIcon, TiktokIcon } from './SocialIcons'
 import styles from './Footer.module.css'
@@ -79,6 +81,11 @@ export default async function Footer() {
         <Link href="/privacy-policy" className={styles.legalLink}>
           Privacy Policy
         </Link>
+        <Link href="/terms-and-conditions" className={styles.legalLink}>
+          Terms &amp; Conditions
+        </Link>
+        {/* The banner only exists while Google Analytics is configured. */}
+        {analyticsEnabled && <CookieSettingsLink className={`${styles.legalLink} ${styles.legalButton}`} />}
       </p>
       <p className={styles.photoCredits}>
         Photos by{' '}

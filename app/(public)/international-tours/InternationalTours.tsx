@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from 'react'
 import PrefilledDestinationCombobox from '@/components/PrefilledDestinationCombobox'
 import { inquiriesApi } from '@/lib/api'
+import FormConsent from '@/components/FormConsent'
 import styles from './InternationalTours.module.css'
 
 const PILLARS = [
@@ -177,6 +178,8 @@ export default function InternationalTours() {
                     rows={4}
                   />
                 </div>
+
+                <FormConsent />
 
                 <button type="submit" className={styles.submit} disabled={submitting}>
                   {submitting ? 'Sending…' : 'Request My International Itinerary'}

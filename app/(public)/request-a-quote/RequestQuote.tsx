@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react'
 import PrefilledDestinationCombobox from '@/components/PrefilledDestinationCombobox'
 import { inquiriesApi } from '@/lib/api'
 import { TRAVELER_TYPES } from '@/types/inquiry'
+import FormConsent from '@/components/FormConsent'
 import styles from './RequestQuote.module.css'
 
 export default function RequestQuote() {
@@ -118,6 +119,8 @@ export default function RequestQuote() {
                 <div className={styles.field}>
                   <textarea name="message" placeholder="Budget, special requirements, or anything else" rows={4} />
                 </div>
+
+                <FormConsent />
 
                 <button type="submit" className={styles.submit} disabled={submitting}>
                   {submitting ? 'Sending…' : 'Request a Quote'}

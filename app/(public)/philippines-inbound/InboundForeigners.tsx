@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from 'react'
 import { inquiriesApi } from '@/lib/api'
 import { DESIRED_DESTINATIONS, FLIGHT_STATUSES, GROUP_TYPES, TRIP_DURATIONS } from '@/types/inquiry'
+import FormConsent from '@/components/FormConsent'
 import styles from './InboundForeigners.module.css'
 
 const PILLARS = [
@@ -232,6 +233,8 @@ export default function InboundForeigners() {
                     ))}
                   </div>
                 </div>
+
+                <FormConsent />
 
                 <button type="submit" className={styles.submit} disabled={submitting}>
                   {submitting ? 'Sending…' : 'Customize My Philippine Itinerary'}

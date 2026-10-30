@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import { inquiriesApi } from '@/lib/api'
 import type { CompanyDetails } from '@/types/company'
+import FormConsent from '@/components/FormConsent'
 import styles from './ContactUs.module.css'
 
 export default function ContactUs({ company }: { company: CompanyDetails }) {
@@ -83,6 +84,7 @@ export default function ContactUs({ company }: { company: CompanyDetails }) {
                 <div className={styles.field}>
                   <textarea name="message" placeholder="How can we help?" rows={5} required />
                 </div>
+                <FormConsent />
                 <button type="submit" className={styles.submit} disabled={submitting}>
                   {submitting ? 'Sending…' : 'Send Message'}
                 </button>

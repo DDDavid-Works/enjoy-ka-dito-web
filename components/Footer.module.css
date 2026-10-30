@@ -139,6 +139,14 @@
   margin-left: 8px;
 }
 
+.legalButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
 .photoCredits {
   margin-top: 8px;
   font-size: 11px;
