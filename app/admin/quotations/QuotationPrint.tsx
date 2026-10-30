@@ -36,6 +36,34 @@ function Amount({ value }: { value?: number }) {
   return <span className={styles.amount}>{value === undefined ? '' : formatPeso(value)}</span>
 }
 
+const DEPENDS = '**Depends on the chosen accommodation below'
+
+// The package inclusions as a nested list, with each line's price when showPrices is set.
+function InclusionLines({ inclusions, showPrices = false }: { inclusions: Quotation['inclusions']; showPrices?: boolean }) {
+  return inclusions.map((inclusion, i) => (
+    <div key={i} className={styles.group}>
+      <div className={`${styles.row} ${styles.level1}`}>
+        <span className={styles.text}>{inclusion.text}</span>
+        {showPrices && <Amount value={inclusionTotal(inclusion)} />}
+      </div>
+      {inclusion.details.map((detail, j) => (
+        <div key={j}>
+          <div className={`${styles.row} ${styles.level2}`}>
+            <span className={styles.text}>{detail.text}</span>
+            {showPrices && <Amount value={detailTotal(detail)} />}
+          </div>
+          {detail.details.map((sub, k) => (
+            <div key={k} className={`${styles.row} ${styles.level3}`}>
+              <span className={styles.text}>{sub.text}</span>
+              {showPrices && <Amount value={sub.price} />}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  ))
+}
+
 // The printable quotation sheet. It always shows the saved record. Opening it prints
 // (browser "Save as PDF"); the toolbar lets you print again.
 export default function QuotationPrint() {
@@ -90,6 +118,8 @@ export default function QuotationPrint() {
 
   const { quotation, hotels } = data
   const hotelsById = new Map(hotels.map((h) => [h.id, h]))
+  // With hotels to choose from, the rate depends on the choice and isn't itemised.
+  const dependsOnStay = quotation.accommodations.length > 0
 
   return (
     <div className={styles.page}>
@@ -160,33 +190,30 @@ export default function QuotationPrint() {
 
                 {quotation.inclusions.length > 0 && (
                   <section className={styles.section}>
-                    <div className={styles.tableHead}>
-                      <span>PACKAGE INCLUDES</span>
-                      <span>PRICE PER HEAD</span>
-                    </div>
-
-                    {quotation.inclusions.map((inclusion, i) => (
-                      <div key={i} className={styles.group}>
-                        <div className={`${styles.row} ${styles.level1}`}>
-                          <span className={styles.text}>{inclusion.text}</span>
-                          <Amount value={inclusionTotal(inclusion)} />
+                    {dependsOnStay ? (
+                      // The price depends on the hotel picked below, so the lines carry no prices.
+                      <div className={styles.ratesLayout}>
+                        <div className={`${styles.tableHead} ${styles.ratesHead}`}>PACKAGE INCLUDES</div>
+                        <div className={`${styles.tableHead} ${styles.ratesHead} ${styles.ratesCol}`}>RATES</div>
+                        <div className={`${styles.tableHead} ${styles.ratesHead} ${styles.ratesCol}`}>TOTAL</div>
+                        <div>
+                          <InclusionLines inclusions={quotation.inclusions} />
                         </div>
-                        {inclusion.details.map((detail, j) => (
-                          <div key={j}>
-                            <div className={`${styles.row} ${styles.level2}`}>
-                              <span className={styles.text}>{detail.text}</span>
-                              <Amount value={detailTotal(detail)} />
-                            </div>
-                            {detail.details.map((sub, k) => (
-                              <div key={k} className={`${styles.row} ${styles.level3}`}>
-                                <span className={styles.text}>{sub.text}</span>
-                                <Amount value={sub.price} />
-                              </div>
-                            ))}
-                          </div>
-                        ))}
+                        <div className={styles.dependsCell}>{DEPENDS}</div>
+                        <div className={styles.dependsCell}>{DEPENDS}</div>
+                        <div className={styles.totalRate}>
+                          <strong>Total Rate :</strong> ****Depends on the chosen accommodation below
+                        </div>
                       </div>
-                    ))}
+                    ) : (
+                      <>
+                        <div className={styles.tableHead}>
+                          <span>PACKAGE INCLUDES</span>
+                          <span>PRICE PER HEAD</span>
+                        </div>
+                        <InclusionLines inclusions={quotation.inclusions} showPrices />
+                      </>
+                    )}
                     {!isBlankHtml(quotation.inclusionNotes) && (
                       <div className={styles.notes}>
                         <RichText value={quotation.inclusionNotes} />

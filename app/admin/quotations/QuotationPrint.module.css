@@ -161,6 +161,42 @@
   break-after: avoid;
 }
 
+/* Inclusions without prices: RATES and TOTAL columns say the rate depends on the hotel. */
+.ratesLayout {
+  display: grid;
+  grid-template-columns: 1fr 30mm 30mm;
+  column-gap: 3mm;
+}
+
+.ratesHead {
+  margin-bottom: 8px;
+}
+
+.ratesCol {
+  justify-content: center;
+}
+
+.dependsCell {
+  padding: 10px 6px;
+  background: #fff8e1;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+.totalRate {
+  grid-column: 2 / 4;
+  margin-top: 8px;
+  padding: 6px 8px;
+  background: #fff3c4;
+  font-size: 11px;
+  text-align: center;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
 .group {
   margin-bottom: 8px;
   break-inside: avoid;
