@@ -51,7 +51,7 @@
   width: 210mm;
   min-height: 297mm;
   margin: 24px auto 0;
-  padding: 0 18mm;
+  padding: 0 10mm;
   background:
     url('/images/quotation-letterhead-top.jpg') top center / 210mm auto no-repeat,
     url('/images/quotation-letterhead-foot.jpg') bottom center / 210mm auto no-repeat,
@@ -311,21 +311,25 @@
 }
 
 .closing {
-  margin-top: 36px;
+  margin-top: 12px;
   break-inside: avoid;
 }
 
 .closing p {
-  margin: 0 0 10px;
+  margin: 0 0 6px;
+}
+
+.closing p:last-child {
+  margin-bottom: 0;
 }
 
 .conforme {
   width: 90mm;
-  margin: 0 0 24px 30mm;
+  margin: 0 0 14px 30mm;
 }
 
 .signLine {
-  margin-top: 28px;
+  margin-top: 18px;
   padding-top: 4px;
   border-top: 2px solid #1b1b1b;
   text-align: center;
