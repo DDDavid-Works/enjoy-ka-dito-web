@@ -291,7 +291,7 @@
     box-shadow: none;
   }
 
-  /* The accommodation choices always start on a fresh page. */
+  /* The accommodation choices and the important notes always start on a fresh page. */
   .newPage {
     break-before: page;
     margin-top: 0;

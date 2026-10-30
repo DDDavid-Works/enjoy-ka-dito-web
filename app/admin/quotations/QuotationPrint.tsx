@@ -250,7 +250,7 @@ export default function QuotationPrint() {
                 )}
 
                 {!isBlankHtml(quotation.importantNotes) && (
-                  <section className={styles.section}>
+                  <section className={`${styles.section} ${styles.newPage}`}>
                     <h2 className={styles.heading}>Important Notes:</h2>
                     <RichText value={quotation.importantNotes} />
                   </section>
