@@ -257,6 +257,17 @@ export default function QuotationPrint() {
                     <RichText value={quotation.importantNotes} />
                   </section>
                 )}
+
+                {/* The customer's acceptance, kept together at the end. */}
+                <section className={styles.closing}>
+                  <div className={styles.conforme}>
+                    <em>Conforme:</em>
+                    <div className={styles.signLine}>Full name with Signature</div>
+                  </div>
+                  <p>Thank you and God bless.</p>
+                  <p>Sincerely yours,</p>
+                  <p>MCP Greenery Travel and Tours</p>
+                </section>
               </td>
             </tr>
           </tbody>
