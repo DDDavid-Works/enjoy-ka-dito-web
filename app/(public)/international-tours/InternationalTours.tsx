@@ -5,27 +5,27 @@ import PrefilledDestinationCombobox from '@/components/PrefilledDestinationCombo
 import { inquiriesApi } from '@/lib/api'
 import FormConsent from '@/components/FormConsent'
 import Icon, { type IconName } from '@/components/Icon'
-import styles from './InternationalTours.module.css'
+import styles from '../_landing/Landing.module.css'
 
 const PILLARS = [
   {
     icon: 'passport',
-    title: 'Visa & Documentation Help',
+    title: 'Visa & documentation help',
     text: 'We guide you through visa requirements, travel documents, and embassy appointments so nothing is missed.',
   },
   {
     icon: 'plane',
-    title: 'Flights & Hotels Handled',
+    title: 'Flights & hotels handled',
     text: 'Accredited airline and hotel partners mean fair rates, confirmed bookings, and one point of contact.',
   },
   {
     icon: 'compass',
-    title: 'Guided, Stress-Free Itineraries',
+    title: 'Guided, stress-free itineraries',
     text: 'Airport transfers, local guides, and well-paced days, ideal for first-time international travelers.',
   },
   {
     icon: 'shield',
-    title: 'Accredited & Supported',
+    title: 'Accredited & supported',
     text: 'IATA TIDS and DOT accredited, with our team on hand before and during your trip.',
   },
 ] satisfies { icon: IconName; [field: string]: string }[]
@@ -101,7 +101,7 @@ export default function InternationalTours() {
 
         <div className={styles.pillarGrid}>
           {PILLARS.map((pillar) => (
-            <div key={pillar.title} className={styles.pillarCard}>
+            <div key={pillar.title} className={styles.pillar}>
               <span className={styles.pillarIcon}><Icon name={pillar.icon} /></span>
               <p className={styles.pillarTitle}>{pillar.title}</p>
               <p className={styles.pillarText}>{pillar.text}</p>

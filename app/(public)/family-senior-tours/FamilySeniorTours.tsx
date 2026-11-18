@@ -5,28 +5,28 @@ import PrefilledDestinationCombobox from '@/components/PrefilledDestinationCombo
 import { inquiriesApi } from '@/lib/api'
 import FormConsent from '@/components/FormConsent'
 import Icon, { type IconName } from '@/components/Icon'
-import styles from './FamilySeniorTours.module.css'
+import styles from '../_landing/Landing.module.css'
 
 const PILLARS = [
   {
     icon: 'van',
-    title: 'Fully Private Transport',
+    title: 'Fully private transport',
     text: 'No cramped shared vans — senior-friendly, air-conditioned vehicles take you door-to-door.',
     note: '(conditional - based on package)',
   },
   {
     icon: 'compass',
-    title: 'Relaxed, Senior-Friendly Pacing',
+    title: 'Relaxed, senior-friendly pacing',
     text: "Itineraries built around rest stops, not rushing between photo ops. No one gets left behind.",
   },
   {
     icon: 'ticket',
-    title: 'Skip-the-Line, Pre-Booked Everything',
+    title: 'Skip-the-line, pre-booked everything',
     text: 'Entrance tickets and reservations handled in advance, so no one stands around waiting.',
   },
   {
     icon: 'dining',
-    title: 'Curated Meals & a Patient Guide',
+    title: 'Curated meals & a patient guide',
     text: 'Meals planned around dietary needs, with a guide who keeps the pace comfortable for everyone.',
   },
 ] satisfies { icon: IconName; [field: string]: string }[]
@@ -103,7 +103,7 @@ export default function FamilySeniorTours() {
 
         <div className={styles.pillarGrid}>
           {PILLARS.map((pillar) => (
-            <div key={pillar.title} className={styles.pillarCard}>
+            <div key={pillar.title} className={styles.pillar}>
               <span className={styles.pillarIcon}><Icon name={pillar.icon} /></span>
               <p className={styles.pillarTitle}>{pillar.title}</p>
               <p className={styles.pillarText}>
@@ -118,15 +118,17 @@ export default function FamilySeniorTours() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Family &amp; senior-friendly destinations</h2>
 
-        <div className={styles.destinationGrid}>
+        <ul className={styles.readableList}>
           {DESTINATIONS.map((destination) => (
-            <div key={destination.name} className={styles.destinationCard}>
-              <p className={styles.destinationName}>{destination.name}</p>
-              <span className={styles.destinationFor}>{destination.bestFor}</span>
+            <li key={destination.name} className={styles.readableItem}>
+              <div>
+                <p className={styles.destinationName}>{destination.name}</p>
+                <p className={styles.destinationFor}>{destination.bestFor}</p>
+              </div>
               <p className={styles.destinationHighlight}>{destination.highlight}</p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       <section id="family-inquiry-form" className={`${styles.section} ${styles.formSection}`}>

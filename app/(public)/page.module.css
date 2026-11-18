@@ -1,31 +1,20 @@
+/* Split hero: the headline on a solid panel, the traveller photos beside it at full colour. */
 .hero {
   --focus-ring: var(--color-accent); /* dark background */
-  position: relative;
-  isolation: isolate;
-  display: flex;
-  align-items: flex-end;
-  min-height: 620px;
-  background-size: cover;
-  background-position: center;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(30, 58, 114, 0.5) 0%, rgba(30, 58, 114, 0.88) 100%);
-}
-
-/* A collage of traveller photos behind the headline; sits under the ::before overlay (hero isolates its stacking). */
-.heroMosaic {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-areas: 'content mosaic';
+  min-height: 620px;
+  background: var(--color-primary);
+}
+
+.heroMosaic {
+  grid-area: mosaic;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   gap: 3px;
-  background: rgb(30, 58, 114);
+  background: var(--color-primary);
 }
 
 .heroTile {
@@ -33,25 +22,36 @@
   overflow: hidden;
 }
 
+.heroContent {
+  grid-area: content;
+  align-self: center;
+  justify-self: end;
+  width: 100%;
+  max-width: 680px;
+  padding: 88px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 @media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'content'
+      'mosaic';
+    min-height: 0;
+  }
+
   .heroMosaic {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    height: 240px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
   }
 
   .heroTile:nth-child(n + 7) {
     display: none;
   }
-}
-
-.heroContent {
-  position: relative;
-  z-index: 1;
-  max-width: var(--container-width);
-  padding: 96px 72px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
 .heroTitle {
@@ -153,7 +153,7 @@
   position: relative;
   isolation: isolate;
   height: 340px;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   padding: 28px;
   display: flex;
   flex-direction: column;
@@ -162,11 +162,10 @@
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  transition: transform 0.15s ease;
 }
 
-.card:hover {
-  transform: translateY(-3px);
+.card:hover .cardButton {
+  background: #f5b752;
 }
 
 .card::before {

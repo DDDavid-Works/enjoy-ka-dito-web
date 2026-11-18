@@ -5,7 +5,7 @@ import { inquiriesApi } from '@/lib/api'
 import { DESIRED_DESTINATIONS, FLIGHT_STATUSES, GROUP_TYPES, TRIP_DURATIONS } from '@/types/inquiry'
 import FormConsent from '@/components/FormConsent'
 import Icon, { type IconName } from '@/components/Icon'
-import styles from './InboundForeigners.module.css'
+import styles from '../_landing/Landing.module.css'
 
 const PILLARS = [
   {
@@ -96,9 +96,11 @@ export default function InboundForeigners() {
           Fully managed island-hopping packages curated for international travelers. From multi-island flights and
           private boat transfers to handpicked hotels, we handle everything.
         </p>
-        <a href="#inbound-inquiry-form" className={styles.heroCta}>
-          Inquire About Your Philippine Getaway
-        </a>
+        <div className={styles.heroActions}>
+          <a href="#inbound-inquiry-form" className={styles.heroCta}>
+            Inquire About Your Philippine Getaway
+          </a>
+        </div>
       </section>
 
       <section className={styles.section}>
@@ -106,7 +108,7 @@ export default function InboundForeigners() {
 
         <div className={styles.pillarGrid}>
           {PILLARS.map((pillar) => (
-            <div key={pillar.title} className={styles.pillarCard}>
+            <div key={pillar.title} className={styles.pillar}>
               <span className={styles.pillarIcon}><Icon name={pillar.icon} /></span>
               <p className={styles.pillarTitle}>{pillar.title}</p>
               <p className={styles.pillarText}>{pillar.text}</p>
@@ -124,7 +126,7 @@ export default function InboundForeigners() {
               <p className={styles.destinationName}>
                 <Icon name={itinerary.icon} className={styles.itineraryIcon} /> {itinerary.name}
               </p>
-              <span className={styles.itinerarySubtitle}>{itinerary.subtitle}</span>
+              <span className={styles.destinationFor}>{itinerary.subtitle}</span>
               <p className={styles.destinationHighlight}>{itinerary.highlight}</p>
             </div>
           ))}

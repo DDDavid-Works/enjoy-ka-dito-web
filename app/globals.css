@@ -23,6 +23,16 @@
   --text-4xl: 48px;
   --text-5xl: 60px;
 
+  /* Corners by role: small parts (inputs, thumbnails), content cards, large surfaces (forms, photo tiles,
+     panels). Pills stay 999px. */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Only the inquiry forms (and the package booking card) are raised; popovers float above the page. */
+  --shadow-raised: 0 24px 48px rgba(30, 58, 114, 0.1);
+  --shadow-popover: 0 10px 28px rgba(30, 58, 114, 0.14);
+
   --container-width: 1200px;
 
   /* Keyboard focus ring. Sections on a dark (primary) background switch it to the accent. */

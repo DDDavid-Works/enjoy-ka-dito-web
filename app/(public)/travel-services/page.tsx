@@ -55,9 +55,8 @@ export default function TravelServices() {
       </section>
 
       <section className={styles.grid}>
-        {SERVICES.map((service, index) => (
+        {SERVICES.map((service) => (
           <div key={service.title} className={styles.card}>
-            <p className={styles.index}>{String(index + 1).padStart(2, '0')}</p>
             <h2 className={styles.cardTitle}>{service.title}</h2>
             <p className={styles.cardText}>{service.description}</p>
           </div>

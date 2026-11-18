@@ -1,3 +1,7 @@
+/* Shared layout for the four audience landing pages (corporate, family & senior, international, inbound).
+   Each page uses the same hero, benefits, and inquiry form; the destinations section has a layout per
+   audience (see "Destination layouts" below). */
+
 .hero {
   --focus-ring: var(--color-accent); /* dark background */
   background: var(--color-primary);
@@ -46,20 +50,6 @@
   background: #f5b752;
 }
 
-.heroCtaOutline {
-  padding: 14px 24px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  font-size: var(--text-base);
-  font-weight: 600;
-  color: var(--color-white);
-  transition: background 0.15s ease;
-}
-
-.heroCtaOutline:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
 .section {
   max-width: var(--container-width);
   margin: 0 auto;
@@ -74,19 +64,20 @@
   margin-bottom: 32px;
 }
 
+/* ---------- Benefits: open columns, not boxes ---------- */
+
 .pillarGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 32px;
 }
 
-.pillarCard {
-  background: var(--color-white);
-  border-radius: 20px;
-  padding: 26px;
+.pillar {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(30, 58, 114, 0.18);
 }
 
 .pillarIcon {
@@ -107,6 +98,9 @@
   color: var(--color-text);
 }
 
+/* ---------- Destination layouts ---------- */
+
+/* Default (international, inbound): cards. */
 .destinationGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -115,7 +109,7 @@
 
 .destinationCard {
   background: var(--color-white);
-  border-radius: 20px;
+  border-radius: var(--radius-md);
   padding: 28px;
   display: flex;
   flex-direction: column;
@@ -129,14 +123,9 @@
 }
 
 .destinationFor {
-  display: inline-block;
-  align-self: flex-start;
-  padding: 4px 12px;
-  border-radius: 999px;
-  background: rgba(240, 164, 40, 0.16);
-  color: #a3670f;
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: 600;
+  color: var(--color-primary-light);
 }
 
 .destinationHighlight {
@@ -145,17 +134,99 @@
   color: var(--color-text);
 }
 
+.itineraryIcon {
+  margin-right: 6px;
+  vertical-align: -0.15em;
+}
+
+/* Corporate: a comparison table, for HR teams weighing options side by side. */
+.compareTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+
+.compareTable th,
+.compareTable td {
+  padding: 18px 24px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.compareTable thead th {
+  font-weight: 600;
+  color: rgba(31, 41, 51, 0.72);
+  background: rgba(30, 58, 114, 0.05);
+}
+
+.compareTable tbody tr + tr {
+  border-top: 1px solid rgba(30, 58, 114, 0.1);
+}
+
+.compareTable tbody th {
+  width: 22%;
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.compareTable .compareFor {
+  width: 26%;
+  font-weight: 600;
+  color: var(--color-primary-light);
+}
+
+/* Family & senior: a large-print list, easy to read at a glance. */
+.readableList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.readableItem {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) 2fr;
+  gap: 8px 40px;
+  padding: 28px 0;
+}
+
+.readableItem + .readableItem {
+  border-top: 1px solid rgba(30, 58, 114, 0.18);
+}
+
+.readableItem .destinationName {
+  font-size: var(--text-xl);
+}
+
+.readableItem .destinationFor {
+  font-size: var(--text-base);
+}
+
+.readableItem .destinationHighlight {
+  font-size: var(--text-md);
+  line-height: 1.6;
+}
+
+/* ---------- Inquiry form ---------- */
+
 .formSection {
   background: var(--color-bg);
 }
 
 .formCard {
   background: var(--color-white);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   padding: 48px;
   max-width: 720px;
   margin: 0 auto;
-  box-shadow: 0 24px 48px rgba(30, 58, 114, 0.1);
+  box-shadow: var(--shadow-raised);
 }
 
 .formIntro {
@@ -180,7 +251,7 @@
 .field {
   display: block;
   background: var(--color-bg);
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   padding: 14px;
 }
 
@@ -213,6 +284,43 @@
 
 .field select:invalid {
   color: rgba(31, 41, 51, 0.5);
+}
+
+.fieldGroup {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  border: 0;
+}
+
+.fieldGroupLabel {
+  margin-bottom: 10px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: rgba(31, 41, 51, 0.6);
+  padding-left: 2px;
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--color-bg);
+  border-radius: 999px;
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.checkboxLabel input {
+  accent-color: var(--color-primary);
 }
 
 .submit {
@@ -249,7 +357,7 @@
   line-height: 1.5;
   color: #b3261e;
   background: rgba(179, 38, 30, 0.08);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 12px 14px;
   margin-bottom: 16px;
 }
@@ -271,6 +379,43 @@
   .pillarGrid,
   .destinationGrid {
     grid-template-columns: 1fr;
+  }
+
+  .readableItem {
+    grid-template-columns: 1fr;
+  }
+
+  /* Table rows become stacked blocks on phones. */
+  .compareTable thead {
+    display: none;
+  }
+
+  .compareTable,
+  .compareTable tbody,
+  .compareTable tr,
+  .compareTable th,
+  .compareTable td {
+    display: block;
+    width: auto;
+  }
+
+  .compareTable tbody th {
+    width: auto;
+    padding-bottom: 4px;
+  }
+
+  .compareTable td {
+    padding-top: 4px;
+  }
+
+  .compareTable tbody th,
+  .compareTable td {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .compareTable .compareFor {
+    width: auto;
   }
 
   .formCard {

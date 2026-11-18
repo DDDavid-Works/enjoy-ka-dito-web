@@ -7,7 +7,7 @@ import { inquiriesApi } from '@/lib/api'
 import { CORPORATE_BUDGET_BRACKETS } from '@/types/inquiry'
 import FormConsent from '@/components/FormConsent'
 import Icon, { type IconName } from '@/components/Icon'
-import styles from './CorporateTeamBuilding.module.css'
+import styles from '../_landing/Landing.module.css'
 
 const PILLARS = [
   {
@@ -100,9 +100,11 @@ export default function CorporateTeamBuilding() {
           We design custom domestic and international itineraries that align with your company goals, boost morale,
           and stay perfectly within budget.
         </p>
-        <a href="#corporate-inquiry-form" className={styles.heroCta}>
-          Get a Custom Corporate Proposal
-        </a>
+        <div className={styles.heroActions}>
+          <a href="#corporate-inquiry-form" className={styles.heroCta}>
+            Get a Custom Corporate Proposal
+          </a>
+        </div>
       </section>
 
       <section className={styles.section}>
@@ -110,7 +112,7 @@ export default function CorporateTeamBuilding() {
 
         <div className={styles.pillarGrid}>
           {PILLARS.map((pillar) => (
-            <div key={pillar.title} className={styles.pillarCard}>
+            <div key={pillar.title} className={styles.pillar}>
               <span className={styles.pillarIcon}><Icon name={pillar.icon} /></span>
               <p className={styles.pillarTitle}>{pillar.title}</p>
               <p className={styles.pillarText}>{pillar.text}</p>
@@ -122,15 +124,24 @@ export default function CorporateTeamBuilding() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Popular team-building destinations</h2>
 
-        <div className={styles.destinationGrid}>
-          {DESTINATIONS.map((destination) => (
-            <div key={destination.name} className={styles.destinationCard}>
-              <p className={styles.destinationName}>{destination.name}</p>
-              <span className={styles.destinationFor}>{destination.bestFor}</span>
-              <p className={styles.destinationHighlight}>{destination.highlight}</p>
-            </div>
-          ))}
-        </div>
+        <table className={styles.compareTable}>
+          <thead>
+            <tr>
+              <th scope="col">Destination</th>
+              <th scope="col">Best for</th>
+              <th scope="col">What we arrange</th>
+            </tr>
+          </thead>
+          <tbody>
+            {DESTINATIONS.map((destination) => (
+              <tr key={destination.name}>
+                <th scope="row">{destination.name}</th>
+                <td className={styles.compareFor}>{destination.bestFor}</td>
+                <td>{destination.highlight}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </section>
 
       <section id="corporate-inquiry-form" className={`${styles.section} ${styles.formSection}`}>
