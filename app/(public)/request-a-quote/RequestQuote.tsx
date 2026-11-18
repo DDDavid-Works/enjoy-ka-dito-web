@@ -47,7 +47,6 @@ export default function RequestQuote() {
   return (
     <main>
       <section className={styles.hero}>
-        <p className={styles.badge}>START PLANNING</p>
         <h1 className={styles.title}>Let&rsquo;s plan your next adventure.</h1>
         <p className={styles.subtext}>
           Tell us where you want to go and what you have in mind. Our team will put together a quote tailored to
@@ -70,27 +69,32 @@ export default function RequestQuote() {
               {error && <p className={styles.error}>{error}</p>}
               <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
-                    <input type="text" name="name" placeholder="Full name" required />
-                  </div>
-                  <div className={styles.field}>
-                    <input type="text" name="companyName" placeholder="Company name (if applicable)" />
-                  </div>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Full name</span>
+                    <input type="text" name="name" required />
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Company name (optional)</span>
+                    <input type="text" name="companyName" />
+                  </label>
                 </div>
 
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
-                    <input type="email" name="email" placeholder="Email address" required />
-                  </div>
-                  <div className={styles.field}>
-                    <input type="tel" name="phone" placeholder="Phone / WhatsApp / Viber number" required />
-                  </div>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Email address</span>
+                    <input type="email" name="email" required />
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Phone / WhatsApp / Viber number</span>
+                    <input type="tel" name="phone" required />
+                  </label>
                 </div>
 
-                <div className={styles.field}>
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>Who are you traveling with?</span>
                   <select name="travelerType" defaultValue="" required>
                     <option value="" disabled>
-                      Who are you traveling with?
+                      Select one
                     </option>
                     {TRAVELER_TYPES.map((type) => (
                       <option key={type} value={type}>
@@ -98,27 +102,31 @@ export default function RequestQuote() {
                       </option>
                     ))}
                   </select>
-                </div>
+                </label>
 
-                <div className={styles.field}>
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>Preferred destination or tour package (optional)</span>
                   <PrefilledDestinationCombobox
                     name="destination"
-                    placeholder="Preferred destination/Tour Package"
+                    placeholder="Type to search, or enter your own"
                   />
-                </div>
+                </label>
 
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
-                    <input type="text" name="travelerCount" placeholder="Number of travelers (pax)" />
-                  </div>
-                  <div className={styles.field}>
-                    <input type="text" name="travelDates" placeholder="Expected travel dates" />
-                  </div>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Number of travelers (optional)</span>
+                    <input type="text" name="travelerCount" />
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Expected travel dates (optional)</span>
+                    <input type="text" name="travelDates" />
+                  </label>
                 </div>
 
-                <div className={styles.field}>
-                  <textarea name="message" placeholder="Budget, special requirements, or anything else" rows={4} />
-                </div>
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>Anything else we should know? (optional)</span>
+                  <textarea name="message" placeholder="Budget, special requirements, or other details" rows={4} />
+                </label>
 
                 <FormConsent />
 

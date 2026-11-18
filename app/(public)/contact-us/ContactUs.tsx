@@ -38,7 +38,6 @@ export default function ContactUs({ company }: { company: CompanyDetails }) {
   return (
     <main>
       <section className={styles.hero}>
-        <p className={styles.badge}>GET IN TOUCH</p>
         <h1 className={styles.title}>Questions? We&rsquo;re here to help.</h1>
         <p className={styles.subtext}>
           Reach out for anything that isn&rsquo;t a booking &mdash; general questions, partnership inquiries, or
@@ -75,15 +74,18 @@ export default function ContactUs({ company }: { company: CompanyDetails }) {
               <p className={styles.formIntro}>Send us a message and we&rsquo;ll get back to you.</p>
               {error && <p className={styles.error}>{error}</p>}
               <form className={styles.form} onSubmit={handleSubmit}>
-                <div className={styles.field}>
-                  <input type="text" name="name" placeholder="Full name" required />
-                </div>
-                <div className={styles.field}>
-                  <input type="email" name="email" placeholder="Email address" required />
-                </div>
-                <div className={styles.field}>
-                  <textarea name="message" placeholder="How can we help?" rows={5} required />
-                </div>
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>Full name</span>
+                  <input type="text" name="name" required />
+                </label>
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>Email address</span>
+                  <input type="email" name="email" required />
+                </label>
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>How can we help?</span>
+                  <textarea name="message" rows={5} required />
+                </label>
                 <FormConsent />
                 <button type="submit" className={styles.submit} disabled={submitting}>
                   {submitting ? 'Sending…' : 'Send Message'}

@@ -4,31 +4,32 @@ import { useState, type FormEvent } from 'react'
 import PrefilledDestinationCombobox from '@/components/PrefilledDestinationCombobox'
 import { inquiriesApi } from '@/lib/api'
 import FormConsent from '@/components/FormConsent'
+import Icon, { type IconName } from '@/components/Icon'
 import styles from './FamilySeniorTours.module.css'
 
 const PILLARS = [
   {
-    icon: '🚐',
+    icon: 'van',
     title: 'Fully Private Transport',
     text: 'No cramped shared vans — senior-friendly, air-conditioned vehicles take you door-to-door.',
     note: '(conditional - based on package)',
   },
   {
-    icon: '🧭',
+    icon: 'compass',
     title: 'Relaxed, Senior-Friendly Pacing',
     text: "Itineraries built around rest stops, not rushing between photo ops. No one gets left behind.",
   },
   {
-    icon: '🎟️',
+    icon: 'ticket',
     title: 'Skip-the-Line, Pre-Booked Everything',
     text: 'Entrance tickets and reservations handled in advance, so no one stands around waiting.',
   },
   {
-    icon: '🍽️',
+    icon: 'dining',
     title: 'Curated Meals & a Patient Guide',
     text: 'Meals planned around dietary needs, with a guide who keeps the pace comfortable for everyone.',
   },
-]
+] satisfies { icon: IconName; [field: string]: string }[]
 
 const DESTINATIONS = [
   {
@@ -85,8 +86,7 @@ export default function FamilySeniorTours() {
   return (
     <main>
       <section className={styles.hero}>
-        <p className={styles.badge}>FAMILY &amp; SENIOR TOURS</p>
-        <h1 className={styles.title}>Relaxed, Fully Managed Trips for Families and Senior Travelers.</h1>
+        <h1 className={styles.title}>Relaxed, fully managed trips for families and senior travelers.</h1>
         <p className={styles.subtext}>
           Private transport, senior-friendly pacing, and every detail handled &mdash; so no one in your group has to
           rush, worry, or walk further than they&rsquo;re comfortable with.
@@ -99,13 +99,12 @@ export default function FamilySeniorTours() {
       </section>
 
       <section className={styles.section}>
-        <p className={styles.sectionBadge}>WHY FAMILIES &amp; SENIORS CHOOSE US</p>
-        <h2 className={styles.sectionTitle}>Better Than DIY, Built Around Comfort</h2>
+        <h2 className={styles.sectionTitle}>Better than DIY, built around comfort</h2>
 
         <div className={styles.pillarGrid}>
           {PILLARS.map((pillar) => (
             <div key={pillar.title} className={styles.pillarCard}>
-              <span className={styles.pillarIcon}>{pillar.icon}</span>
+              <span className={styles.pillarIcon}><Icon name={pillar.icon} /></span>
               <p className={styles.pillarTitle}>{pillar.title}</p>
               <p className={styles.pillarText}>
                 {pillar.text}
@@ -117,8 +116,7 @@ export default function FamilySeniorTours() {
       </section>
 
       <section className={styles.section}>
-        <p className={styles.sectionBadge}>WHERE TO GO</p>
-        <h2 className={styles.sectionTitle}>Family &amp; Senior-Friendly Destinations</h2>
+        <h2 className={styles.sectionTitle}>Family &amp; senior-friendly destinations</h2>
 
         <div className={styles.destinationGrid}>
           {DESTINATIONS.map((destination) => (
@@ -140,8 +138,7 @@ export default function FamilySeniorTours() {
             </p>
           ) : (
             <>
-              <p className={styles.sectionBadge}>PREFER TO TYPE IT OUT?</p>
-              <h2 className={styles.sectionTitle}>Tell Us About Your Trip</h2>
+              <h2 className={styles.sectionTitle}>Tell us about your trip</h2>
               <p className={styles.formIntro}>
                 Prefer to talk instead? Call us anytime &mdash; or share a few details here and we&rsquo;ll get back
                 to you.
@@ -149,52 +146,60 @@ export default function FamilySeniorTours() {
               {error && <p className={styles.error}>{error}</p>}
               <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
-                    <input type="text" name="name" placeholder="Full name" required />
-                  </div>
-                  <div className={styles.field}>
-                    <input type="tel" name="phone" placeholder="Phone / Viber / WhatsApp number" required />
-                  </div>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Full name</span>
+                    <input type="text" name="name" required />
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Phone / Viber / WhatsApp number</span>
+                    <input type="tel" name="phone" required />
+                  </label>
                 </div>
 
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
-                    <input type="email" name="email" placeholder="Email address" required />
-                  </div>
-                  <div className={styles.field}>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Email address</span>
+                    <input type="email" name="email" required />
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Traveling as</span>
                     <select name="travelerType" defaultValue="" required>
                       <option value="" disabled>
-                        Traveling as
+                        Select one
                       </option>
                       <option value="Family">Family</option>
                       <option value="Senior Group">Senior Group</option>
                     </select>
-                  </div>
+                  </label>
                 </div>
 
-                <div className={styles.field}>
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>Preferred destination or tour package (optional)</span>
                   <PrefilledDestinationCombobox
                     name="destination"
-                    placeholder="Preferred destination/Tour Package"
+                    placeholder="Type to search, or enter your own"
                   />
-                </div>
+                </label>
 
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
-                    <input type="text" name="travelerCount" placeholder="Number of travelers" />
-                  </div>
-                  <div className={styles.field}>
-                    <input type="text" name="travelDates" placeholder="Preferred travel dates" />
-                  </div>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Number of travelers (optional)</span>
+                    <input type="text" name="travelerCount" />
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Preferred travel dates (optional)</span>
+                    <input type="text" name="travelDates" />
+                  </label>
                 </div>
 
-                <div className={styles.field}>
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>Anything we should know? (optional)</span>
                   <textarea
                     name="message"
-                    placeholder="Anything we should know? (mobility needs, young children, dietary needs, pacing preferences)"
+                    placeholder="Mobility needs, young children, dietary needs, pacing preferences"
                     rows={4}
                   />
-                </div>
+                </label>
 
                 <FormConsent />
 

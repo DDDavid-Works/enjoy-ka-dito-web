@@ -102,7 +102,8 @@ async function PackageDetail({ params }: Pick<PageProps<'/tour-packages/[slug]'>
             ← Back to Tour Packages
           </Link>
           <p className={styles.meta}>
-            {pkg.location} · {pkg.duration}
+            <span>{pkg.location}</span>
+            <span>{pkg.duration}</span>
           </p>
           <h1 className={styles.title}>{pkg.title}</h1>
         </div>

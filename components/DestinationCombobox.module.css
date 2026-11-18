@@ -22,7 +22,7 @@
 .option {
   padding: 10px 12px;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: var(--text-base);
   color: var(--color-text);
   cursor: pointer;
 }

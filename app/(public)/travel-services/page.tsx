@@ -47,7 +47,6 @@ export default function TravelServices() {
   return (
     <main>
       <section className={styles.intro}>
-        <p className={styles.badge}>HOW WE HELP</p>
         <h1 className={styles.title}>Everything your trip needs, in one place.</h1>
         <p className={styles.subtext}>
           From tickets and hotels to visas and insurance — we handle the parts of travel planning that usually eat

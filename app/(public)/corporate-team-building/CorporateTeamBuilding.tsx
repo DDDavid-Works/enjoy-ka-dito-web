@@ -6,30 +6,31 @@ import DestinationCombobox from '@/components/DestinationCombobox'
 import { inquiriesApi } from '@/lib/api'
 import { CORPORATE_BUDGET_BRACKETS } from '@/types/inquiry'
 import FormConsent from '@/components/FormConsent'
+import Icon, { type IconName } from '@/components/Icon'
 import styles from './CorporateTeamBuilding.module.css'
 
 const PILLARS = [
   {
-    icon: '🧾',
-    title: '100% Compliant Billing',
+    icon: 'receipt',
+    title: '100% compliant billing',
     text: 'Full official receipts, transparent corporate itemization, and flexible payment options for hassle-free company liquidation.',
   },
   {
-    icon: '🎯',
-    title: 'Tailored Program Design',
+    icon: 'target',
+    title: 'Tailored program design',
     text: 'Whether your goal is high-energy team bonding, strategic alignment, or pure relaxation, we customize the activities to match.',
   },
   {
-    icon: '🚐',
-    title: 'Premium Group Logistics',
+    icon: 'van',
+    title: 'Premium group logistics',
     text: 'Dedicated private air-conditioned vans/coasters/buses, vetted team-friendly resorts, and coordinated group dining.',
   },
   {
-    icon: '🙋',
-    title: 'On-Site Tour Coordinator (Conditional)',
+    icon: 'guide',
+    title: 'On-site tour coordinator (conditional)',
     text: 'A dedicated agency coordinator travels with your group to manage hotel check-ins, timing, and emergencies so you can relax too.',
   },
-]
+] satisfies { icon: IconName; [field: string]: string }[]
 
 const DESTINATIONS = [
   {
@@ -92,9 +93,8 @@ export default function CorporateTeamBuilding() {
   return (
     <main>
       <section className={styles.hero}>
-        <p className={styles.badge}>CORPORATE TEAM BUILDING</p>
         <h1 className={styles.title}>
-          Flawless Corporate Team Building Outings&mdash;Fully Managed from Planning to Execution.
+          Flawless corporate team building outings&mdash;fully managed from planning to execution.
         </h1>
         <p className={styles.subtext}>
           We design custom domestic and international itineraries that align with your company goals, boost morale,
@@ -106,13 +106,12 @@ export default function CorporateTeamBuilding() {
       </section>
 
       <section className={styles.section}>
-        <p className={styles.sectionBadge}>WHY HR MANAGERS TRUST US</p>
-        <h2 className={styles.sectionTitle}>Why HR Managers Trust Enjoy Ka Dito <ByCompany /></h2>
+        <h2 className={styles.sectionTitle}>Why HR managers trust Enjoy Ka Dito <ByCompany /></h2>
 
         <div className={styles.pillarGrid}>
           {PILLARS.map((pillar) => (
             <div key={pillar.title} className={styles.pillarCard}>
-              <span className={styles.pillarIcon}>{pillar.icon}</span>
+              <span className={styles.pillarIcon}><Icon name={pillar.icon} /></span>
               <p className={styles.pillarTitle}>{pillar.title}</p>
               <p className={styles.pillarText}>{pillar.text}</p>
             </div>
@@ -121,8 +120,7 @@ export default function CorporateTeamBuilding() {
       </section>
 
       <section className={styles.section}>
-        <p className={styles.sectionBadge}>WHERE TO GO</p>
-        <h2 className={styles.sectionTitle}>Popular Team-Building Destinations</h2>
+        <h2 className={styles.sectionTitle}>Popular team-building destinations</h2>
 
         <div className={styles.destinationGrid}>
           {DESTINATIONS.map((destination) => (
@@ -143,56 +141,64 @@ export default function CorporateTeamBuilding() {
             </p>
           ) : (
             <>
-              <p className={styles.sectionBadge}>REQUEST A GROUP QUOTE</p>
-              <h2 className={styles.sectionTitle}>Submit a Request for Proposal</h2>
+              <h2 className={styles.sectionTitle}>Submit a request for proposal</h2>
               <p className={styles.formIntro}>
                 Keep it short but specific &mdash; this helps us send a serious, accurate proposal fast.
               </p>
               {error && <p className={styles.error}>{error}</p>}
               <form className={styles.form} onSubmit={handleSubmit}>
-                <div className={styles.field}>
-                  <input type="text" name="companyName" placeholder="Company name" required />
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>Company name</span>
+                  <input type="text" name="companyName" required />
+                </label>
+
+                <div className={styles.fieldRow}>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Contact person</span>
+                    <input type="text" name="contactPerson" placeholder="e.g. Jane Doe" required />
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Designation (optional)</span>
+                    <input type="text" name="designation" placeholder="e.g. HR Manager" />
+                  </label>
                 </div>
 
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
-                    <input type="text" name="contactPerson" placeholder="Contact person (e.g. Jane Doe)" required />
-                  </div>
-                  <div className={styles.field}>
-                    <input type="text" name="designation" placeholder="Designation (e.g. HR Manager)" />
-                  </div>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Work email</span>
+                    <input type="email" name="email" required />
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Mobile number</span>
+                    <input type="tel" name="phone" required />
+                  </label>
                 </div>
 
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
-                    <input type="email" name="email" placeholder="Work email address" required />
-                  </div>
-                  <div className={styles.field}>
-                    <input type="tel" name="phone" placeholder="Mobile number" required />
-                  </div>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Estimated number of participants (optional)</span>
+                    <input type="text" name="travelerCount" />
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Target month or dates (optional)</span>
+                    <input type="text" name="travelDates" />
+                  </label>
                 </div>
 
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
-                    <input type="text" name="travelerCount" placeholder="Estimated number of participants (pax)" />
-                  </div>
-                  <div className={styles.field}>
-                    <input type="text" name="travelDates" placeholder="Target month/dates" />
-                  </div>
-                </div>
-
-                <div className={styles.fieldRow}>
-                  <div className={styles.field}>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Preferred destination or tour package</span>
                     <DestinationCombobox
                       name="destination"
-                      placeholder="Preferred destination/Tour Package"
+                      placeholder="Type to search, or enter your own"
                       required
                     />
-                  </div>
-                  <div className={styles.field}>
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Estimated total budget</span>
                     <select name="budgetBracket" defaultValue="" required>
                       <option value="" disabled>
-                        Estimated total budget
+                        Select one
                       </option>
                       {CORPORATE_BUDGET_BRACKETS.map((bracket) => (
                         <option key={bracket} value={bracket}>
@@ -200,16 +206,17 @@ export default function CorporateTeamBuilding() {
                         </option>
                       ))}
                     </select>
-                  </div>
+                  </label>
                 </div>
 
-                <div className={styles.field}>
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>Special requirements (optional)</span>
                   <textarea
                     name="message"
-                    placeholder="Special requirements (e.g. needs a conference room, dietary requests, physical restrictions, custom destination)"
+                    placeholder="e.g. conference room, dietary requests, physical restrictions, custom destination"
                     rows={4}
                   />
-                </div>
+                </label>
 
                 <FormConsent />
 

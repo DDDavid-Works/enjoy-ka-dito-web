@@ -4,30 +4,31 @@ import { useState, type FormEvent } from 'react'
 import PrefilledDestinationCombobox from '@/components/PrefilledDestinationCombobox'
 import { inquiriesApi } from '@/lib/api'
 import FormConsent from '@/components/FormConsent'
+import Icon, { type IconName } from '@/components/Icon'
 import styles from './InternationalTours.module.css'
 
 const PILLARS = [
   {
-    icon: '🛂',
+    icon: 'passport',
     title: 'Visa & Documentation Help',
     text: 'We guide you through visa requirements, travel documents, and embassy appointments so nothing is missed.',
   },
   {
-    icon: '✈️',
+    icon: 'plane',
     title: 'Flights & Hotels Handled',
     text: 'Accredited airline and hotel partners mean fair rates, confirmed bookings, and one point of contact.',
   },
   {
-    icon: '🧭',
+    icon: 'compass',
     title: 'Guided, Stress-Free Itineraries',
     text: 'Airport transfers, local guides, and well-paced days, ideal for first-time international travelers.',
   },
   {
-    icon: '🛡️',
+    icon: 'shield',
     title: 'Accredited & Supported',
     text: 'IATA TIDS and DOT accredited, with our team on hand before and during your trip.',
   },
-]
+] satisfies { icon: IconName; [field: string]: string }[]
 
 const DESTINATIONS = [
   {
@@ -83,8 +84,7 @@ export default function InternationalTours() {
   return (
     <main>
       <section className={styles.hero}>
-        <p className={styles.badge}>INTERNATIONAL TOURS</p>
-        <h1 className={styles.title}>Explore the World, With Every Detail Handled for You.</h1>
+        <h1 className={styles.title}>Explore the world, with every detail handled for you.</h1>
         <p className={styles.subtext}>
           Planning your first trip abroad, or your tenth? We take care of visas, flights, hotels, and guided
           itineraries so you can simply enjoy the journey.
@@ -97,13 +97,12 @@ export default function InternationalTours() {
       </section>
 
       <section className={styles.section}>
-        <p className={styles.sectionBadge}>WHY TRAVEL ABROAD WITH US</p>
-        <h2 className={styles.sectionTitle}>Go Abroad Without the Guesswork</h2>
+        <h2 className={styles.sectionTitle}>Go abroad without the guesswork</h2>
 
         <div className={styles.pillarGrid}>
           {PILLARS.map((pillar) => (
             <div key={pillar.title} className={styles.pillarCard}>
-              <span className={styles.pillarIcon}>{pillar.icon}</span>
+              <span className={styles.pillarIcon}><Icon name={pillar.icon} /></span>
               <p className={styles.pillarTitle}>{pillar.title}</p>
               <p className={styles.pillarText}>{pillar.text}</p>
             </div>
@@ -112,8 +111,7 @@ export default function InternationalTours() {
       </section>
 
       <section className={styles.section}>
-        <p className={styles.sectionBadge}>WHERE TO GO</p>
-        <h2 className={styles.sectionTitle}>Popular International Destinations</h2>
+        <h2 className={styles.sectionTitle}>Popular international destinations</h2>
 
         <div className={styles.destinationGrid}>
           {DESTINATIONS.map((destination) => (
@@ -135,49 +133,55 @@ export default function InternationalTours() {
             </p>
           ) : (
             <>
-              <p className={styles.sectionBadge}>PLAN YOUR TRIP</p>
-              <h2 className={styles.sectionTitle}>Tell Us Where You Want to Go</h2>
+              <h2 className={styles.sectionTitle}>Tell us where you want to go</h2>
               <p className={styles.formIntro}>
                 Share a few details and we&rsquo;ll get back to you with options and rates.
               </p>
               {error && <p className={styles.error}>{error}</p>}
               <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
-                    <input type="text" name="name" placeholder="Full name" required />
-                  </div>
-                  <div className={styles.field}>
-                    <input type="tel" name="phone" placeholder="Phone / Viber / WhatsApp number" required />
-                  </div>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Full name</span>
+                    <input type="text" name="name" required />
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Phone / Viber / WhatsApp number</span>
+                    <input type="tel" name="phone" required />
+                  </label>
                 </div>
 
-                <div className={styles.field}>
-                  <input type="email" name="email" placeholder="Email address" required />
-                </div>
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>Email address</span>
+                  <input type="email" name="email" required />
+                </label>
 
-                <div className={styles.field}>
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>Preferred destination or tour package (optional)</span>
                   <PrefilledDestinationCombobox
                     name="destination"
-                    placeholder="Preferred destination/Tour Package"
+                    placeholder="Type to search, or enter your own"
                   />
-                </div>
+                </label>
 
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
-                    <input type="text" name="travelerCount" placeholder="Number of travelers" />
-                  </div>
-                  <div className={styles.field}>
-                    <input type="text" name="travelDates" placeholder="Preferred travel dates" />
-                  </div>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Number of travelers (optional)</span>
+                    <input type="text" name="travelerCount" />
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Preferred travel dates (optional)</span>
+                    <input type="text" name="travelDates" />
+                  </label>
                 </div>
 
-                <div className={styles.field}>
+                <label className={styles.field}>
+                  <span className={styles.fieldLabel}>Anything we should know? (optional)</span>
                   <textarea
                     name="message"
-                    placeholder="Anything we should know? (passport/visa status, budget, special requests)"
+                    placeholder="Passport or visa status, budget, special requests"
                     rows={4}
                   />
-                </div>
+                </label>
 
                 <FormConsent />
 

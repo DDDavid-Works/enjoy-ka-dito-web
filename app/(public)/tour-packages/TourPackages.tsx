@@ -27,7 +27,6 @@ export default function TourPackages({ packages }: { packages: Package[] }) {
   return (
     <main>
       <section className={styles.intro}>
-        <p className={styles.badge}>TRAVEL, YOUR WAY</p>
         <h1 className={styles.title}>Find your next favourite place.</h1>
         <p className={styles.subtext}>
           Browse our sample escapes. Every trip can be refined around your dates, group, and travel style.
@@ -36,7 +35,8 @@ export default function TourPackages({ packages }: { packages: Package[] }) {
         <div className={styles.toolbar}>
           <div className={styles.searchBox}>
             <input
-              type="text"
+              type="search"
+              aria-label="Search tour packages"
               placeholder="Search destination or package"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
@@ -70,7 +70,8 @@ export default function TourPackages({ packages }: { packages: Package[] }) {
             <div className={styles.cardBody}>
               <p className={styles.cardTitle}>{pkg.title}</p>
               <p className={styles.cardMeta}>
-                {pkg.location} · {pkg.duration}
+                <span>{pkg.location}</span>
+                <span>{pkg.duration}</span>
               </p>
               <p className={styles.cardPrice}>{pkg.price ?? 'Request a Quote'}</p>
             </div>

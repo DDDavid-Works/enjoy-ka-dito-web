@@ -31,11 +31,10 @@ export default async function Footer() {
   const emails = company.emails.filter(Boolean)
   const numbers = company.contactNumbers.filter(Boolean)
 
-  // Items sit on one line with a dot between them; on phones each item gets its own line.
+  // Items sit on one line separated by space; on phones each item gets its own line.
   const renderItems = (items: string[]) =>
     items.map((item, index) => (
       <span key={index} className={styles.contactItem}>
-        {index > 0 && <span className={styles.contactSeparator}> · </span>}
         {item}
       </span>
     ))
@@ -57,7 +56,7 @@ export default async function Footer() {
         </div>
 
         <div className={styles.social}>
-          <p className={styles.socialLabel}>FOLLOW ALONG</p>
+          <p className={styles.socialLabel}>Follow us</p>
           <div className={styles.socialRow}>
             {SOCIAL_LINKS.map((social) => (
               <a

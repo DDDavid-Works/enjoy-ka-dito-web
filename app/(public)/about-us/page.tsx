@@ -24,7 +24,6 @@ export default function AboutUs() {
       <section className={styles.hero}>
         <CoverImage src="/images/local-tours.jpg" sizes="100vw" preload behind />
         <div className={styles.heroContent}>
-          <p className={styles.badge}>OUR STORY</p>
           <h1 className={styles.title}>Every trip starts with people who care.</h1>
           <p className={styles.subtext}>
             A Philippine-based travel team building journeys around what actually matters to you.
@@ -41,7 +40,6 @@ export default function AboutUs() {
       </section>
 
       <section className={styles.whySection}>
-        <p className={styles.sectionBadge}>WHY TRAVEL WITH US</p>
         <div className={styles.whyGrid}>
           <div className={styles.whyBlock}>
             <h2 className={styles.whyTitle}>Trusted &amp; accredited</h2>

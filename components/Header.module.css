@@ -52,7 +52,7 @@
 }
 
 .logoCompany {
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--color-text);
   white-space: nowrap;
 }
@@ -64,7 +64,7 @@
 }
 
 .navLink {
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 500;
   color: var(--color-text);
   transition: color 0.15s ease;
@@ -85,7 +85,7 @@
   border-radius: 999px;
   background: var(--color-primary);
   color: var(--color-white);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-weight: 600;
   white-space: nowrap;
   transition: background 0.15s ease;
@@ -213,7 +213,7 @@
     border-radius: 999px;
     background: var(--color-primary);
     color: var(--color-white);
-    font-size: 14px;
+    font-size: var(--text-sm);
     font-weight: 600;
     text-align: center;
   }

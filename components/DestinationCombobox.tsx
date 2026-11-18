@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState, type KeyboardEvent } from 'react'
+import { useEffect, useId, useMemo, useState, type KeyboardEvent } from 'react'
 import { packagesApi } from '@/lib/api'
 import styles from './DestinationCombobox.module.css'
 
@@ -19,6 +19,7 @@ export default function DestinationCombobox({ name, packageFieldName = 'packageI
   const [tours, setTours] = useState<{ id: string; title: string }[]>([])
   const [open, setOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
+  const listId = useId()
 
   useEffect(() => {
     let cancelled = false
@@ -88,6 +89,8 @@ export default function DestinationCombobox({ name, packageFieldName = 'packageI
         autoComplete="off"
         role="combobox"
         aria-expanded={showList}
+        aria-controls={listId}
+        aria-activedescendant={showList && activeIndex >= 0 ? `${listId}-${activeIndex}` : undefined}
         aria-autocomplete="list"
         onFocus={() => setOpen(true)}
         onBlur={() => setOpen(false)}
@@ -102,10 +105,11 @@ export default function DestinationCombobox({ name, packageFieldName = 'packageI
       <input type="hidden" name={packageFieldName} value={packageId} />
 
       {showList && (
-        <ul className={styles.list} role="listbox">
+        <ul id={listId} className={styles.list} role="listbox">
           {matches.map((option, index) => (
             <li
               key={option}
+              id={`${listId}-${index}`}
               role="option"
               aria-selected={index === activeIndex}
               className={index === activeIndex ? `${styles.option} ${styles.optionActive}` : styles.option}

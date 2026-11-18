@@ -7,15 +7,8 @@
   gap: 8px;
 }
 
-.badge {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.8px;
-  color: var(--color-primary);
-}
-
 .title {
-  font-size: 42px;
+  font-size: var(--text-4xl);
   font-weight: 600;
   letter-spacing: -1px;
   line-height: 1.08;
@@ -24,7 +17,7 @@
 
 .subtext {
   max-width: 560px;
-  font-size: 17px;
+  font-size: var(--text-md);
   line-height: 1.55;
   color: var(--color-text);
   margin-bottom: 16px;
@@ -48,13 +41,18 @@
   padding: 12px 14px;
 }
 
+.searchBox:focus-within {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 .searchBox input {
   width: 100%;
   border: none;
   outline: none;
   background: transparent;
   font-family: var(--font-body);
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: var(--color-text);
 }
 
@@ -71,7 +69,7 @@
   background: transparent;
   color: var(--color-primary);
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: var(--text-sm);
   font-weight: 600;
   transition: background 0.15s ease, color 0.15s ease;
 }
@@ -120,19 +118,22 @@
 
 .cardTitle {
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: var(--text-xl);
   font-weight: 600;
   line-height: 1.1;
   color: var(--color-primary);
 }
 
 .cardMeta {
-  font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 16px;
+  font-size: var(--text-sm);
   color: rgba(31, 41, 51, 0.72);
 }
 
 .cardPrice {
-  font-size: 15px;
+  font-size: var(--text-base);
   font-weight: 600;
   color: var(--color-primary);
 }

@@ -4,54 +4,55 @@ import { useState, type FormEvent } from 'react'
 import { inquiriesApi } from '@/lib/api'
 import { DESIRED_DESTINATIONS, FLIGHT_STATUSES, GROUP_TYPES, TRIP_DURATIONS } from '@/types/inquiry'
 import FormConsent from '@/components/FormConsent'
+import Icon, { type IconName } from '@/components/Icon'
 import styles from './InboundForeigners.module.css'
 
 const PILLARS = [
   {
-    icon: '🗣️',
-    title: 'English-Speaking Experts',
+    icon: 'speech',
+    title: 'English-speaking experts',
     text: 'Every driver, guide, and coordinator assigned to your trip is fully fluent in English to guarantee clear communication.',
   },
   {
-    icon: '✈️',
-    title: 'Seamless Island Transfers',
+    icon: 'plane',
+    title: 'Seamless island transfers',
     text: 'The Philippines has over 7,000 islands. We fully manage your domestic flights, private ferries, and point-to-point airport vans.',
   },
   {
-    icon: '🛡️',
-    title: 'Secure, Handpicked Hotels',
+    icon: 'shield',
+    title: 'Secure, handpicked hotels',
     text: 'We only partner with desirable amenities, highly rated, and strictly secure resorts that meet stringent safety standards.',
   },
   {
-    icon: '💳',
-    title: 'Foreign-Friendly Payments',
+    icon: 'card',
+    title: 'Foreign-friendly payments',
     text: 'Safe, encrypted international billing options including PayPal, PayWise, credit cards, or international wire.',
   },
-]
+] satisfies { icon: IconName; [field: string]: string }[]
 
 const ITINERARIES = [
   {
-    icon: '🌴',
+    icon: 'palm',
     name: 'The Ultimate Palawan Escape',
     subtitle: 'El Nido & Coron',
     highlight:
       'Private lagoons, limestone cliff tours, hidden beaches, premium eco-resorts, and internal flight arrangements.',
   },
   {
-    icon: '🏖️',
+    icon: 'beach',
     name: 'Boracay Sun & Relaxation Tour',
     subtitle: 'Aklan',
     highlight:
       'Door-to-door airport transfer (Caticlan to resort), premium beachfront accommodations, private sunset sailing, and watersports.',
   },
   {
-    icon: '🌋',
+    icon: 'hills',
     name: 'Cultural & Heritage Loop',
     subtitle: 'Cebu & Bohol',
     highlight:
       'Chocolate Hills exploration, historical city walks, tarsier sanctuary visits, and whale shark swimming experiences.',
   },
-]
+] satisfies { icon: IconName; [field: string]: string }[]
 
 export default function InboundForeigners() {
   const [submitted, setSubmitted] = useState(false)
@@ -90,8 +91,7 @@ export default function InboundForeigners() {
   return (
     <main>
       <section className={styles.hero}>
-        <p className={styles.badge}>PHILIPPINES INBOUND</p>
-        <h1 className={styles.title}>Experience the Magic of the Philippines&mdash;Without the DIY Logistics Stress.</h1>
+        <h1 className={styles.title}>Experience the magic of the Philippines&mdash;without the DIY logistics stress.</h1>
         <p className={styles.subtext}>
           Fully managed island-hopping packages curated for international travelers. From multi-island flights and
           private boat transfers to handpicked hotels, we handle everything.
@@ -102,13 +102,12 @@ export default function InboundForeigners() {
       </section>
 
       <section className={styles.section}>
-        <p className={styles.sectionBadge}>OUR COMMITMENTS TO YOU</p>
-        <h2 className={styles.sectionTitle}>The Core Commitments to International Guests</h2>
+        <h2 className={styles.sectionTitle}>Our commitments to international guests</h2>
 
         <div className={styles.pillarGrid}>
           {PILLARS.map((pillar) => (
             <div key={pillar.title} className={styles.pillarCard}>
-              <span className={styles.pillarIcon}>{pillar.icon}</span>
+              <span className={styles.pillarIcon}><Icon name={pillar.icon} /></span>
               <p className={styles.pillarTitle}>{pillar.title}</p>
               <p className={styles.pillarText}>{pillar.text}</p>
             </div>
@@ -117,16 +116,15 @@ export default function InboundForeigners() {
       </section>
 
       <section className={styles.section}>
-        <p className={styles.sectionBadge}>WHERE TO GO</p>
-        <h2 className={styles.sectionTitle}>Signature Philippine Itineraries</h2>
+        <h2 className={styles.sectionTitle}>Signature Philippine itineraries</h2>
 
         <div className={styles.destinationGrid}>
           {ITINERARIES.map((itinerary) => (
             <div key={itinerary.name} className={styles.destinationCard}>
               <p className={styles.destinationName}>
-                {itinerary.icon} {itinerary.name}
+                <Icon name={itinerary.icon} className={styles.itineraryIcon} /> {itinerary.name}
               </p>
-              <span className={styles.sectionBadge}>{itinerary.subtitle}</span>
+              <span className={styles.itinerarySubtitle}>{itinerary.subtitle}</span>
               <p className={styles.destinationHighlight}>{itinerary.highlight}</p>
             </div>
           ))}
@@ -141,41 +139,44 @@ export default function InboundForeigners() {
             </p>
           ) : (
             <>
-              <p className={styles.sectionBadge}>INTERNATIONAL INQUIRY FORM</p>
-              <h2 className={styles.sectionTitle}>Customize My Philippine Itinerary</h2>
+              <h2 className={styles.sectionTitle}>Customize my Philippine itinerary</h2>
               <p className={styles.formIntro}>
                 Tell us about your trip and we&rsquo;ll take care of the logistics.
               </p>
               {error && <p className={styles.error}>{error}</p>}
               <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
-                    <input type="text" name="name" placeholder="Full name" required />
-                  </div>
-                  <div className={styles.field}>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Full name</span>
+                    <input type="text" name="name" required />
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Country of residence / nationality</span>
                     <input
                       type="text"
                       name="countryOfResidence"
-                      placeholder="Country of residence / nationality"
                       required
                     />
-                  </div>
+                  </label>
                 </div>
 
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
-                    <input type="email" name="email" placeholder="Email address" required />
-                  </div>
-                  <div className={styles.field}>
-                    <input type="tel" name="phone" placeholder="WhatsApp / Viber number" required />
-                  </div>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Email address</span>
+                    <input type="email" name="email" required />
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>WhatsApp / Viber number</span>
+                    <input type="tel" name="phone" required />
+                  </label>
                 </div>
 
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>How many people are traveling?</span>
                     <select name="groupType" defaultValue="" required>
                       <option value="" disabled>
-                        How many people are traveling?
+                        Select one
                       </option>
                       {GROUP_TYPES.map((type) => (
                         <option key={type} value={type}>
@@ -183,23 +184,25 @@ export default function InboundForeigners() {
                         </option>
                       ))}
                     </select>
-                  </div>
-                  <div className={styles.field}>
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Any seniors or young children traveling?</span>
                     <select name="travelingWithSeniorsOrChildren" defaultValue="" required>
                       <option value="" disabled>
-                        Any seniors or young children traveling?
+                        Select one
                       </option>
                       <option value="Yes">Yes</option>
                       <option value="No">No</option>
                     </select>
-                  </div>
+                  </label>
                 </div>
 
                 <div className={styles.fieldRow}>
-                  <div className={styles.field}>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Have you booked flights to Manila/Cebu?</span>
                     <select name="flightsBooked" defaultValue="" required>
                       <option value="" disabled>
-                        Have you booked flights to Manila/Cebu?
+                        Select one
                       </option>
                       {FLIGHT_STATUSES.map((status) => (
                         <option key={status} value={status}>
@@ -207,11 +210,12 @@ export default function InboundForeigners() {
                         </option>
                       ))}
                     </select>
-                  </div>
-                  <div className={styles.field}>
+                  </label>
+                  <label className={styles.field}>
+                    <span className={styles.fieldLabel}>Trip duration</span>
                     <select name="tripDuration" defaultValue="" required>
                       <option value="" disabled>
-                        Trip duration
+                        Select one
                       </option>
                       {TRIP_DURATIONS.map((duration) => (
                         <option key={duration} value={duration}>
@@ -219,11 +223,11 @@ export default function InboundForeigners() {
                         </option>
                       ))}
                     </select>
-                  </div>
+                  </label>
                 </div>
 
-                <div className={styles.fieldGroup}>
-                  <p className={styles.fieldGroupLabel}>Desired destinations in the Philippines</p>
+                <fieldset className={styles.fieldGroup}>
+                  <legend className={styles.fieldGroupLabel}>Desired destinations in the Philippines</legend>
                   <div className={styles.checkboxGroup}>
                     {DESIRED_DESTINATIONS.map((destination) => (
                       <label key={destination} className={styles.checkboxLabel}>
@@ -232,7 +236,7 @@ export default function InboundForeigners() {
                       </label>
                     ))}
                   </div>
-                </div>
+                </fieldset>
 
                 <FormConsent />
 

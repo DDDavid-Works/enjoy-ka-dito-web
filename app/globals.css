@@ -10,7 +10,39 @@
   --font-display: var(--font-clash-grotesk), var(--font-general-sans), sans-serif;
   --font-body: var(--font-general-sans), sans-serif;
 
+  /* Type scale, after the classic typographic scale (12 14 16 18 21 24 · 30 · 36 48 60).
+     Use these instead of raw pixel sizes. */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-md: 18px;
+  --text-lg: 21px;
+  --text-xl: 24px;
+  --text-2xl: 30px;
+  --text-3xl: 36px;
+  --text-4xl: 48px;
+  --text-5xl: 60px;
+
   --container-width: 1200px;
+
+  /* Keyboard focus ring. Sections on a dark (primary) background switch it to the accent. */
+  --focus-ring: var(--color-primary);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 * {
@@ -27,6 +59,7 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
+  font-size: var(--text-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -40,6 +73,12 @@ h3 {
 
 p {
   margin: 0;
+}
+
+/* Only weights 400-600 are loaded; the browser's default 700 would be a faked bold. */
+b,
+strong {
+  font-weight: 600;
 }
 
 a {

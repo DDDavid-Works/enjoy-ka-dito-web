@@ -2,15 +2,16 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import AgencyJsonLd from '@/components/AgencyJsonLd'
 import CoverImage from '@/components/CoverImage'
+import Icon, { type IconName } from '@/components/Icon'
 import { HERO_PHOTOS } from '@/lib/hero-photos'
 import styles from './page.module.css'
 
 const TRUST_BADGES = [
-  { icon: '🎫', label: 'IATA-TIDS' },
-  { icon: '🛡️', label: 'DOT Accredited' },
-  { icon: '✈️', label: 'Airline Accreditations & Partnerships' },
-  { icon: '🤝', label: 'Member: ALTTAP, NEATOP, PTCAO' },
-]
+  { icon: 'ticket', label: 'IATA-TIDS' },
+  { icon: 'shield', label: 'DOT Accredited' },
+  { icon: 'plane', label: 'Airline Accreditations & Partnerships' },
+  { icon: 'members', label: 'Member: ALTTAP, NEATOP, PTCAO' },
+] satisfies { icon: IconName; [field: string]: string }[]
 
 const GATEWAYS = [
   {
@@ -63,8 +64,7 @@ export default function Home() {
           ))}
         </div>
         <div className={styles.heroContent}>
-          <p className={styles.badge}>CURATED JOURNEYS · PHILIPPINES &amp; BEYOND</p>
-          <h1 className={styles.heroTitle}>Helping You Make More Memories Through Travel</h1>
+          <h1 className={styles.heroTitle}>Helping you make more memories through travel</h1>
           <p className={styles.heroSubtext}>
             From Philippine getaways to adventures abroad, MCP Greenery Travel and Tours helps you travel with ease,
             discover new places, and create lasting memories.
@@ -83,14 +83,13 @@ export default function Home() {
       <section className={styles.trustStrip}>
         {TRUST_BADGES.map((badge) => (
           <div key={badge.label} className={styles.trustBadge}>
-            <span className={styles.trustIcon}>{badge.icon}</span>
+            <span className={styles.trustIcon}><Icon name={badge.icon} /></span>
             <span>{badge.label}</span>
           </div>
         ))}
       </section>
 
       <section className={styles.findYourWay}>
-        <p className={styles.sectionBadge}>FIND YOUR WAY</p>
         <h2 className={styles.sectionTitle}>Choose your travel experience.</h2>
 
         <div className={styles.cardGrid}>
