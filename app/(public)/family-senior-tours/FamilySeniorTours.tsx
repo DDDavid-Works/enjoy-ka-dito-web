@@ -122,7 +122,10 @@ export default function FamilySeniorTours() {
           {DESTINATIONS.map((destination) => (
             <li key={destination.name} className={styles.readableItem}>
               <div>
-                <p className={styles.destinationName}>{destination.name}</p>
+                <p className={styles.destinationName}>
+                  <Icon name="pin" className={styles.pin} />
+                  {destination.name}
+                </p>
                 <p className={styles.destinationFor}>{destination.bestFor}</p>
               </div>
               <p className={styles.destinationHighlight}>{destination.highlight}</p>

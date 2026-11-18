@@ -116,7 +116,10 @@ export default function InternationalTours() {
         <div className={styles.destinationGrid}>
           {DESTINATIONS.map((destination) => (
             <div key={destination.name} className={styles.destinationCard}>
-              <p className={styles.destinationName}>{destination.name}</p>
+              <p className={styles.destinationName}>
+                <Icon name="pin" className={styles.pin} />
+                {destination.name}
+              </p>
               <span className={styles.destinationFor}>{destination.bestFor}</span>
               <p className={styles.destinationHighlight}>{destination.highlight}</p>
             </div>

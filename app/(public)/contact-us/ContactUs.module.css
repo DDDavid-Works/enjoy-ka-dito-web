@@ -1,6 +1,6 @@
 .hero {
   --focus-ring: var(--color-accent); /* dark background */
-  background: var(--color-primary);
+  background: var(--color-deep);
   padding: 88px 56px 104px;
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@
   max-width: 560px;
   font-size: var(--text-md);
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.76);
+  color: var(--color-on-dark-muted);
 }
 
 .inlineLink {
@@ -64,7 +64,7 @@
 
 .infoNote {
   font-size: var(--text-sm);
-  color: rgba(31, 41, 51, 0.6);
+  color: var(--color-text-muted);
   margin-top: 16px;
 }
 
@@ -80,7 +80,7 @@
 .formIntro {
   font-size: var(--text-base);
   line-height: 1.5;
-  color: rgba(31, 41, 51, 0.75);
+  color: var(--color-text-muted);
   margin-bottom: 24px;
 }
 
@@ -103,7 +103,7 @@
   margin-bottom: 6px;
   font-size: var(--text-sm);
   font-weight: 500;
-  color: rgba(31, 41, 51, 0.72);
+  color: var(--color-text-muted);
 }
 
 .field:focus-within {
@@ -150,8 +150,8 @@
 .error {
   font-size: var(--text-sm);
   line-height: 1.5;
-  color: #b3261e;
-  background: rgba(179, 38, 30, 0.08);
+  color: var(--color-error);
+  background: var(--color-error-bg);
   border-radius: var(--radius-sm);
   padding: 12px 14px;
   margin-bottom: 16px;

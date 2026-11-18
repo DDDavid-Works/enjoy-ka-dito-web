@@ -1,11 +1,38 @@
 :root {
-  --color-bg: #f7f6f1;
-  --color-primary: #1e3a72;
-  --color-primary-light: #2c56a0;
-  --color-text: #1f2933;
-  --color-accent: #f0a428;
-  --color-highlight: #d64545;
+  /* Palette taken from the Enjoy Ka Dito logo: royal blue lettering, sunglasses navy, sun gold, and the
+     red of "DITO" and its map pin. */
+  --color-bg: #f3f5fa;
+  --color-primary: #22369a; /* logo blue: headings, links, buttons */
+  --color-primary-light: #3248b4; /* hover and secondary blue text */
+  --color-deep: #142a63; /* sunglasses navy: dark sections (heroes, footer, panel headers) */
+  --color-text: #1b2236;
+  --color-accent: #f5b80f; /* sun gold: main calls to action */
+  --color-accent-hover: #f8c63d;
+  --color-pin: #b5162b; /* map-pin red: place markers only, never for errors or buttons */
   --color-white: #ffffff;
+
+  /* Text on light backgrounds. Muted stays above 4.5:1 contrast on white and on --color-bg. */
+  --color-text-muted: rgba(27, 34, 54, 0.72);
+  --color-text-placeholder: rgba(27, 34, 54, 0.66);
+
+  /* Text and lines on the dark (deep navy) background. */
+  --color-on-dark-muted: rgba(255, 255, 255, 0.8);
+  --color-on-dark-subtle: rgba(255, 255, 255, 0.6);
+  --color-on-dark-line: rgba(255, 255, 255, 0.2);
+  --color-on-dark-line-strong: rgba(255, 255, 255, 0.6);
+  --color-on-dark-tint: rgba(255, 255, 255, 0.08);
+  --color-on-dark-hover: rgba(255, 255, 255, 0.14);
+
+  /* Dividers and soft fills, drawn from the deep navy. */
+  --color-line: rgba(20, 42, 99, 0.18);
+  --color-line-soft: rgba(20, 42, 99, 0.1);
+  --color-tint: rgba(20, 42, 99, 0.08);
+  --color-tint-strong: rgba(20, 42, 99, 0.12);
+
+  /* Errors. --color-highlight is kept as an alias for the admin pages that still use it. */
+  --color-error: #b3261e;
+  --color-error-bg: rgba(179, 38, 30, 0.08);
+  --color-highlight: var(--color-error);
 
   --font-display: var(--font-clash-grotesk), var(--font-general-sans), sans-serif;
   --font-body: var(--font-general-sans), sans-serif;
@@ -30,8 +57,8 @@
   --radius-lg: 20px;
 
   /* Only the inquiry forms (and the package booking card) are raised; popovers float above the page. */
-  --shadow-raised: 0 24px 48px rgba(30, 58, 114, 0.1);
-  --shadow-popover: 0 10px 28px rgba(30, 58, 114, 0.14);
+  --shadow-raised: 0 24px 48px rgba(20, 42, 99, 0.1);
+  --shadow-popover: 0 10px 28px rgba(20, 42, 99, 0.14);
 
   --container-width: 1200px;
 
@@ -83,6 +110,11 @@ h3 {
 
 p {
   margin: 0;
+}
+
+::placeholder {
+  color: var(--color-text-placeholder);
+  opacity: 1;
 }
 
 /* Only weights 400-600 are loaded; the browser's default 700 would be a faked bold. */

@@ -24,7 +24,7 @@
 }
 
 .toggle:hover {
-  background: #f5b752;
+  background: var(--color-accent-hover);
 }
 
 .toggleIcon {
@@ -42,14 +42,14 @@
   width: 260px;
   background: var(--color-white);
   border-radius: var(--radius-lg);
-  box-shadow: 0 20px 48px rgba(30, 58, 114, 0.25);
+  box-shadow: 0 20px 48px rgba(20, 42, 99, 0.25);
   overflow: hidden;
 }
 
 .panelHeader {
   --focus-ring: var(--color-accent); /* dark background */
   padding: 18px 20px;
-  background: var(--color-primary);
+  background: var(--color-deep);
   color: var(--color-white);
 }
 
@@ -61,7 +61,7 @@
 .panelSubtext {
   margin-top: 2px;
   font-size: var(--text-xs);
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--color-on-dark-muted);
 }
 
 .channelList {

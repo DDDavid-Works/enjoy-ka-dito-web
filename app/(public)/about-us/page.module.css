@@ -13,7 +13,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(30, 58, 114, 0.25) 0%, rgba(30, 58, 114, 0.82) 100%);
+  background: linear-gradient(180deg, rgba(20, 42, 99, 0.25) 0%, rgba(20, 42, 99, 0.82) 100%);
 }
 
 .heroContent {
@@ -41,7 +41,7 @@
   max-width: 520px;
   font-size: var(--text-md);
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.84);
+  color: var(--color-on-dark-muted);
 }
 
 .intro {

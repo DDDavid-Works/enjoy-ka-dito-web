@@ -135,7 +135,10 @@ export default function CorporateTeamBuilding() {
           <tbody>
             {DESTINATIONS.map((destination) => (
               <tr key={destination.name}>
-                <th scope="row">{destination.name}</th>
+                <th scope="row">
+                  <Icon name="pin" className={styles.pin} />
+                  {destination.name}
+                </th>
                 <td className={styles.compareFor}>{destination.bestFor}</td>
                 <td>{destination.highlight}</td>
               </tr>

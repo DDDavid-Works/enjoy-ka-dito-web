@@ -13,7 +13,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(30, 58, 114, 0.25) 0%, rgba(30, 58, 114, 0.85) 100%);
+  background: linear-gradient(180deg, rgba(20, 42, 99, 0.25) 0%, rgba(20, 42, 99, 0.85) 100%);
 }
 
 .heroContent {
@@ -31,7 +31,7 @@
 .backLink {
   font-size: var(--text-sm);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-on-dark-muted);
   margin-bottom: 12px;
   width: fit-content;
 }
@@ -97,7 +97,7 @@
   grid-template-columns: 90px 1fr;
   gap: 16px;
   padding-bottom: 16px;
-  border-bottom: 1px solid rgba(30, 58, 114, 0.1);
+  border-bottom: 1px solid var(--color-line-soft);
 }
 
 .itineraryLabel {
@@ -178,7 +178,7 @@
 
 .priceNote {
   font-size: var(--text-sm);
-  color: rgba(31, 41, 51, 0.72);
+  color: var(--color-text-muted);
   margin-bottom: 20px;
 }
 
@@ -199,7 +199,7 @@
 
 .divider {
   height: 1px;
-  background: rgba(30, 58, 114, 0.12);
+  background: var(--color-tint-strong);
   margin: 24px 0;
 }
 

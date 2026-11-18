@@ -75,7 +75,7 @@
 }
 
 .filterPill:hover {
-  background: rgba(30, 58, 114, 0.08);
+  background: var(--color-tint);
 }
 
 .filterPillActive,
@@ -129,7 +129,14 @@
   flex-wrap: wrap;
   column-gap: 16px;
   font-size: var(--text-sm);
-  color: rgba(31, 41, 51, 0.72);
+  color: var(--color-text-muted);
+}
+
+/* Map-pin marker in the logo's red, for place names only. */
+.pin {
+  margin-right: 4px;
+  vertical-align: -0.125em;
+  color: var(--color-pin);
 }
 
 .cardPrice {

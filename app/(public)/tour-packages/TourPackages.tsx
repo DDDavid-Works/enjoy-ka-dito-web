@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import CoverImage from '@/components/CoverImage'
+import Icon from '@/components/Icon'
 import { PACKAGE_CATEGORIES, type Package, type PackageCategory } from '@/types/package'
 import styles from './TourPackages.module.css'
 
@@ -70,7 +71,10 @@ export default function TourPackages({ packages }: { packages: Package[] }) {
             <div className={styles.cardBody}>
               <p className={styles.cardTitle}>{pkg.title}</p>
               <p className={styles.cardMeta}>
-                <span>{pkg.location}</span>
+                <span>
+                  <Icon name="pin" className={styles.pin} />
+                  {pkg.location}
+                </span>
                 <span>{pkg.duration}</span>
               </p>
               <p className={styles.cardPrice}>{pkg.price ?? 'Request a Quote'}</p>
