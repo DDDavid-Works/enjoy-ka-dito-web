@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { inquiriesApi } from '@/lib/api'
 import type { CompanyDetails } from '@/types/company'
 import FormConsent from '@/components/FormConsent'
+import { formErrorMessage } from '@/lib/form-errors'
 import styles from './ContactUs.module.css'
 
 export default function ContactUs({ company }: { company: CompanyDetails }) {
@@ -29,7 +30,7 @@ export default function ContactUs({ company }: { company: CompanyDetails }) {
       })
       setSubmitted(true)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+      setError(formErrorMessage(err, 'message', true))
     } finally {
       setSubmitting(false)
     }
@@ -43,7 +44,7 @@ export default function ContactUs({ company }: { company: CompanyDetails }) {
           Reach out for anything that isn&rsquo;t a booking &mdash; general questions, partnership inquiries, or
           feedback. Already planning a trip?{' '}
           <Link href="/request-a-quote" className={styles.inlineLink}>
-            Request a Quote
+            request a quote
           </Link>{' '}
           instead.
         </p>
@@ -68,7 +69,7 @@ export default function ContactUs({ company }: { company: CompanyDetails }) {
 
         <div className={styles.formCard}>
           {submitted ? (
-            <p className={styles.success}>Thanks! We&rsquo;ve received your message and will get back to you soon.</p>
+            <p className={styles.success}>Message sent. We&rsquo;ll get back to you soon.</p>
           ) : (
             <>
               <p className={styles.formIntro}>Send us a message and we&rsquo;ll get back to you.</p>
@@ -88,7 +89,7 @@ export default function ContactUs({ company }: { company: CompanyDetails }) {
                 </label>
                 <FormConsent />
                 <button type="submit" className={styles.submit} disabled={submitting}>
-                  {submitting ? 'Sending…' : 'Send Message'}
+                  {submitting ? 'Sending…' : 'Send message'}
                 </button>
               </form>
             </>

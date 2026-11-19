@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react'
 import { inquiriesApi } from '@/lib/api'
 import { DESIRED_DESTINATIONS, FLIGHT_STATUSES, GROUP_TYPES, TRIP_DURATIONS } from '@/types/inquiry'
 import FormConsent from '@/components/FormConsent'
+import { formErrorMessage } from '@/lib/form-errors'
 import Icon, { type IconName } from '@/components/Icon'
 import styles from '../_landing/Landing.module.css'
 
@@ -82,7 +83,7 @@ export default function InboundForeigners() {
       })
       setSubmitted(true)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+      setError(formErrorMessage(err, 'itinerary request'))
     } finally {
       setSubmitting(false)
     }
@@ -98,7 +99,7 @@ export default function InboundForeigners() {
         </p>
         <div className={styles.heroActions}>
           <a href="#inbound-inquiry-form" className={styles.heroCta}>
-            Inquire About Your Philippine Getaway
+            Customize your Philippine itinerary
           </a>
         </div>
       </section>
@@ -137,11 +138,11 @@ export default function InboundForeigners() {
         <div className={styles.formCard}>
           {submitted ? (
             <p className={styles.success}>
-              Thanks! We&rsquo;ve received your details and will help you customize your Philippine itinerary soon.
+              Itinerary request sent. We&rsquo;ll be in touch soon to customize your trip.
             </p>
           ) : (
             <>
-              <h2 className={styles.sectionTitle}>Customize my Philippine itinerary</h2>
+              <h2 className={styles.sectionTitle}>Customize your Philippine itinerary</h2>
               <p className={styles.formIntro}>
                 Tell us about your trip and we&rsquo;ll take care of the logistics.
               </p>
@@ -243,7 +244,7 @@ export default function InboundForeigners() {
                 <FormConsent />
 
                 <button type="submit" className={styles.submit} disabled={submitting}>
-                  {submitting ? 'Sending…' : 'Customize My Philippine Itinerary'}
+                  {submitting ? 'Sending…' : 'Send itinerary request'}
                 </button>
               </form>
             </>

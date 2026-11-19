@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react'
 import PrefilledDestinationCombobox from '@/components/PrefilledDestinationCombobox'
 import { inquiriesApi } from '@/lib/api'
 import FormConsent from '@/components/FormConsent'
+import { formErrorMessage } from '@/lib/form-errors'
 import Icon, { type IconName } from '@/components/Icon'
 import styles from '../_landing/Landing.module.css'
 
@@ -77,7 +78,7 @@ export default function FamilySeniorTours() {
       })
       setSubmitted(true)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+      setError(formErrorMessage(err, 'trip details'))
     } finally {
       setSubmitting(false)
     }
@@ -138,8 +139,8 @@ export default function FamilySeniorTours() {
         <div className={styles.formCard}>
           {submitted ? (
             <p className={styles.success}>
-              Thanks! We&rsquo;ve received your details and will reach out within 1&ndash;2 business days &mdash; or
-              call us anytime for a faster answer.
+              Trip details sent. We&rsquo;ll reach out within 1&ndash;2 business days, or call us anytime for a faster
+              answer.
             </p>
           ) : (
             <>
@@ -209,7 +210,7 @@ export default function FamilySeniorTours() {
                 <FormConsent />
 
                 <button type="submit" className={styles.submit} disabled={submitting}>
-                  {submitting ? 'Sending…' : 'Request a Relaxed, Fully Managed Itinerary'}
+                  {submitting ? 'Sending…' : 'Send trip details'}
                 </button>
               </form>
             </>

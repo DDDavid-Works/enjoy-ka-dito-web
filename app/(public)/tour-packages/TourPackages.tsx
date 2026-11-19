@@ -77,7 +77,7 @@ export default function TourPackages({ packages }: { packages: Package[] }) {
                 </span>
                 <span>{pkg.duration}</span>
               </p>
-              <p className={styles.cardPrice}>{pkg.price ?? 'Request a Quote'}</p>
+              <p className={styles.cardPrice}>{pkg.price ?? 'Request a quote'}</p>
             </div>
           </Link>
         ))}

@@ -5,6 +5,7 @@ import PrefilledDestinationCombobox from '@/components/PrefilledDestinationCombo
 import { inquiriesApi } from '@/lib/api'
 import { TRAVELER_TYPES } from '@/types/inquiry'
 import FormConsent from '@/components/FormConsent'
+import { formErrorMessage } from '@/lib/form-errors'
 import styles from './RequestQuote.module.css'
 
 export default function RequestQuote() {
@@ -38,7 +39,7 @@ export default function RequestQuote() {
       })
       setSubmitted(true)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+      setError(formErrorMessage(err, 'quote request'))
     } finally {
       setSubmitting(false)
     }
@@ -58,8 +59,7 @@ export default function RequestQuote() {
         <div className={styles.formCard}>
           {submitted ? (
             <p className={styles.success}>
-              Thanks! We&rsquo;ve received your quote request and will get back to you within 1&ndash;2 business
-              days.
+              Quote request sent. We&rsquo;ll get back to you within 1&ndash;2 business days.
             </p>
           ) : (
             <>
@@ -131,7 +131,7 @@ export default function RequestQuote() {
                 <FormConsent />
 
                 <button type="submit" className={styles.submit} disabled={submitting}>
-                  {submitting ? 'Sending…' : 'Request a Quote'}
+                  {submitting ? 'Sending…' : 'Request a quote'}
                 </button>
               </form>
             </>

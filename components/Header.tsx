@@ -52,12 +52,12 @@ export default function Header() {
           </Link>
         ))}
         <Link href="/request-a-quote" className={styles.ctaMobile}>
-          Request a Quote
+          Request a quote
         </Link>
       </nav>
 
       <Link href="/request-a-quote" className={styles.cta}>
-        Request a Quote
+        Request a quote
       </Link>
 
       <button

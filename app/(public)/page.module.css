@@ -1,18 +1,36 @@
-/* Split hero: the headline on a solid panel, the traveller photos beside it at full colour. */
+/* Full-width photo mosaic. The navy wash sits only behind the text block on the left and fades out,
+   so the photos on the right stay at full colour. Phones stack the text above a photo strip instead. */
 .hero {
   --focus-ring: var(--color-accent); /* dark background */
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  grid-template-areas: 'content mosaic';
+  --hero-text-width: min(640px, 62%);
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
   min-height: 620px;
   background: var(--color-deep);
 }
 
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    rgba(20, 42, 99, 0.92) 0,
+    rgba(20, 42, 99, 0.86) var(--hero-text-width),
+    rgba(20, 42, 99, 0) calc(var(--hero-text-width) + 260px)
+  );
+}
+
 .heroMosaic {
-  grid-area: mosaic;
+  position: absolute;
+  inset: 0;
+  z-index: -2;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 3px;
   background: var(--color-deep);
 }
@@ -23,11 +41,7 @@
 }
 
 .heroContent {
-  grid-area: content;
-  align-self: center;
-  justify-self: end;
-  width: 100%;
-  max-width: 680px;
+  width: var(--hero-text-width);
   padding: 88px 56px;
   display: flex;
   flex-direction: column;
@@ -36,17 +50,25 @@
 
 @media (max-width: 900px) {
   .hero {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'content'
-      'mosaic';
+    flex-direction: column;
+    align-items: stretch;
     min-height: 0;
   }
 
+  .hero::before {
+    display: none;
+  }
+
   .heroMosaic {
+    position: static;
+    order: 1;
     height: 240px;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
+  }
+
+  .heroContent {
+    width: auto;
   }
 
   .heroTile:nth-child(n + 7) {

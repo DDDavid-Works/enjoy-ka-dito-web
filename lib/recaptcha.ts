@@ -17,7 +17,7 @@ function loadScript() {
     script.onload = () => resolve()
     script.onerror = () => {
       scriptLoaded = null
-      reject(new Error('Could not load the spam check. Please check your connection and try again.'))
+      reject(new Error('Couldn’t load the spam check. Check your internet connection and try again.'))
     }
     document.head.appendChild(script)
   })

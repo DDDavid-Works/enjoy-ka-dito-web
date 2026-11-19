@@ -11,7 +11,7 @@ function FromQueryString(props: Props) {
   return <DestinationCombobox {...props} defaultValue={searchParams.get('destination') ?? ''} />
 }
 
-// Pre-fills the destination from ?destination=... (the "Request a Quote" link on package pages).
+// Pre-fills the destination from ?destination=... (the "Request a quote" link on package pages).
 // Only this field depends on the query string, so the rest of the page stays in the server-rendered HTML.
 export default function PrefilledDestinationCombobox(props: Props) {
   return (

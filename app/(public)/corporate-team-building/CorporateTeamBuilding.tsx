@@ -6,6 +6,7 @@ import DestinationCombobox from '@/components/DestinationCombobox'
 import { inquiriesApi } from '@/lib/api'
 import { CORPORATE_BUDGET_BRACKETS } from '@/types/inquiry'
 import FormConsent from '@/components/FormConsent'
+import { formErrorMessage } from '@/lib/form-errors'
 import Icon, { type IconName } from '@/components/Icon'
 import styles from '../_landing/Landing.module.css'
 
@@ -84,7 +85,7 @@ export default function CorporateTeamBuilding() {
       })
       setSubmitted(true)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+      setError(formErrorMessage(err, 'proposal request'))
     } finally {
       setSubmitting(false)
     }
@@ -102,7 +103,7 @@ export default function CorporateTeamBuilding() {
         </p>
         <div className={styles.heroActions}>
           <a href="#corporate-inquiry-form" className={styles.heroCta}>
-            Get a Custom Corporate Proposal
+            Request a corporate proposal
           </a>
         </div>
       </section>
@@ -151,13 +152,13 @@ export default function CorporateTeamBuilding() {
         <div className={styles.formCard}>
           {submitted ? (
             <p className={styles.success}>
-              Thanks! We&rsquo;ve received your request and will send a proposal within 24&ndash;48 hours.
+              Proposal request sent. We&rsquo;ll send your proposal within 24&ndash;48 hours.
             </p>
           ) : (
             <>
-              <h2 className={styles.sectionTitle}>Submit a request for proposal</h2>
+              <h2 className={styles.sectionTitle}>Request a corporate proposal</h2>
               <p className={styles.formIntro}>
-                Keep it short but specific &mdash; this helps us send a serious, accurate proposal fast.
+                We&rsquo;ll send your proposal within 24&ndash;48 hours.
               </p>
               {error && <p className={styles.error}>{error}</p>}
               <form className={styles.form} onSubmit={handleSubmit}>
@@ -235,7 +236,7 @@ export default function CorporateTeamBuilding() {
                 <FormConsent />
 
                 <button type="submit" className={styles.submit} disabled={submitting}>
-                  {submitting ? 'Sending…' : 'Submit Request & Receive Proposal Within 24–48 Hours'}
+                  {submitting ? 'Sending…' : 'Request proposal'}
                 </button>
               </form>
             </>

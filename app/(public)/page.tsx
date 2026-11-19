@@ -17,14 +17,14 @@ const GATEWAYS = [
   {
     title: 'Corporate Team Building',
     copy: 'Complete logistics, official invoicing, custom domestic & Asian itineraries, and on-site coordinators for teams of all sizes.',
-    button: 'Explore Corporate Packages',
+    button: 'Explore corporate packages',
     image: '/images/corporate-team-building.jpg',
     to: '/corporate-team-building',
   },
   {
     title: 'Family & Senior Tours',
     copy: 'Relaxed pacing, private transport, senior-friendly steps, and hassle-free, door-to-door managed itineraries.',
-    button: 'View Family Tour Packages',
+    button: 'View family tour packages',
     image: '/images/family-senior-tours.jpg',
     to: '/family-senior-tours',
   },
@@ -38,7 +38,7 @@ const GATEWAYS = [
   {
     title: 'International Tours',
     copy: 'Visa assistance, flights, hotels, and guided itineraries for Filipino travelers heading to Asia and beyond.',
-    button: 'Explore International Tours',
+    button: 'Explore international tours',
     image: '/images/international-tours.jpg',
     to: '/international-tours',
   },
@@ -71,10 +71,10 @@ export default function Home() {
           </p>
           <div className={styles.heroActions}>
             <Link href="/tour-packages" className={styles.heroLinkAction}>
-              Explore Tour Packages
+              Explore tour packages
             </Link>
             <Link href="/request-a-quote" className={styles.heroOutlineAction}>
-              Request a Quote
+              Request a quote
             </Link>
           </div>
         </div>

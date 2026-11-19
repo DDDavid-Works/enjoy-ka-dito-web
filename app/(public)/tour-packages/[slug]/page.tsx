@@ -99,7 +99,7 @@ async function PackageDetail({ params }: Pick<PageProps<'/tour-packages/[slug]'>
         {pkg.mainImage && <CoverImage src={pkg.mainImage} sizes="100vw" preload behind />}
         <div className={styles.heroContent}>
           <Link href="/tour-packages" className={styles.backLink}>
-            ← Back to Tour Packages
+            ← Back to tour packages
           </Link>
           <p className={styles.meta}>
             <span>{pkg.location}</span>
@@ -136,7 +136,7 @@ async function PackageDetail({ params }: Pick<PageProps<'/tour-packages/[slug]'>
             <p className={styles.price}>{pkg.price ?? 'Custom pricing'}</p>
             <p className={styles.priceNote}>Per person, based on double occupancy.</p>
             <Link href={`/request-a-quote?destination=${encodeURIComponent(pkg.title)}`} className={styles.cta}>
-              Request a Quote
+              Request a quote
             </Link>
 
             <div className={styles.divider} />

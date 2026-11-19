@@ -22,21 +22,48 @@ function getToken(): string | null {
   }
 }
 
+// An API failure with a message a person can act on. `status` is 0 when the server couldn't be reached.
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    readonly status: number,
+  ) {
+    super(message)
+    this.name = 'ApiError'
+  }
+}
+
+// Turns the API's error body into one readable sentence. Validation errors arrive as a list of messages.
+function errorMessage(status: number, body: { message?: unknown } | null): string {
+  if (status >= 500) return `The server ran into a problem (error ${status}). Try again in a few minutes.`
+  const { message } = body ?? {}
+  if (Array.isArray(message) && message.length) {
+    return message.map((m) => String(m).replace(/^./, (c) => c.toUpperCase()).replace(/\.?$/, '.')).join(' ')
+  }
+  if (typeof message === 'string' && message) return message
+  return `The request was rejected (error ${status}).`
+}
+
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = getToken()
 
-  const response = await fetch(`${API_URL}${path}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options.headers,
-    },
-  })
+  let response: Response
+  try {
+    response = await fetch(`${API_URL}${path}`, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...options.headers,
+      },
+    })
+  } catch {
+    throw new ApiError('Couldn’t reach the server. Check your internet connection and try again.', 0)
+  }
 
   if (!response.ok) {
     const body = await response.json().catch(() => null)
-    throw new Error(body?.message ?? `Request failed (${response.status})`)
+    throw new ApiError(errorMessage(response.status, body), response.status)
   }
 
   if (response.status === 204) return undefined as T
