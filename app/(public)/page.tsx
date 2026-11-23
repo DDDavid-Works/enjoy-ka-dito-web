@@ -57,9 +57,9 @@ export default function Home() {
       <AgencyJsonLd />
       <section className={styles.hero}>
         <div className={styles.heroMosaic} aria-hidden="true">
-          {HERO_PHOTOS.map(({ src }, index) => (
+          {HERO_PHOTOS.map(({ src, alt }, index) => (
             <div key={src} className={styles.heroTile}>
-              <CoverImage src={src} sizes="(max-width: 900px) 50vw, 25vw" preload={index === 0} />
+              <CoverImage src={src} alt={alt} sizes="(max-width: 900px) 50vw, 25vw" preload={index === 0} />
             </div>
           ))}
         </div>
