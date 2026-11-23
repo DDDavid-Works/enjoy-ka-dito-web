@@ -123,7 +123,9 @@ export default function TourPackages({ packages }: { packages: Package[] }) {
         {filteredPackages.map((pkg) => (
           <Link key={pkg.slug} href={`/tour-packages/${pkg.slug}`} className={styles.card}>
             <div className={styles.cardImage}>
-              {pkg.mainImage && <CoverImage src={pkg.mainImage} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 400px" />}
+              {pkg.mainImage && (
+                <CoverImage src={pkg.mainImage} alt={pkg.title} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 400px" />
+              )}
             </div>
             <div className={styles.cardBody}>
               <p className={styles.cardTitle}>{pkg.title}</p>

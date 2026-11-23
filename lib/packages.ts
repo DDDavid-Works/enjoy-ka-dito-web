@@ -4,6 +4,12 @@ import type { Package } from '@/types/package'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000'
 
+// Titles typed in the admin can carry stray spaces ("Cebu Package ", "Vietnam  Package"), which would end up in
+// page titles and structured data.
+function tidy(pkg: Package): Package {
+  return { ...pkg, title: pkg.title.replace(/\s+/g, ' ').trim() }
+}
+
 // The API returns only published packages to anonymous requests, which is what these server fetches are.
 // Call revalidateTag('packages') after the admin changes any package (Phase 4 webhook).
 export async function getPackages(): Promise<Package[]> {
@@ -14,7 +20,8 @@ export async function getPackages(): Promise<Package[]> {
   try {
     const response = await fetch(`${API_URL}/packages`)
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
-    return await response.json()
+    const packages: Package[] = await response.json()
+    return packages.map(tidy)
   } catch {
     // An API outage shouldn't be cached as "no packages": retry on the next request.
     cacheLife(FAILURE_LIFE)
@@ -31,5 +38,5 @@ export async function getPackage(slug: string): Promise<Package | null> {
   const response = await fetch(`${API_URL}/packages/${encodeURIComponent(slug)}`)
   if (response.status === 404) return null
   if (!response.ok) throw new Error(`Failed to load package (HTTP ${response.status})`)
-  return response.json()
+  return tidy(await response.json())
 }

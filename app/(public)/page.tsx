@@ -99,7 +99,7 @@ export default function Home() {
               href={item.to}
               className={styles.card}
             >
-              <CoverImage src={item.image} sizes="(max-width: 900px) 100vw, 400px" behind />
+              <CoverImage src={item.image} alt={item.title} sizes="(max-width: 900px) 100vw, 400px" behind />
               <p className={styles.cardTitle}>{item.title}</p>
               <p className={styles.cardCopy}>{item.copy}</p>
               <span className={styles.cardButton}>{item.button}</span>

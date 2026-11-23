@@ -17,6 +17,14 @@ function toMobileDigits(entry: string) {
   return undefined
 }
 
+// An entry in international format for structured data: "WhatsApp: 0917-631-5554" -> "+63 917 631 5554".
+// Numbers that aren't Philippine mobiles keep their digits as typed, without the label.
+export function toInternationalNumber(entry: string) {
+  const mobile = toMobileDigits(entry)
+  if (mobile) return `+63 ${mobile.slice(2, 5)} ${mobile.slice(5, 8)} ${mobile.slice(8)}`
+  return extractNumber(entry) || undefined
+}
+
 // First mobile number in the list as digits with the country code ("639613602077") for wa.me links, or undefined.
 export function findWhatsappNumber(entries: string[]) {
   for (const entry of entries) {

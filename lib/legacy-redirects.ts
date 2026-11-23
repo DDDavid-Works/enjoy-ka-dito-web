@@ -73,6 +73,6 @@ export const LEGACY_PAGE_REDIRECTS: Array<[string, string]> = [
   ['/facebook', 'https://www.facebook.com/EnjoyKaDito'],
 ]
 
-// Old pages with no equivalent here (they will 404 unless a decision is made): /weather-broadcast, /bulletin,
-// /photo-gallery, /let-us-help-you-how, /more/testimonial, and the Shella Viray testimonial page.
-// The ~1,425 news posts (/YYYY/MM/DD/slug), /category/*, /tag/* and /author/* are also undecided.
+// Old pages with no equivalent here: proxy.ts answers them with 410 Gone, along with the ~1,425 news posts
+// (/YYYY/MM/DD/slug), /category/*, /tag/*, /author/* and the feeds. Keep this list in sync with its matcher.
+export const GONE_PAGE_PATHS = ['/weather-broadcast', '/bulletin', '/photo-gallery', '/let-us-help-you-how', '/more/testimonial']

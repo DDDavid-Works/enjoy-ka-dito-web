@@ -96,7 +96,7 @@ async function PackageDetail({ params }: Pick<PageProps<'/tour-packages/[slug]'>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbLd }} />
 
       <section className={styles.hero}>
-        {pkg.mainImage && <CoverImage src={pkg.mainImage} sizes="100vw" preload behind />}
+        {pkg.mainImage && <CoverImage src={pkg.mainImage} alt={pkg.title} sizes="100vw" preload behind />}
         <div className={styles.heroContent}>
           <Link href="/tour-packages" className={styles.backLink}>
             ← Back to tour packages

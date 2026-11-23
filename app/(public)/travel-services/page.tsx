@@ -74,7 +74,7 @@ const SERVICES = [
 export const metadata: Metadata = {
   title: 'Travel Services',
   description:
-    'Flight ticketing, hotel reservations, tours and transfers, corporate team building, company retreats, event coordination, passport, insurance and visa assistance from a DOT-accredited Philippine travel agency.',
+    'Flights, hotels, tours, transfers, team building, passport, insurance and visa assistance from a DOT-accredited Philippine travel agency.',
   alternates: { canonical: '/travel-services' },
 }
 
