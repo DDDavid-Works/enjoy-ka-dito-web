@@ -45,7 +45,7 @@ function compareNullable(a: number | null, b: number | null, direction: 1 | -1):
 export default function TourPackages({ packages }: { packages: Package[] }) {
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState<PackageCategory | 'All'>('All')
-  const [sort, setSort] = useState<SortKey>('featured')
+  const [sort, setSort] = useState<SortKey>('price-asc')
 
   const filteredPackages = useMemo(() => {
     const matches = packages.filter((pkg) => {
