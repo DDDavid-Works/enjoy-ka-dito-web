@@ -34,12 +34,47 @@ const SERVICES = [
     title: 'Visa Assistance',
     description: 'Visa applications for local and foreign travelers, guided start to finish.',
   },
+  {
+    title: 'Corporate Team Building & Company Outings',
+    description:
+      'Customized programs based on team size, objectives, dates, and budget. Packages can include resort stays, meals, transfers, team activities, and facilitators through partners.',
+  },
+  {
+    title: 'Company Retreats & Incentive Trips',
+    description:
+      'Leadership retreats, planning sessions, and reward trips with venue sourcing, upgraded accommodations, group meals, and optional tours.',
+  },
+  {
+    title: 'Airfare & Accommodation Arrangements',
+    description:
+      'Flight arrangements, group airfare requests, hotel and resort reservations, and room upgrades. Available as standalone services or as part of a package.',
+  },
+  {
+    title: 'Tours & Transfers',
+    description:
+      'Day tours, island hopping, airport and seaport transfers, and private vans or buses, depending on the destination.',
+  },
+  {
+    title: 'Corporate Travel Arrangements',
+    description:
+      'Coordinated travel arrangements for businesses and organizations, including flight bookings, hotel accommodations, transportation, and customized itineraries for corporate travelers and groups.',
+  },
+  {
+    title: 'Event & Onsite Coordination',
+    description:
+      'Travel and event coordination for company gatherings, meetings, and group activities, including venue arrangements, transportation, accommodation, and onsite assistance through our partners.',
+  },
+  {
+    title: 'Customized Group & Private Tours',
+    description:
+      'Tailor-made itineraries for families, friends, and private groups, with options for sightseeing, island hopping, and local experiences.',
+  },
 ]
 
 export const metadata: Metadata = {
   title: 'Travel Services',
   description:
-    'Flight ticketing, cruises, hotel reservations, land arrangements, passport appointments, travel insurance and visa assistance from a DOT-accredited Philippine travel agency.',
+    'Flight ticketing, hotel reservations, tours and transfers, corporate team building, company retreats, event coordination, passport, insurance and visa assistance from a DOT-accredited Philippine travel agency.',
   alternates: { canonical: '/travel-services' },
 }
 
