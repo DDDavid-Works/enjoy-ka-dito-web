@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import JsonLd, { breadcrumb } from '@/components/JsonLd'
 import CoverImage from '@/components/CoverImage'
 import styles from './page.module.css'
 
@@ -12,19 +13,23 @@ const ACCREDITATIONS = [
 ]
 
 export const metadata: Metadata = {
-  title: 'About Us',
+  title: 'About Our DOT-Accredited Travel Agency',
   description:
-    'Enjoy Ka Dito is a DOT-accredited, PAL-partnered Philippine travel agency planning local and international trips with care.',
+    'Enjoy Ka Dito is a DOT-accredited, PAL-partnered travel agency in Pangasinan, planning local and international trips with care. Learn how we plan your trip.',
   alternates: { canonical: '/about-us' },
 }
 
 export default function AboutUs() {
   return (
     <main>
+      <JsonLd data={breadcrumb('About Us', '/about-us')} />
       <section className={styles.hero}>
-        <CoverImage src="/images/local-tours.jpg" sizes="100vw" preload behind />
+        <CoverImage src="/images/local-tours.jpg" alt="Limestone islands and a turquoise lagoon in Palawan" sizes="100vw" preload behind />
         <div className={styles.heroContent}>
-          <h1 className={styles.title}>Every trip starts with people who care.</h1>
+          <h1 className={styles.title}>
+            <span className="h1-eyebrow">About Enjoy Ka Dito, a Philippine Travel Agency</span>
+            Every trip starts with people who care.
+          </h1>
           <p className={styles.subtext}>
             A Philippine-based travel team building journeys around what actually matters to you.
           </p>

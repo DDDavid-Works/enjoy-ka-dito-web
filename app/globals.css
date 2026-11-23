@@ -143,3 +143,17 @@ img {
   display: flex;
   flex-direction: column;
 }
+
+/* Keyword line at the top of a page's H1, above the headline: the H1 reads "Tour Packages … Find your next
+   favourite place." for search engines while the headline stays the visual focus. */
+.h1-eyebrow {
+  display: block;
+  margin-bottom: 12px;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  opacity: 0.85;
+}

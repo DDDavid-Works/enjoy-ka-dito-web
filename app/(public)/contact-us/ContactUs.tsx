@@ -39,7 +39,10 @@ export default function ContactUs({ company }: { company: CompanyDetails }) {
   return (
     <main>
       <section className={styles.hero}>
-        <h1 className={styles.title}>Questions? We&rsquo;re here to help.</h1>
+        <h1 className={styles.title}>
+          <span className="h1-eyebrow">Contact Enjoy Ka Dito</span>
+          Questions? We&rsquo;re here to help.
+        </h1>
         <p className={styles.subtext}>
           Reach out for anything that isn&rsquo;t a booking &mdash; general questions, partnership inquiries, or
           feedback. Already planning a trip?{' '}

@@ -48,7 +48,10 @@ export default function RequestQuote() {
   return (
     <main>
       <section className={styles.hero}>
-        <h1 className={styles.title}>Let&rsquo;s plan your next adventure.</h1>
+        <h1 className={styles.title}>
+          <span className="h1-eyebrow">Request a Free Travel Quote</span>
+          Let&rsquo;s plan your next adventure.
+        </h1>
         <p className={styles.subtext}>
           Tell us where you want to go and what you have in mind. Our team will put together a quote tailored to
           you.

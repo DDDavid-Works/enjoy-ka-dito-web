@@ -75,7 +75,10 @@ export default function TourPackages({ packages }: { packages: Package[] }) {
   return (
     <main>
       <section className={styles.intro}>
-        <h1 className={styles.title}>Find your next favourite place.</h1>
+        <h1 className={styles.title}>
+          <span className="h1-eyebrow">Philippine &amp; International Tour Packages</span>
+          Find your next favourite place.
+        </h1>
         <p className={styles.subtext}>
           Browse our sample escapes. Every trip can be refined around your dates, group, and travel style.
         </p>

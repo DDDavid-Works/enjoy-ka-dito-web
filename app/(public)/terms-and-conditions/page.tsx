@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
+import JsonLd, { breadcrumb } from '@/components/JsonLd'
 import Link from 'next/link'
 import { getCompanyDetails } from '@/lib/company'
 import styles from '../privacy-policy/page.module.css'
 
 export const metadata: Metadata = {
   title: 'Terms & Conditions',
-  description: 'The terms that apply when you use the Enjoy Ka Dito website and book travel with us.',
+  description: 'The terms that apply when you use the Enjoy Ka Dito website and book travel with us, including quotations, bookings, payments, cancellations and refunds.',
   alternates: { canonical: '/terms-and-conditions' },
 }
 
@@ -20,6 +21,7 @@ export default async function TermsAndConditions() {
 
   return (
     <main className={styles.page}>
+      <JsonLd data={breadcrumb('Terms & Conditions', '/terms-and-conditions')} />
       <h1 className={styles.title}>Terms &amp; Conditions</h1>
       <p className={styles.updated}>Last updated: October 30, 2026</p>
       <p className={styles.intro}>

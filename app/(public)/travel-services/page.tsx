@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import JsonLd, { breadcrumb, service } from '@/components/JsonLd'
 import styles from './page.module.css'
 
 const SERVICES = [
@@ -72,17 +73,36 @@ const SERVICES = [
 ]
 
 export const metadata: Metadata = {
-  title: 'Travel Services',
+  title: 'Travel Services: Flights, Hotels & Visas',
   description:
-    'Flights, hotels, tours, transfers, team building, passport, insurance and visa assistance from a DOT-accredited Philippine travel agency.',
+    'Flights, hotels, tours, transfers, team building, passport, insurance and visa help from a DOT-accredited Philippine travel agency. Get a free quote today.',
   alternates: { canonical: '/travel-services' },
 }
 
 export default function TravelServices() {
   return (
     <main>
+      <JsonLd
+        data={[
+          {
+            ...service('Travel Agency Services', String(metadata.description), '/travel-services', ['Philippines', 'Worldwide']),
+            hasOfferCatalog: {
+              '@type': 'OfferCatalog',
+              name: 'Travel services',
+              itemListElement: SERVICES.map((item) => ({
+                '@type': 'Offer',
+                itemOffered: { '@type': 'Service', name: item.title, description: item.description },
+              })),
+            },
+          },
+          breadcrumb('Travel Services', '/travel-services'),
+        ]}
+      />
       <section className={styles.intro}>
-        <h1 className={styles.title}>Everything your trip needs, in one place.</h1>
+        <h1 className={styles.title}>
+          <span className="h1-eyebrow">Travel Agency Services</span>
+          Everything your trip needs, in one place.
+        </h1>
         <p className={styles.subtext}>
           From tickets and hotels to visas and insurance — we handle the parts of travel planning that usually eat
           up your time.

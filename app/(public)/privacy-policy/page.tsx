@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
+import JsonLd, { breadcrumb } from '@/components/JsonLd'
 import Link from 'next/link'
 import { getCompanyDetails } from '@/lib/company'
 import styles from './page.module.css'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'How Enjoy Ka Dito collects, uses and protects the personal information you share with us.',
+  description: 'How Enjoy Ka Dito collects, uses and protects the personal information you share when you request a quote, contact us or book travel through our website.',
   alternates: { canonical: '/privacy-policy' },
 }
 
@@ -20,6 +21,7 @@ export default async function PrivacyPolicy() {
 
   return (
     <main className={styles.page}>
+      <JsonLd data={breadcrumb('Privacy Policy', '/privacy-policy')} />
       <h1 className={styles.title}>Privacy Policy</h1>
       <p className={styles.updated}>Last updated: October 30, 2026</p>
       <p className={styles.intro}>
