@@ -84,6 +84,33 @@
   color: var(--color-white);
 }
 
+.sortBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.sortBox select {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 11px 12px;
+  background: var(--color-bg);
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sortBox select:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 .grid {
   max-width: var(--container-width);
   margin: 0 auto;

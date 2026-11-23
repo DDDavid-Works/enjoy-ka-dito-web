@@ -9,13 +9,46 @@ import styles from './TourPackages.module.css'
 
 const FILTERS: Array<PackageCategory | 'All'> = ['All', ...PACKAGE_CATEGORIES]
 
+type SortKey = 'featured' | 'price-asc' | 'price-desc' | 'duration-asc' | 'duration-desc' | 'name'
+
+const SORT_OPTIONS: Array<{ value: SortKey; label: string }> = [
+  { value: 'featured', label: 'Featured' },
+  { value: 'price-asc', label: 'Price: low to high' },
+  { value: 'price-desc', label: 'Price: high to low' },
+  { value: 'duration-asc', label: 'Duration: shortest' },
+  { value: 'duration-desc', label: 'Duration: longest' },
+  { value: 'name', label: 'Name: A to Z' },
+]
+
+// Price and duration are free text ("For as low as Php 119, 909 per person", "10Days & 9 Nights",
+// "3D2N"), so take the first number in each. Unparseable values return null and sort last.
+function parsePrice(price?: string): number | null {
+  const match = price?.match(/\d[\d,\s]*(?:\.\d+)?/)
+  if (!match) return null
+  const value = Number(match[0].replace(/[,\s]/g, ''))
+  return Number.isFinite(value) ? value : null
+}
+
+function parseDuration(duration?: string): number | null {
+  const match = duration?.match(/\d+/)
+  return match ? Number(match[0]) : null
+}
+
+function compareNullable(a: number | null, b: number | null, direction: 1 | -1): number {
+  if (a === null && b === null) return 0
+  if (a === null) return 1
+  if (b === null) return -1
+  return (a - b) * direction
+}
+
 // Receives the packages fetched on the server, so the cards are in the initial HTML for crawlers.
 export default function TourPackages({ packages }: { packages: Package[] }) {
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState<PackageCategory | 'All'>('All')
+  const [sort, setSort] = useState<SortKey>('featured')
 
   const filteredPackages = useMemo(() => {
-    return packages.filter((pkg) => {
+    const matches = packages.filter((pkg) => {
       const matchesFilter = filter === 'All' || pkg.category === filter
       const matchesQuery =
         query.trim() === '' ||
@@ -23,7 +56,24 @@ export default function TourPackages({ packages }: { packages: Package[] }) {
         (pkg.location ?? '').toLowerCase().includes(query.toLowerCase())
       return matchesFilter && matchesQuery
     })
-  }, [packages, query, filter])
+
+    switch (sort) {
+      case 'price-asc':
+      case 'price-desc':
+        return [...matches].sort((a, b) =>
+          compareNullable(parsePrice(a.price), parsePrice(b.price), sort === 'price-asc' ? 1 : -1),
+        )
+      case 'duration-asc':
+      case 'duration-desc':
+        return [...matches].sort((a, b) =>
+          compareNullable(parseDuration(a.duration), parseDuration(b.duration), sort === 'duration-asc' ? 1 : -1),
+        )
+      case 'name':
+        return [...matches].sort((a, b) => a.title.localeCompare(b.title))
+      default:
+        return matches
+    }
+  }, [packages, query, filter, sort])
 
   return (
     <main>
@@ -55,6 +105,16 @@ export default function TourPackages({ packages }: { packages: Package[] }) {
               </button>
             ))}
           </div>
+          <label className={styles.sortBox}>
+            <span>Sort by</span>
+            <select value={sort} onChange={(event) => setSort(event.target.value as SortKey)}>
+              {SORT_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
       </section>
 
