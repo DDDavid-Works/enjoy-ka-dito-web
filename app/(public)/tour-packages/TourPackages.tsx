@@ -9,10 +9,9 @@ import styles from './TourPackages.module.css'
 
 const FILTERS: Array<PackageCategory | 'All'> = ['All', ...PACKAGE_CATEGORIES]
 
-type SortKey = 'featured' | 'price-asc' | 'price-desc' | 'duration-asc' | 'duration-desc' | 'name'
+type SortKey = 'price-asc' | 'price-desc' | 'duration-asc' | 'duration-desc' | 'name'
 
 const SORT_OPTIONS: Array<{ value: SortKey; label: string }> = [
-  { value: 'featured', label: 'Featured' },
   { value: 'price-asc', label: 'Price: low to high' },
   { value: 'price-desc', label: 'Price: high to low' },
   { value: 'duration-asc', label: 'Duration: shortest' },
@@ -70,8 +69,6 @@ export default function TourPackages({ packages }: { packages: Package[] }) {
         )
       case 'name':
         return [...matches].sort((a, b) => a.title.localeCompare(b.title))
-      default:
-        return matches
     }
   }, [packages, query, filter, sort])
 
